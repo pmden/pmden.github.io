@@ -1,0 +1,119 @@
+/* Меню з бургера: одне джерело для всіх сторінок.
+   Чому окремий файл, а не канон: канон підключений не скрізь (лендинг і борди
+   його не тягнуть), і через це на них показувались ОБИДВА тіла меню одночасно
+   — десктопний список і мобільний, один під одним. Цей файл маленький і
+   підключається всюди, де взагалі є панель (3 Sep). */
+
+/* веб: панель 320px зі старим тілом */
+.menu-desktop { display: block; }
+.menu-body { display: none; }
+
+/* Пошук і Subscribe із панелі прибрані остаточно 3 Sep: пошук живе
+   в мастхеді, підписка в рядку категорій. Не повертати. */
+/* телефон: затверджений макет від 2 вересня, меню на весь екран */
+@media (max-width: 560px) {
+  .menu-desktop { display: none; }
+  .menu-body { display: block; flex: 1; overflow-y: auto; padding: 16px; }
+  .menu-panel { padding: 0 !important; width: 100vw !important; max-width: none !important;
+    border-left: 0 !important; box-shadow: none !important; }
+  .menu-panel-hdr { display: flex; align-items: center; justify-content: space-between;
+    padding: 16px !important; border-bottom: 1px solid var(--line, #E4DCC8) !important;
+    margin-bottom: 0 !important; }
+  .menu-panel-close { position: static !important; transform: none !important;
+    font-size: 24px !important; color: var(--ink, #1F241F) !important; }
+  .menu-cta { display: flex; align-items: center; justify-content: center; min-height: 50px;
+    background: var(--acc, #216945); color: var(--bg, #FAF7EF); text-decoration: none;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; margin-bottom: 20px; }
+  .menu-body .menu-section-title { font-family: 'Inter', sans-serif; font-size: 10px;
+    font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--gold, #7A5210); margin: 20px 0 4px; }
+  .menu-body .menu-section-title:first-of-type { margin-top: 0; }
+  .menu-row { display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid var(--line, #E4DCC8);
+    font-family: 'Inter', sans-serif; font-size: 16px; color: var(--ink, #1F241F);
+    text-decoration: none; }
+  .menu-row.premium { color: var(--gold, #7A5210); }
+  .menu-row-last { border-bottom: 0; }
+  .menu-row .n { font-family: 'Source Serif 4', serif; font-size: 14px; color: var(--mut, #6B6455); }
+  .menu-foot { margin-top: auto; padding: 14px 16px !important;
+    border-top: 1px solid var(--line, #E4DCC8); display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; }
+  .menu-foot .theme-toggle { margin-top: 0 !important; border-radius: 0 !important;
+    padding: 0 !important; background: none !important; }
+  .menu-foot .theme-toggle .opt { border-radius: 0 !important; padding: 6px 13px !important;
+    font-size: 11px !important; }
+  .menu-c { font-family: 'Inter', sans-serif; font-size: 10.5px; color: var(--mut, #6B6455); }
+}
+
+/* Шапка панелі на вебі. Ці правила є в сторінках, але доїжджають не скрізь:
+   на архіві вордмарк рендерився синім підкресленим посиланням і стояв праворуч
+   поруч із хрестиком. Тримаємо їх тут, бо цей файл підключений на кожній
+   сторінці з панеллю (3 Sep). */
+.menu-panel-hdr { display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 14px; border-bottom: 1px solid var(--line, #E4DCC8);
+  margin-bottom: 18px; position: relative; }
+.menu-panel-hdr .menu-brand { font-family: 'Source Serif 4', serif; font-size: 24px;
+  font-weight: 399; letter-spacing: -0.025em; line-height: 1;
+  color: var(--ink, #1F241F) !important; text-decoration: none !important; }
+.menu-panel-hdr .menu-panel-close { position: static; transform: none;
+  background: none; border: 0; cursor: pointer; font-size: 22px; line-height: 1;
+  /* без цього хрестик малюється Arial і стає третім шрифтом у проєкті */
+  font-family: 'Inter', sans-serif;
+  color: var(--mut, #6B6455); padding: 0; }
+.menu-panel-hdr .menu-panel-close:hover { color: var(--ink, #1F241F); }
+
+/* ===== ПРАВКИ ЩІЛЬНОСТІ МОБІЛЬНОГО МЕНЮ (Pavlo, 3 Sep) ====================
+   Що було не так, за важливістю:
+   1. Зелена плита входу на 50 px і на всю ширину була єдиною насиченою плямою
+      на екрані і забирала всю увагу. Тепер це кнопка сайту: 44 px, радіус 4.
+   2. Волосінь стояла під КОЖНИМ рядком, включно з останнім у групі, тому
+      меню читалось як бухгалтерська відомість. Лишили тільки між рядками.
+   3. Підписи розділів тулились до попереднього рядка. Дали їм повітря згори
+      і прибрали зайве знизу.
+   4. Лічильники були сериф-числами і читались як контент. Тепер це підпис:
+      Inter, дрібний, приглушений. */
+@media (max-width: 560px) {
+  .menu-cta { min-height: 44px !important; border-radius: 4px;
+    font-size: 14px !important; letter-spacing: .01em; margin-bottom: 8px !important; }
+  .menu-body .menu-section-title { margin: 26px 0 2px !important; }
+  .menu-body .menu-section-title:first-of-type { margin-top: 18px !important; }
+  .menu-row { padding: 13px 0 !important; border-bottom: 0 !important;
+    box-shadow: inset 0 -1px 0 var(--line, #E4DCC8); }
+  /* останній рядок у групі лінії не має: групу вже відділяє її підпис */
+  .menu-row:has(+ .menu-section-title), .menu-row-last { box-shadow: none !important; }
+  .menu-row .n { font-family: 'Inter', sans-serif !important; font-size: 10.5px !important;
+    font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--mut, #6B6455); }
+}
+
+/* копірайт із панелі знято: він живе в підвалі сторінки разом із номером
+   компанії і застереженням. Лишився самий перемикач теми (4 Sep) */
+.menu-foot { justify-content: flex-start !important; }
+
+/* Membership стоїть окремо і без назви розділу: це не частина кабінету і не
+   довідка про компанію, це дія (Pavlo, 4 Sep). */
+.menu-desktop .menu-section-solo { margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--line, #E4DCC8); }
+@media (max-width: 560px) {
+  .menu-row-solo { margin-bottom: 6px; box-shadow: none !important; }
+}
+
+/* ===== РЯДОК КАТЕГОРІЙ НЕ СТРИБАЄ ПРИ ПЕРЕМИКАННІ (Pavlo, 4 Sep) ==========
+   Активний пункт мав вагу 500, тобто ставав ширшим за себе ж неактивного:
+   This week 73 проти 72, Politics 51 проти 47. Через це всі пункти праворуч
+   зсувались на кілька пікселів при кожному переході. Вага тепер однакова,
+   активність позначає тільки колір і риска знизу, а вона абсолютна і на
+   розкладку не впливає. Файл підключений на кожній сторінці, тому правило
+   діє і там, де канон не підключений, тобто на лендингу. */
+.row2 .topics a, .row2 .topics a.on, .row2 .topics a.active {
+  font-weight: 400 !important; font-size: 15px !important; padding-bottom: 4px; }
+
+/* Ромб перед Membership прибраний: у меню це звичайний пункт, а не позначка
+   преміуму. Лишається тільки золотий колір (Pavlo, 4 Sep). */
+.menu-panel .menu-section a.premium::before,
+.menu-panel .menu-row.premium::before { content: none !important; }
+/* блок Membership стоїть між розділами Hunch і Account, тому волосінь
+   потрібна з обох боків, а не тільки знизу */
+.menu-desktop .menu-section-solo { margin: 4px 0 18px !important;
+  padding: 14px 0 !important; border-top: 1px solid var(--line, #E4DCC8);
+  border-bottom: 1px solid var(--line, #E4DCC8); }

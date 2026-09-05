@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editorial Code of Practice — Hunch (Dark)</title>
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-light.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hunch-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hunch-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/hunch-shell.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  -webkit-font-smoothing: antialiased;
+  background: #FAF7EF;
+  color: #1F241F;
+}
+
+/* DOCUMENT LAYOUT (inside canonical .page shell) */
+.doc-grid {
+  padding: 56px 0 96px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 64px;
+}
+
+/* TOC */
+.toc {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  position: sticky;
+  top: 92px;
+  align-self: start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+.toc-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6B6455;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E4DCC8;
+}
+.toc ol { list-style: none; padding: 0; counter-reset: toc-counter; }
+.toc li { margin-bottom: 8px; line-height: 1.4; }
+.toc li.numbered { counter-increment: toc-counter; }
+.toc a {
+  color: #4C463C;
+  text-decoration: none;
+  display: block;
+  padding: 3px 0 3px 22px;
+  position: relative;
+  transition: color 0.15s;
+}
+.toc li.numbered a::before {
+  content: counter(toc-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 3px;
+  font-size: 10px;
+  color: #6B6455;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+.toc li.unnumbered a { padding-left: 0; }
+.toc a:hover { color: #216945; text-decoration: none; }
+.toc a.active { color: #216945; font-weight: 500; }
+
+/* CONTENT (typography scoped to .content so canonical shell chrome is unaffected) */
+.content {
+  max-width: 720px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.content a { color: #216945; text-decoration: none; border-bottom: none; transition: color 0.15s; }
+.content a:hover { color: #FEFEFE; text-decoration: underline; text-underline-offset: 3px; }
+
+.kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #216945;
+  margin-bottom: 10px;
+}
+
+.content h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 24px;
+  color: #1F241F;
+}
+
+.meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #6B6455;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E4DCC8;
+}
+.meta dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+.meta dt { font-weight: 500; color: #4C463C; }
+.meta dd { color: #1F241F; }
+.meta .draft-tag {
+  display: inline-block;
+  background: #EFE8D8;
+  color: #4C463C;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.content h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 56px 0 18px;
+  color: #1F241F;
+  position: relative;
+  scroll-margin-top: 92px;
+}
+.content h2 .anchor {
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6B6455;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.content h2:hover .anchor { opacity: 1; }
+.content h2 .anchor:hover { color: #216945; text-decoration: none; }
+.content h2 .section-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #6B6455;
+  display: block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.content h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 32px 0 12px;
+  color: #1F241F;
+  scroll-margin-top: 92px;
+}
+
+.content p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: #1F241F;
+}
+.content p + p { margin-top: 0; }
+
+.content strong { color: #1F241F; font-weight: 600; }
+.content em { font-style: italic; }
+
+.content ul {
+  margin: 16px 0 20px;
+  padding-left: 0;
+  list-style: none;
+}
+.content ul li {
+  font-size: 17px;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 12px;
+  color: #1F241F;
+}
+.content ul li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  width: 8px;
+  height: 1px;
+  background: #216945;
+}
+
+.content hr {
+  border: none;
+  border-top: 1px solid #E4DCC8;
+  margin: 56px 0;
+}
+
+/* Drop cap for first paragraph of Preamble */
+.preamble-lead::first-letter {
+  font-family: 'Source Serif 4', serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 0.9;
+  float: left;
+  margin: 6px 10px 0 -2px;
+  color: #216945;
+}
+
+/* Closing note */
+.colophon {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid #E4DCC8;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #6B6455;
+  line-height: 1.6;
+}
+.colophon p { color: #6B6455; margin-bottom: 10px; }
+
+/* Pull quote / pledge accent */
+.pledge {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #216945;
+  margin: 32px 0;
+  padding: 20px 24px;
+  border-left: 3px solid #216945;
+  background: rgba(26, 92, 58, 0.04);
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px) {
+  .doc-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px 0 64px; }
+  .toc { position: static; max-height: none; }
+  .content { max-width: 100%; font-size: 16px; }
+  .content h1 { font-size: 36px; }
+  .content h2 { font-size: 24px; margin-top: 44px; }
+  .content h2 .anchor { display: none; }
+  .content p, .content ul li { font-size: 16px; }
+}
+</style>
+<style>/* bet-button spec v5 — markets live */.poll .p-yes,.mkt-poll .my,.ec-poll .p-yes,.mr-poll .p-yes,.market-row .mr-poll .p-yes,.mc-poll-binary .mc-vote-yes,.market-card .mc-vote-yes,.opt.yes{background:#E7EDE2 !important;border:1px solid #BBCDBC !important;color:#194D2E !important;cursor:pointer;}.poll .p-no,.mkt-poll .mn,.ec-poll .p-no,.mr-poll .p-no,.market-row .mr-poll .p-no,.mc-poll-binary .mc-vote-no,.market-card .mc-vote-no,.opt.no{background:#F4E6E1 !important;border:1px solid #DCB9B0 !important;color:#741F17 !important;cursor:pointer;}.opt.yes .nm,.opt.yes .on,.opt.yes .op,.opt.yes .pc{color:#194D2E !important;}.opt.no .nm,.opt.no .on,.opt.no .op,.opt.no .pc{color:#741F17 !important;}.poll .p-yes:hover,.mkt-poll .my:hover,.ec-poll .p-yes:hover,.mr-poll .p-yes:hover,.market-row .mr-poll .p-yes:hover,.mc-poll-binary .mc-vote-yes:hover,.market-card .mc-vote-yes:hover,.poll .p-yes.selected,.mkt-poll .my.selected,.ec-poll .p-yes.selected,.mr-poll .p-yes.selected,.market-row .mr-poll .p-yes.selected,.mc-poll-binary .mc-vote-yes.selected,.market-card .mc-vote-yes.selected,.opt.yes:hover,.opt.yes.selected{background:#216945 !important;border-color:#1B5A39 !important;color:#FAF7EF !important;}.poll .p-no:hover,.mkt-poll .mn:hover,.ec-poll .p-no:hover,.mr-poll .p-no:hover,.market-row .mr-poll .p-no:hover,.mc-poll-binary .mc-vote-no:hover,.market-card .mc-vote-no:hover,.poll .p-no.selected,.mkt-poll .mn.selected,.ec-poll .p-no.selected,.mr-poll .p-no.selected,.market-row .mr-poll .p-no.selected,.mc-poll-binary .mc-vote-no.selected,.market-card .mc-vote-no.selected,.opt.no:hover,.opt.no.selected{background:#8F2B21 !important;border-color:#741F17 !important;color:#FAF7EF !important;}.opt.yes:hover .nm,.opt.yes:hover .on,.opt.yes:hover .op,.opt.yes:hover .pc,.opt.yes.selected .nm,.opt.yes.selected .on,.opt.yes.selected .op,.opt.yes.selected .pc,.opt.no:hover .nm,.opt.no:hover .on,.opt.no:hover .op,.opt.no:hover .pc,.opt.no.selected .nm,.opt.no.selected .on,.opt.no.selected .op,.opt.no.selected .pc{color:#FAF7EF !important;}.mc-poll-binary .mc-vote .mc-vote-pct{color:inherit !important;}.market-card:hover .mc-vote-yes{border-color:#BBCDBC !important;}.market-card:hover .mc-vote-no{border-color:#DCB9B0 !important;}.multi .mopt,.md-vote-opt,.fcbtn{cursor:pointer;}.multi .mopt:hover,.multi .mopt:nth-child(1):hover,.multi .mopt:nth-child(2):hover,.multi .mopt:nth-child(3):hover,.multi .mopt:nth-child(4):hover,.multi .mopt:nth-child(5):hover{background:#EDF3EA !important;border-color:#216945 !important;}.multi .mopt:hover .on,.multi .mopt:hover .op,.multi .mopt:nth-child(2):hover .on,.multi .mopt:nth-child(2):hover .op,.multi .mopt.selected .on,.multi .mopt.selected .op{color:#1F241F !important;}.multi .mopt.selected{background:#D9E7DA !important;border-color:#216945 !important;}.md-vote-opt.selected{border-color:#1B5A39 !important;}.md-vote-opt.selected::before{background:rgba(74,111,92,0.34) !important;}</style>
+<style>/* designer review pass 31Jul */
+.row2 .topics a.active{ color:#1F241F !important; font-weight:600; position:relative; }
+.row2 .topics a.active:after{ content:''; position:absolute; left:0; right:0; bottom:-15px; height:3px; background:#216945; }
+.sec-head{ padding-left:14px; padding-right:14px; }
+.cat-hdr{ padding-left:14px; padding-right:14px; }
+.lead-section{ padding-left:14px; }
+.row2 .topics{ padding-left:14px; }
+.mkt{ position:relative; }
+.mkt .mkt-section{ position:absolute; top:16px; right:16px; margin:0; }
+.mkt .badge{ margin-bottom:12px; }
+.echo-prev{ display:flex; flex-direction:column; height:100%; }
+.echo-prev .pat-label-out{ background:transparent; margin-bottom:6px; padding-left:18px; }
+.echo-prev .pat-card{ margin:0; flex:1; min-height:0; overflow:hidden; box-sizing:border-box; display:flex; flex-direction:column; padding-top:8px; }
+.echo-prev .echo-cases{ flex:1 1 auto; overflow:hidden; display:flex; flex-direction:column; justify-content:space-evenly; }
+.echo-prev .echo-more{ margin-top:auto; padding-top:10px; }
+.echo-prev .pat-h{ font-size:18px !important; line-height:24px !important; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.echo-prev .pat-d{ font-size:14px; min-height:101px; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.lead-title{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.lead-desc{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.echo-prev .echo-text{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+.lead-content .badge{ margin-bottom:8px; }
+@media (min-width:861px){ .lead-split{ height:500px; align-items:stretch; } }
+.lead-sidebar{ display:flex; flex-direction:column; padding-bottom:10px; box-sizing:border-box; }
+.sec-head .sec-title{ font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#7A5210; }
+.lb-title{ font-size:11px !important; letter-spacing:0.12em; text-transform:uppercase; color:#7A5210 !important; font-weight:600 !important; }
+.lead-slide .sparkline{ height:72px; margin:12px 0 4px; display:block; width:100%; }
+.lead-split{ min-height:500px; }
+.lead-content{ flex:1; }
+.mkts{ display:grid; gap:12px; }
+.lb-row{ padding-left:14px; padding-right:14px; }
+.chart-svg-wrap{ padding-left:46px; }
+.chart-yax{ position:absolute; left:0; top:0; bottom:0; width:40px; pointer-events:none; }
+.chart-yax span{ position:absolute; right:0; font-family:'Inter',sans-serif; font-size:9px; color:#6B6455; transform:translateY(-50%); }
+.row1 .btn-primary{ white-space:nowrap; }
+.footer-social a[aria-disabled="true"]{ opacity:.45; cursor:default; }
+.footer-social a[aria-disabled="true"]:hover{ border-color:#D5CCB8; color:#6B6455; }
+</style>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/editorial-code/">
+<meta property="og:url" content="https://byhunch.com/editorial-code/">
+<meta property="og:title" content="Editorial Code of Practice — Hunch (Dark)">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="row1">
+    <div class="left"><button class="search-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button><span class="date">Fri, 21 Aug 2026</span></div>
+    <a class="brand" href="/">Hunch</a>
+    <div class="right"><a href="/signin/" class="btn-primary">Sign in</a><button class="menu-btn" data-menu-open><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div>
+  </div>
+
+  <div class="row2">
+    <div class="topics">
+      <a href="/">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/">Politics</a>
+      <a href="/sports/">Sports</a>
+      <a href="/finance/">Finance</a>
+      <a href="/tech/">Tech</a>
+      <a href="/culture/">Culture</a>
+      <a href="/regional/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#FFFDF7" stroke="#7A5210" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#7A5210" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div>
+  </div>
+
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/">All markets</a></li>
+        <li><a href="/archive/">Archive</a></li>
+        <li><a href="/echo/library/">Echo Library</a></li>
+        <li><a href="/methodology/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/editorial-code/">Editorial Code</a></li>
+        <li><a href="/partners/">Partners</a></li>
+        <li><a href="/contact/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/">Dashboard</a></li>
+        <li><a href="/account/">My predictions</a></li>
+        <li><a href="/account/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/">This week</a>
+      <a class="menu-row" href="/markets/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/">Echo Library</a>
+      <a class="menu-row" href="/archive/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/">How it works</a>
+      <a class="menu-row" href="/editorial-code/">Editorial Code</a>
+      <a class="menu-row" href="/about/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="#" class="opt active">Light</a><a href="/editorial-code/dark/" class="opt">Dark</a></div></div>
+  </aside>
+
+  <div class="doc-grid">
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li class="unnumbered"><a href="#preamble">Preamble</a></li>
+      <li class="numbered"><a href="#independence">Editorial Independence</a></li>
+      <li class="numbered"><a href="#ai">The AI as a Conscientious Assistant</a></li>
+      <li class="numbered"><a href="#purity">Information Purity &amp; Sources</a></li>
+      <li class="numbered"><a href="#accuracy">Accuracy &amp; Corrections</a></li>
+      <li class="numbered"><a href="#markets">Market Integrity</a></li>
+      <li class="numbered"><a href="#conflicts">Conflicts of Interest</a></li>
+      <li class="numbered"><a href="#reply">Right of Reply</a></li>
+      <li class="numbered"><a href="#privacy">Privacy &amp; Subjects</a></li>
+      <li class="numbered"><a href="#complaints">Complaints</a></li>
+      <li class="numbered"><a href="#transparency">Algorithmic Transparency</a></li>
+      <li class="numbered"><a href="#oversight">Oversight</a></li>
+      <li class="numbered"><a href="#pledge">The Pledge</a></li>
+    </ol>
+  </nav>
+
+  <!-- CONTENT -->
+  <article class="content">
+
+    <div class="kicker">Editorial Standards</div>
+    <h1>Editorial Code of Practice</h1>
+
+    <div class="meta">
+      <dl>
+        <dt>Status</dt><dd><span class="draft-tag">Draft v1</span></dd>
+        <dt>Drafted</dt><dd>22 May 2026</dd>
+        <dt>Owner</dt><dd>Founder &amp; Editor — Pavlo Denysiuk</dd>
+        <dt>Review</dt><dd>Annual, or sooner upon material change to product, team, or AI pipeline</dd>
+      </dl>
+    </div>
+
+    <!-- PREAMBLE -->
+    <h2 id="preamble"><a class="anchor" href="#preamble">§</a>Preamble</h2>
+
+    <p class="preamble-lead">Hunch exists to bring clarity to a world saturated with information that is wrong, repetitive, or designed to manipulate.</p>
+
+    <p>Our readers want two things from the news cycle. They want to test their convictions against reality — to know whether what they already believe is true. And they want to discover the parts of a story that the headlines missed, the precedents that the commentary did not surface, the patterns that arrange themselves only when someone takes the time to look.</p>
+
+    <p>We serve both motives with the same product. We do this through Echo — an analytical unit that pairs a current event with the historical patterns that explain it, and from which prediction markets are derived. The markets are not the point. The markets are a measurement instrument that turns conviction into something accountable.</p>
+
+    <p>The medium we have chosen is unusual. Prediction markets attract the worst impulses as readily as the best ones: the impulse to enrich oneself through information asymmetry, the impulse to manipulate sentiment for political ends, the impulse to drown legitimate analysis in noise. We are aware of these risks and have built the company to resist them — through editorial discipline, through transparent algorithms, through structural separations between commercial interest and analytical output, and through the rules that follow in this document.</p>
+
+    <p>We are also unusual in another respect. The analytical work at Hunch is performed by a team of human editors and by a specifically-trained artificial intelligence that we treat as a colleague. We are proud of this arrangement. We believe AI applied with discipline and humility is one of the most consequential tools any media organisation has ever held — and we believe the standards we hold ourselves to should apply, without exception, to the AI we deploy on the reader's behalf. The AI does not have separate ethics. It has ours.</p>
+
+    <p><strong>Information purity is the higher goal.</strong> Everything in this Code serves it.</p>
+
+    <!-- 1 -->
+    <h2 id="independence"><a class="anchor" href="#independence">§</a><span class="section-num">Section 1</span>Editorial Independence</h2>
+
+    <p>Editorial decisions at Hunch are made by editors. Commercial considerations — including sponsorship, partnerships, advertising, and the platform's own revenue streams — do not determine which Echoes we publish, what patterns we identify, or what markets we derive.</p>
+
+    <p>Specifically:</p>
+
+    <ul>
+      <li><strong>Sponsored content (Paid Echo) is structurally separated from organic editorial.</strong> A sponsor of a Paid Echo commissions the topic, sees the draft for factual correction, and is named in a clearly visible label. The sponsor does not write, edit, or approve the analysis. The sponsor cannot prevent publication once commissioned; if a sponsor withdraws before publication, Hunch may publish the same Echo as organic content with no obligation to the sponsor.</li>
+      <li><strong>Hunch's own markets are not editorial subjects.</strong> We do not publish analyses that exist to drive volume to a specific market we have a financial interest in beyond the standard service fee that applies to all markets uniformly.</li>
+      <li><strong>No politician, party, lobby group, or commercial entity exercises veto over a Hunch Echo.</strong> Subjects of analysis may request factual corrections through the published process (see <a href="#reply">§7</a>); they have no other channel of influence.</li>
+    </ul>
+
+    <p>A reader who suspects this principle has been compromised may file a complaint through the process in <a href="#complaints">§9</a>. Such complaints are answered by the founder-editor personally until an independent ombudsperson is appointed (see <a href="#oversight">§11</a>).</p>
+
+    <!-- 2 -->
+    <h2 id="ai"><a class="anchor" href="#ai">§</a><span class="section-num">Section 2</span>The AI as a Conscientious Assistant</h2>
+
+    <p>Hunch operates a specifically-trained artificial intelligence as part of its editorial pipeline. We treat this AI not as a tool but as a colleague held to the same standards as every human on our team. This section describes what the AI does, what it does not do, and what readers are entitled to know.</p>
+
+    <h3 id="ai-does">2.1 What the AI does</h3>
+    <ul>
+      <li>Scans designated UK news sources on a continuous basis (BBC, Guardian, Reuters, FT, Times, Telegraph, Parliament.uk, ONS, gov.uk, Electoral Commission).</li>
+      <li>Identifies events that meet our publication criteria (binary outcome, machine-verifiable source, concrete resolution date).</li>
+      <li>Drafts the historical-pattern component of each Echo by retrieving comparable precedents from our curated historical database.</li>
+      <li>Suggests resolution criteria and source URLs for derived markets.</li>
+      <li>Performs auto-resolution of markets where the outcome can be determined with ≥95% confidence from official sources, with a second-source check for confidence between 80% and 95%, and a refund-and-cancel path for confidence below 80%.</li>
+    </ul>
+
+    <h3 id="ai-doesnt">2.2 What the AI does not do</h3>
+    <ul>
+      <li>The AI does not place predictions or trade on Hunch markets in any form.</li>
+      <li>The AI does not generate persuasive content designed to move sentiment in a specific direction.</li>
+      <li>The AI does not publish Echoes without an editor's review and approval at launch (we will revisit this only after a sustained period of demonstrated reliability and only with corresponding disclosure).</li>
+      <li>The AI does not draw on private, leaked, or paywalled sources to assert claims of fact; only public, citable sources qualify.</li>
+      <li>The AI is not used to manufacture historical precedents. Every precedent surfaced in an Echo corresponds to a real, sourced event in our database.</li>
+    </ul>
+
+    <h3 id="ai-readers">2.3 What readers are entitled to know</h3>
+    <ul>
+      <li>Every Echo carries a disclosure of where AI was used and where editorial judgement was applied. We do not hide either contribution.</li>
+      <li>The historical patterns presented in an Echo include the matching precedents <em>and</em> the dissenting cases. We do not curate away inconvenient counter-examples.</li>
+      <li>The confidence level on auto-resolved markets is published alongside the resolution.</li>
+      <li>The source URLs that drove the AI's analysis are accessible from the Echo page.</li>
+      <li>When the AI is wrong, we say so under the same correction policy that applies to human errors (<a href="#accuracy">§4</a>). The AI's mistakes are not hidden behind a system update.</li>
+    </ul>
+
+    <p>We are proud of our AI deployment. <strong>The pride is conditional on the discipline we hold it to.</strong></p>
+
+    <!-- 3 -->
+    <h2 id="purity"><a class="anchor" href="#purity">§</a><span class="section-num">Section 3</span>Information Purity and Source Standards</h2>
+
+    <p>Every Echo is grounded in primary sources. The standard is:</p>
+
+    <ul>
+      <li><strong>Three to five primary sources</strong> per Echo, identified explicitly and accessible to the reader where possible.</li>
+      <li><strong>Source hierarchy:</strong> statutory and parliamentary publications (Hansard, legislation.gov.uk), official statistical releases (ONS, BoE, DMO), regulatory publications (Ofcom, FCA, UKGC, Ofgem), Electoral Commission filings — before secondary commentary.</li>
+      <li><strong>Editorial commentary</strong> (Bloomberg, FT, The Economist, broadsheet op-eds) may be cited as context, never as the source of a factual claim.</li>
+      <li><strong>Tabloid and social-media reporting</strong> may be cited as a signal that a story is in circulation, never as a source of fact.</li>
+    </ul>
+
+    <p>When a fact cannot be sourced to the above standard, it does not enter an Echo. Speculation framed as fact is the exact information pollution we exist to push back against.</p>
+
+    <p>Hunch is a complement to journalism, not a substitute. The reporting produced by broadsheet publications — including the Financial Times, The Times, The Guardian, and The Economist — is essential context for the work we do. Our citations of it are visible, our links to it are generous, and we never republish or rewrite. Where our analysis builds on a reporter's work, we say so plainly and send our readers to read the original. We compete with no one on the speed of journalism; we offer something different — historical pattern depth, and a measurement instrument for conviction.</p>
+
+    <!-- 4 -->
+    <h2 id="accuracy"><a class="anchor" href="#accuracy">§</a><span class="section-num">Section 4</span>Accuracy and Corrections</h2>
+
+    <p>When an Echo contains a factual error, we correct it. The standard process is:</p>
+
+    <ul>
+      <li>Errors are corrected at the source — the Echo is edited to remove the inaccuracy.</li>
+      <li>A correction note is published at the top of the Echo identifying what was wrong, what is now correct, and the date of the correction.</li>
+      <li>The original version is preserved in an edit log accessible from the Echo footer.</li>
+      <li>Where the error affected the resolution of a market, the market is re-resolved or refunded, and affected participants are notified directly.</li>
+    </ul>
+
+    <p>There is no shame in a correction. There is shame in concealing one.</p>
+
+    <p>The same policy applies to AI-generated content. When the AI is wrong, the correction note names the AI's contribution explicitly. We do not allow an AI mistake to be quietly attributed to "a system update."</p>
+
+    <!-- 5 -->
+    <h2 id="markets"><a class="anchor" href="#markets">§</a><span class="section-num">Section 5</span>Market Integrity and Insider-Trading Prevention</h2>
+
+    <p>Hunch operates prediction markets as a measurement instrument for conviction. The integrity of those markets is therefore an editorial concern as much as a commercial one.</p>
+
+    <p>We commit to the following protections:</p>
+
+    <ul>
+      <li><strong>Short resolution windows</strong> — most markets run between one and thirty days. Long-horizon markets create insider opportunity; we avoid them.</li>
+      <li><strong>Public resolution sources only</strong> — every market resolves against an officially published outcome (Hansard, legislation.gov.uk, ONS, BoE, gov.uk). We do not resolve against "sources say" reporting or leaked documents.</li>
+      <li><strong>Volume limits per market per user</strong> — individual exposure to a single market is capped to make insider extraction uneconomic. Specific caps are published.</li>
+      <li><strong>Anomaly detection</strong> — sharp shifts in conviction combined with large positions from new accounts are flagged for human review. Suspect activity is suspended pending investigation.</li>
+      <li><strong>Time-weighted scoring</strong> — predictions made earlier (when uncertainty was higher) carry more reputational weight than late predictions. This rewards genuine insight, not late-stage insider knowledge.</li>
+      <li><strong>Algorithmic transparency</strong> — readers have access to the same historical database the AI draws on. The AI does not operate on private data unavailable to readers.</li>
+    </ul>
+
+    <p>A platform that profits from prediction is structurally tempted to ignore manipulation. <strong>Hunch will not.</strong></p>
+
+    <!-- 6 -->
+    <h2 id="conflicts"><a class="anchor" href="#conflicts">§</a><span class="section-num">Section 6</span>Conflicts of Interest</h2>
+
+    <p>The following rules bind everyone employed by, contracted to, or holding equity in Hunch:</p>
+
+    <ul>
+      <li><strong>No trading on Hunch markets</strong> by Hunch staff, contractors, board members, or material equity holders.</li>
+      <li><strong>No directing of family members</strong> to trade on Hunch markets on their behalf.</li>
+      <li><strong>Personal political donations and party memberships</strong> must be disclosed to the founder-editor. They do not disqualify staff from working on any topic, but they are kept on file and may be cited in a published byline if the conflict is material.</li>
+      <li><strong>Outside writing or commentary</strong> by Hunch staff on political topics covered by Hunch must be disclosed. Hunch retains the right to require a disclosure note on the external piece.</li>
+      <li><strong>Gifts, hospitality, and paid travel</strong> from any party with an interest in markets we cover must be declined or reported.</li>
+    </ul>
+
+    <p>These rules apply to the AI by extension: the systems we train cannot be augmented with data feeds, weights, or fine-tuning that introduce an undeclared bias. Where the AI is trained, the training source is documented.</p>
+
+    <!-- 7 -->
+    <h2 id="reply"><a class="anchor" href="#reply">§</a><span class="section-num">Section 7</span>Right of Reply</h2>
+
+    <p>Subjects of an Echo — politicians, organisations, public officials, and named private individuals — may request factual corrections through a published process. We commit to:</p>
+
+    <ul>
+      <li>A response from a named editor within five working days of receipt.</li>
+      <li>Correction at source where a factual error is established, under <a href="#accuracy">§4</a>.</li>
+      <li>A right of reply published below the Echo where a subject contests a characterisation we have made about them, even if no factual error is identified, and we judge the matter to be of material public interest.</li>
+      <li>No editing of the published Echo to remove material on commercial or relationship grounds outside of this process.</li>
+    </ul>
+
+    <p>We do not extend right of reply to anonymous parties or to entities seeking to suppress legitimate analysis.</p>
+
+    <!-- 8 -->
+    <h2 id="privacy"><a class="anchor" href="#privacy">§</a><span class="section-num">Section 8</span>Privacy and Subjects of Analysis</h2>
+
+    <p>The default for Hunch coverage is the political and economic public sphere — actions of public officials in their public capacity, votes recorded in Parliament, statements made on the record, decisions published by regulators. Private life is not Hunch's subject.</p>
+
+    <ul>
+      <li><strong>Named private individuals</strong> appear only where directly material (e.g. a named donor whose role is publicly documented). They are subject to the same right of reply (<a href="#reply">§7</a>).</li>
+      <li><strong>Vulnerable persons</strong> — children, persons in distress, persons under investigation but not charged — are not subjects of Echo coverage unless an overriding public interest is identified and explicitly noted.</li>
+      <li><strong>Subjects of prediction markets</strong> that resolve based on personal events (e.g. a resignation, a court appearance) require an editor's explicit judgement that the market is in the public interest and based on publicly verifiable resolution criteria.</li>
+    </ul>
+
+    <p>We do not run markets on the private lives of private individuals.</p>
+
+    <!-- 9 -->
+    <h2 id="complaints"><a class="anchor" href="#complaints">§</a><span class="section-num">Section 9</span>Complaints</h2>
+
+    <p>A reader who believes Hunch has fallen short of this Code may file a complaint via:</p>
+
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:complaints@byhunch.com">complaints@byhunch.com</a></li>
+      <li><strong>Published form:</strong> byhunch.com/complaints (linked from every Echo footer)</li>
+    </ul>
+
+    <p>We commit to:</p>
+    <ul>
+      <li>Acknowledgement within two working days.</li>
+      <li>A substantive response from a named editor within ten working days.</li>
+      <li>An escalation path: if the complainant is not satisfied with the editor's response, the complaint may be escalated to the founder-editor (initially Pavlo Denysiuk), and from the appointment of an independent ombudsperson (see <a href="#oversight">§11</a>), to that ombudsperson.</li>
+    </ul>
+
+    <p>Complaints, anonymised, are reported in aggregate in Hunch's annual transparency report.</p>
+
+    <!-- 10 -->
+    <h2 id="transparency"><a class="anchor" href="#transparency">§</a><span class="section-num">Section 10</span>Algorithmic Transparency</h2>
+
+    <p>In addition to the AI-use disclosures in <a href="#ai">§2</a>, Hunch publishes:</p>
+
+    <ul>
+      <li>The list of news sources monitored by our scanning system.</li>
+      <li>The list of resolution sources used by our auto-resolution engine.</li>
+      <li>The confidence thresholds (95% / 80%) and the actions triggered at each threshold.</li>
+      <li>The historical database structure (event, year, category, outcome) — not every record is public, but the schema and the aggregate volume are.</li>
+      <li>The volume, anomaly detection, and time-weighted scoring rules in summary form.</li>
+    </ul>
+
+    <p>Where a reader requests further detail on a specific algorithmic decision — for example, "why did the AI surface these three precedents and not other comparable ones?" — we commit to responding within ten working days where the underlying logic can be disclosed without compromising market integrity.</p>
+
+    <!-- 11 -->
+    <h2 id="oversight"><a class="anchor" href="#oversight">§</a><span class="section-num">Section 11</span>Oversight</h2>
+
+    <p>This Code is enforced by the founder-editor of Hunch. In Year 1 that is Pavlo Denysiuk. The founder-editor is accountable for every breach of this Code and for the integrity of every Echo published.</p>
+
+    <ul>
+      <li><strong>From Year 2:</strong> Hunch will appoint a three-person Editorial Advisory Board including at least one member with a working background in UK political journalism or analysis, and at least one with a background in AI governance or research ethics.</li>
+      <li><strong>From Year 3</strong> (or earlier if growth permits): Hunch will appoint an independent ombudsperson with the authority to investigate complaints, publish findings, and require corrections under this Code.</li>
+      <li><strong>Annual transparency report:</strong> Hunch publishes an annual report identifying material errors corrected, complaints received and resolved, AI confidence-threshold performance, and any material breaches of this Code.</li>
+    </ul>
+
+    <p>External accountability we may opt into as the company matures includes IPSO (Independent Press Standards Organisation) registration; we will consider that pathway once the company has a permanent editorial team beyond the founder.</p>
+
+    <!-- 12 -->
+    <h2 id="pledge"><a class="anchor" href="#pledge">§</a><span class="section-num">Section 12</span>The Pledge</h2>
+
+    <p>Every person employed by, contracted to, or holding equity in Hunch is asked to read this Code at induction and to confirm their understanding of and commitment to it.</p>
+
+    <p>The same expectation applies to the artificial intelligence we operate. The systems we deploy are trained on the principles of this Code, evaluated against it, and corrected when their behaviour falls short. We are proud of our AI not because it is powerful but because we have taught it to be useful within the disciplines that follow from this document.</p>
+
+    <div class="pledge">
+      Information purity is the higher goal.<br>
+      We commit to it together — humans and the AI we are proud to call our colleague.
+    </div>
+
+    <!-- COLOPHON -->
+    <div class="colophon">
+      <p>This Code is reviewed annually and on any material change to the product, team, or AI pipeline. The current version is always available at <a href="#">byhunch.com/editorial-code</a>. The full revision history is published alongside.</p>
+      <p>Hunch is operated by Krok Group Ltd. Company No. 17183343. Registered in England &amp; Wales.</p>
+    </div>
+
+  </article>
+  </div><!-- /.doc-grid -->
+
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#216945; margin-left:2px;">&trade;</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/">This week</a></li>
+          <li><a href="/markets/">All markets</a></li>
+          <li><a href="/echo/library/">Echo</a></li>
+          <li><a href="/archive/">Archive</a></li>
+          <li><a href="/leaderboard/">Leaderboard</a></li>
+          <li><a href="/mobile-app/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/">Politics</a></li>
+          <li><a href="/sports/">Sports</a></li>
+          <li><a href="/finance/">Finance</a></li>
+          <li><a href="/tech/">Tech</a></li>
+          <li><a href="/culture/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/">About Hunch</a></li>
+          <li><a href="/editorial-code/">Editorial Code</a></li>
+          <li><a href="/partners/">Partners</a></li>
+          <li><a href="/methodology/">How it works</a></li>
+          <li><a href="/press/">Press</a></li>
+          <li><a href="/careers/">Careers</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/">Blog</a></li>
+          <li><a href="/help/">Help centre</a></li>
+          <li><a href="/api/">API documentation</a></li>
+          <li><a href="/status/">Status</a></li>
+          <li><a href="/responsible-play/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/">Terms of service</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
+          <li><a href="/cookies/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/">Acceptable use</a></li>
+          <li><a href="/licences/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>&copy; KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#6B6455;">Company No. 17183343 &middot; Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">&#127468;&#127463; United Kingdom &middot; EN</span>
+        <div class="small-links">
+          <a href="/sitemap/">Sitemap</a>
+          <a href="/accessibility/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<script>
+const menuBtn=document.querySelector('[data-menu-open]'),menuClose=document.querySelector('[data-menu-close]'),menuBackdrop=document.getElementById('menuBackdrop'),menuPanel=document.getElementById('menuPanel');
+function openMenu(){menuBackdrop.classList.add('open');menuPanel.classList.add('open')}
+function closeMenu(){menuBackdrop.classList.remove('open');menuPanel.classList.remove('open')}
+menuBtn?.addEventListener('click',openMenu);menuClose?.addEventListener('click',closeMenu);menuBackdrop?.addEventListener('click',closeMenu);
+</script>
+
+<script>
+// Highlight active section in TOC on scroll
+(function() {
+  const sections = Array.from(document.querySelectorAll('h2[id]'));
+  const tocLinks = Array.from(document.querySelectorAll('.toc a[href^="#"]'));
+  const linkMap = new Map(tocLinks.map(a => [a.getAttribute('href').slice(1), a]));
+
+  function onScroll() {
+    let current = sections[0]?.id;
+    const offset = 120;
+    for (const sec of sections) {
+      if (sec.getBoundingClientRect().top - offset <= 0) current = sec.id;
+    }
+    tocLinks.forEach(a => a.classList.remove('active'));
+    if (current && linkMap.has(current)) linkMap.get(current).classList.add('active');
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+<script src="/assets/hunch-live.js?v=1788512159"></script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/"><span>Today</span></a>
+  <a href="/echo/library/"><span>Echoes</span></a>
+  <a href="/markets/"><span>Markets</span></a>
+  <a href="/account/"><span>My record</span></a>
+</nav>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-bet-state.css?v=1788425424">
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

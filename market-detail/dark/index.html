@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How will the Online Safety Bill resolve? — Hunch</title>
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-dark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hunch-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hunch-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #0E0F11; color: #F2F2EF; }
+.page { max-width: 1188px; margin: 0 auto; padding: 0 20px; }
+.label { position: fixed; top: 12px; right: 16px; font-size: 12px; font-weight: 600; color: #D4A03A; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(20,24,26,0.95); padding: 4px 10px; border-radius: 3px; z-index: 100; }
+
+/* BUTTONS */
+.btn-primary { background: #2E4A37; border: 1px solid #3d6b4e; color: #F2F2EF; text-decoration: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; transition: background 0.15s; display: inline-block; }
+.btn-primary:hover { background: #35573F; }
+.menu-btn { width: 34px; height: 34px; border-radius: 6px; background: transparent; border: 1px solid #2A2C30; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: #A9ABA6; transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.menu-btn:hover { background: #17181B; color: #F2F2EF; border-color: #F2F2EF; }
+.search-btn { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; display: inline-flex; align-items: center; justify-content: center; color: #7C7E7A; cursor: pointer; transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.search-btn:hover { background: #17181B; color: #F2F2EF; }
+
+/* V2-MOD LAYOUT: row1 = search+date | brand center | sign in+menu; row2 = This week + topics | Subscribe */
+.row1 { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 14px; border-bottom: 1px solid #17181B; gap: 16px; }
+.row1 .left { display: flex; align-items: center; gap: 10px; }
+.row1 .date { font-size: 11px; color: #54514A; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+.row1 .brand { font-family: 'Source Serif 4', serif; font-size: 38px; font-weight: 347; color: #F2F2EF; line-height: 1; letter-spacing: -0.025em; text-align: center; }
+.row1 .right { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+
+.row2 { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #2A2C30; font-size: 15px; position: relative; flex-wrap: wrap; gap: 10px; }
+/* topics sit on V1 (V0 + 14), same as the landing (3 Aug) */
+.row2 .topics { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding-left: 14px; }
+.row2 .topics .sep { width: 1px; height: 18px; background: #2A2C30; margin: 0 4px; }
+
+/* V1 inset is a desktop line; below 560px the header has no room for it (3 Aug) */
+@media (max-width: 560px) {
+  .row1 { padding-left: 0; padding-right: 0; }
+  .row2 .topics { padding-left: 0; }
+}
+.row2 .views { display: flex; align-items: center; gap: 18px; }
+.row2 a { text-decoration: none; color: #7C7E7A; padding: 4px 0; transition: color 0.15s; white-space: nowrap; }
+.row2 a:hover { color: #F2F2EF; }
+.row2 a.on { color: #5E9C7B; font-weight: 500; border-bottom: 2px solid #5E9C7B; padding-bottom: 3px; }
+.row2 a.premium { color: #D4A03A; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 4px; transition: all 0.15s; }
+.row2 a.premium:hover { color: #D8B36A; background: rgba(176,126,30,0.22); }
+.row2 a.premium:hover .premium-mark rect { fill: rgba(176,126,30,0.35); }
+.premium-mark { vertical-align: middle; border-radius: 3px; }
+
+/* Search overlay */
+.row2 .search-overlay { position: absolute; inset: 6px 0; display: none; align-items: center; gap: 10px; background: #0E0F11; padding: 0 4px; }
+.row2.search-mode .topics, .row2.search-mode .views { visibility: hidden; }
+.row2.search-mode .search-overlay { display: flex; }
+.nav-search-input { flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit; border: 1px solid #2A2C30; border-radius: 5px; background: #17181B; outline: none; transition: border-color 0.15s; }
+.nav-search-input:focus { border-color: #5E9C7B; box-shadow: 0 0 0 3px rgba(26,92,58,0.08); }
+.nav-search-close { width: 32px; height: 32px; border-radius: 50%; background: transparent; border: none; cursor: pointer; color: #7C7E7A; font-size: 20px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: all 0.15s; }
+.nav-search-close:hover { background: #17181B; color: #F2F2EF; }
+
+/* HAMBURGER PANEL (off-canvas right) */
+.menu-backdrop { position: fixed; inset: 0; background: rgba(17,17,17,0.4); backdrop-filter: blur(3px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.menu-backdrop.open { opacity: 1; pointer-events: auto; }
+.menu-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: #17181B; box-shadow: -16px 0 40px rgba(0,0,0,0.1); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px; }
+.menu-backdrop.open + .menu-panel, .menu-panel.open { transform: translateX(0); }
+.menu-panel-hdr { display: flex; justify-content: flex-end; align-items: center; padding-bottom: 14px; border-bottom: 1px solid #2A2C30; margin-bottom: 18px; }
+.menu-panel-title { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 400; }
+.menu-panel-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #7C7E7A; line-height: 1; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.15s; }
+.menu-panel-close:hover { background: #17181B; color: #F2F2EF; }
+.menu-section { margin-bottom: 22px; }
+.menu-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 8px; }
+.menu-section ul { list-style: none; padding: 0; }
+.menu-section li { margin-bottom: 2px; }
+.menu-section a { display: block; padding: 8px 0; text-decoration: none; color: #F2F2EF; font-size: 14px; transition: color 0.15s; }
+.menu-section a:hover { color: #5E9C7B; }
+.menu-section a.premium { color: #D4A03A; font-weight: 500; }
+.menu-section a.premium::before { content: '◆'; font-size: 9px; margin-right: 6px; }
+.menu-foot { margin-top: auto; padding-top: 18px; border-top: 1px solid #2A2C30; font-size: 11px; color: #7C7E7A; }
+.theme-toggle { display: flex; gap: 0; margin-top: 20px; padding: 3px; background: #0E0F11; border: 1px solid #2A2C30; border-radius: 999px; width: fit-content; }
+.theme-toggle .opt { font-size: 10px; padding: 6px 14px; border-radius: 999px; text-decoration: none; color: #7C7E7A; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: all 0.15s; }
+.theme-toggle .opt:hover { color: #F2F2EF; }
+.theme-toggle .opt.active { background: #2A2C30; color: #F2F2EF; }
+
+/* Section min-height: max 2 per screen on 14" Mac (900px viewport) */
+/* removed forced min-heights — let content breathe naturally */
+
+/* Featured — V5 layout + quiet poll */
+.lead { padding: 28px 0; border-bottom: 1px solid #2A2C30; }
+.lead-section { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #D4A03A; margin-bottom: 8px; }
+.lead-split { display: flex; gap: 28px; padding: 20px; flex: 1; }
+.lead-content { flex: 1.15; }
+.lead-sidebar { flex: 1; }
+.lead-title { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+.lead-desc { font-size: 14px; color: #A9ABA6; line-height: 1.55; margin-bottom: 14px; }
+.lead-odds { font-family: 'Source Serif 4', serif; font-size: 16px; margin-bottom: 4px; }
+.lead-odds .yes { color: #FFFFFF; } .lead-odds .no { color: #7C7E7A; }
+.lead-bar { height: 6px; display: flex; border-radius: 3px; overflow: hidden; }
+.lead-bar .y { background: #5E9C7B; } .lead-bar .n { background: #402425; }
+.lead-meta { font-size: 11px; color: #7C7E7A; margin-top: 4px; }
+.lead-mkt-q { font-family: 'Source Serif 4', serif; font-size: 14px; color: #A9ABA6; font-weight: 500; margin-top: 14px; padding-top: 12px; border-top: 1px solid #17181B; line-height: 1.35; }
+.lead-slider { display: flex; align-items: stretch; background: #0E0F11; border: 1px solid #2A2C30; border-radius: 8px; overflow: hidden; }
+.lead-viewport { flex: 1; overflow: hidden; }
+.lead-track { display: flex; align-items: stretch; transition: transform 280ms ease-out; }
+.lead-slide { flex: 0 0 100%; min-width: 0; display: flex; }
+.lead-arrow-strip { width: 36px; flex-shrink: 0; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; background: transparent; color: #54514A; font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 300; line-height: 1; transition: color 200ms ease; user-select: none; }
+.lead-arrow-strip:hover { color: #F2F2EF; background: transparent; }
+.lead-arrow-strip-prev, .lead-arrow-strip-next { justify-content: center; padding: 0; }
+.lead-ticks { display: flex; align-items: center; gap: 5px; }
+.lead-tick { width: 12px; height: 2px; background: #2A2C30; border: none; border-radius: 1px; padding: 0; cursor: pointer; transition: background 200ms ease, width 200ms ease; }
+.lead-tick:hover { background: #54514A; }
+.lead-tick.active { background: #5E9C7B; width: 20px; }
+.lead-dots-row { display: flex; justify-content: center; margin-top: 12px; }
+@media (max-width: 720px) { .lead-arrow-strip { display: none; } }
+
+/* Quiet poll — inline, part of the card */
+.poll { display: flex; gap: 6px; margin-top: 12px; }
+.poll a { flex: 1; text-align: center; padding: 10px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.poll a::after { content: '→'; opacity: 0; transition: all 0.2s; font-weight: 400; }
+.poll a:hover::after { opacity: 1; transform: translateX(2px); }
+.poll .p-yes { color: #F2F2EF; background: #2E4A37; border: 1px solid #3d6b4e; }
+.poll .p-yes:hover { background: #35573F; color: #FFFFFF; border-color: #5E9C7B; }
+.poll .p-no { color: #F2F2EF; background: #8B3E3A; border: 1px solid #a4524c; }
+.poll .p-no:hover { background: #9B4844; color: #FFFFFF; border-color: #C0504D; }
+
+/* Sparkline — odds trajectory in Featured market */
+.sparkline-wrap { margin-top: 6px; padding: 6px 0; }
+.sparkline-label { display: flex; justify-content: space-between; font-size: 10px; color: #54514A; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+.sparkline { width: 100%; height: 40px; display: block; }
+
+
+/* Pattern cards — V5 style + insight line */
+.lead-sidebar { display: flex; flex-direction: column; gap: 10px; }
+.pat-card { border-radius: 10px; padding: 16px 18px; }
+.pat-card.today { background: #17181B; border: 1px solid #2A2C30; border-left: 3px solid #5E9C7B; flex-shrink: 0; }
+.pat-card.hist { background: #17181B; border: 1px solid #2A2C30; flex: 1; display: flex; flex-direction: column; }
+.pat-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 5px; }
+.pat-card.today .pat-label { color: #D4A03A; } .pat-card.hist .pat-label { color: #D4A03A; }
+.pat-h { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 400; line-height: 1.3; margin-bottom: 4px; color: #F2F2EF; }
+.pat-d { font-size: 12.5px; color: #A9ABA6; line-height: 1.55; }
+.echo-insight { font-size: 12px; color: #D4A03A; font-style: italic; margin-top: 4px; }
+
+/* Compact Echo cases (preview — 2 cases on homepage) */
+.echo-cases { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 8px; padding: 10px 0 0; border-top: 1px solid rgba(0,0,0,0.06); }
+.echo-case { display: flex; gap: 10px; font-size: 12.5px; line-height: 1.5; color: #DEDED9; }
+.echo-year { font-family: 'Source Serif 4', serif; font-size: 14px; color: #D4A03A; font-weight: 500; flex-shrink: 0; width: 36px; line-height: 1.3; }
+.echo-text { flex: 1; }
+.echo-case strong { color: #F2F2EF; font-weight: 500; }
+.echo-case em { color: #D4A03A; font-style: italic; font-weight: 500; }
+.echo-source { color: #7C7E7A; font-size: 11px; font-style: italic; text-decoration: none; margin-left: 4px; border-bottom: 1px dotted #54514A; padding-bottom: 1px; transition: all 0.15s; white-space: nowrap; }
+.echo-source:hover { color: #5E9C7B; border-bottom-color: #5E9C7B; }
+.echo-more { display: inline-block; margin-top: auto; padding-top: 8px; font-size: 12px; color: #D4A03A; text-decoration: none; font-weight: 500; }
+.echo-more:hover { color: #E8C56A; text-decoration: underline; }
+
+.badge { display: inline-flex; align-self: flex-start; width: fit-content; align-items: center; gap: 4px; padding: 2px 6px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: transparent; border: 1px solid #5E9C7B; color: #F2F2EF; border-radius: 20px; margin-bottom: 4px; }
+.badge .dot { width: 4px; height: 4px; border-radius: 50%; background: #5E9C7B; animation: pulse 1.6s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(156,230,180,0.5); } 70% { box-shadow: 0 0 0 8px rgba(156,230,180,0); } }
+
+/* Market cards — V5 layout + quiet inline yes/no */
+.three-markets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 28px 0; border-bottom: 1px solid #2A2C30; }
+.mkt { background: #17181B; border: 1px solid #2A2C30; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; }
+.mkt-section { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 4px; }
+.mkt-q { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 6px; min-height: 36px; flex: 1; }
+.mkt-bar { height: 4px; display: flex; border-radius: 2px; overflow: hidden; margin-bottom: 4px; }
+.mkt-bar .y { background: #5E9C7B; } .mkt-bar .n { background: #402425; }
+.mkt-info { display: flex; justify-content: space-between; font-size: 11px; color: #7C7E7A; }
+.mkt-info .g { color: #FFFFFF; font-weight: 500; }
+.mkt-poll { display: flex; gap: 4px; margin-top: 8px; }
+.mkt-poll a { flex: 1; text-align: center; padding: 5px; border-radius: 3px; font-size: 12px; text-decoration: none; font-weight: 400; transition: all 0.2s; }
+.mkt-poll .my { color: #F2F2EF; background: #2E4A37; border: 1px solid #3d6b4e; font-weight: 500; }
+.mkt-poll .my:hover { background: #35573F; color: #FFFFFF; border-color: #5E9C7B; }
+.mkt-poll .mn { color: #F2F2EF; background: #8B3E3A; border: 1px solid #a4524c; font-weight: 500; }
+.mkt-poll .mn:hover { background: #9B4844; color: #FFFFFF; border-color: #C0504D; }
+
+/* Echo of the week — V5 style */
+.potw { padding: 20px 0; border-bottom: 1px solid #2A2C30; }
+.potw-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #D4A03A; margin-bottom: 6px; }
+.potw-title { font-family: 'Source Serif 4', serif; font-size: 21px; font-weight: 400; line-height: 1.25; margin-bottom: 6px; }
+.potw-text { font-size: 14px; color: #A9ABA6; line-height: 1.55; max-width: 600px; }
+
+/* Leaderboard — V5 style */
+.leaderboard { padding: 20px 0; border-bottom: 1px solid #2A2C30; }
+.lb-title { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 10px; }
+.lb-row { display: flex; align-items: center; padding: 6px 0; border-bottom: 1px solid #17181B; font-size: 13px; }
+.lb-rank { width: 24px; color: #54514A; font-weight: 500; }
+.lb-name { flex: 1; font-weight: 500; }
+.lb-acc { color: #5E9C7B; font-weight: 500; width: 60px; text-align: right; }
+.lb-level { font-size: 11px; color: #7C7E7A; width: 60px; text-align: right; }
+
+.sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.sec-link { font-size: 12px; color: #7C7E7A; text-decoration: none; font-weight: 400; }
+.sec-link:hover { text-decoration: underline; }
+
+.foot { padding: 16px 0; display: flex; justify-content: space-between; font-size: 12px; color: #54514A; }
+.foot a { color: #7C7E7A; text-decoration: none; }
+
+/* ROTATING CHART SECTION */
+.chart-section { padding: 28px 0; border-bottom: 1px solid #2A2C30; }
+.chart-stack { position: relative; min-height: 360px; background: #17181B; border-radius: 8px; padding: 24px 28px; overflow: hidden; }
+.chart-slide { position: absolute; inset: 24px 28px; display: flex; flex-direction: column; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+.chart-slide.active { opacity: 1; pointer-events: auto; }
+.chart-header { margin-bottom: 14px; }
+.chart-cat { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #D4A03A; margin-bottom: 6px; }
+.chart-title { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 400; color: #F2F2EF; line-height: 1.25; margin-bottom: 6px; }
+.chart-meta { font-size: 11px; color: #D4A03A; }
+.chart-svg-wrap { flex: 1; min-height: 200px; position: relative; margin: 8px 0; }
+.chart-svg-wrap svg { width: 100%; height: 100%; display: block; }
+.chart-legend { display: flex; gap: 24px; font-size: 13px; color: #F2F2EF; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+.chart-legend .leg { display: inline-flex; align-items: center; gap: 8px; }
+.chart-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+.chart-legend .dot.yes { background: #6FA184; }
+.chart-legend .dot.no { background: #54514A; }
+.chart-pager { display: flex; gap: 6px; justify-content: center; padding-top: 14px; }
+.chart-pager .pdot { width: 8px; height: 8px; border-radius: 50%; background: #2A2C30; cursor: pointer; transition: background 0.15s; }
+.chart-pager .pdot.active { background: #5E9C7B; width: 24px; border-radius: 4px; }
+
+/* COMPREHENSIVE FOOTER */
+.footer-full { padding: 48px 0 24px; border-top: 1px solid #2A2C30; margin-top: 40px; }
+.footer-brand-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
+.footer-brand { }
+.footer-brand .name { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 400; color: #F2F2EF; }
+.footer-brand .tagline { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 12px; color: #7C7E7A; margin-top: 4px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #2A2C30; display: flex; align-items: center; justify-content: center; color: #7C7E7A; transition: all 0.15s; }
+.footer-social a:hover { border-color: #F2F2EF; color: #F2F2EF; }
+.footer-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; margin-bottom: 36px; }
+.footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #F2F2EF; margin-bottom: 12px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 8px; font-size: 13px; }
+.footer-col ul li a { color: #7C7E7A; text-decoration: none; transition: color 0.15s; }
+.footer-col ul li a:hover { color: #5E9C7B; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #2A2C30; font-size: 11px; color: #7C7E7A; flex-wrap: wrap; gap: 12px; }
+.footer-bottom .small-links { display: flex; gap: 16px; }
+.footer-bottom .small-links a { color: #7C7E7A; text-decoration: none; }
+.footer-bottom .small-links a:hover { color: #F2F2EF; }
+.footer-region { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: #17181B; border-radius: 4px; font-size: 11px; color: #A9ABA6; }
+.footer-license { font-size: 10px; color: #54514A; max-width: 580px; margin: 16px 0 0; line-height: 1.5; }
+
+/* ===== MARKET DETAIL PAGE ===== */
+.md-crumb { font-size: 12px; padding: 22px 0 10px; color: #7C7E7A; }
+.md-crumb a { color: #A9ABA6; text-decoration: none; }
+.md-crumb a:hover { color: #F2F2EF; }
+.md-crumb-sep { margin: 0 8px; color: #54514A; }
+.md-crumb-current { color: #F2F2EF; }
+
+.md-hero { padding: 12px 0 28px; border-bottom: 1px solid #2A2C30; margin-bottom: 28px; }
+.md-cat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.md-cat { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D4A03A; }
+.md-live { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; background: rgba(94,156,123,0.18); color: #6FA184; }
+.md-title { font-family: 'Source Serif 4', serif; font-size: 36px; font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: #F2F2EF; margin-bottom: 14px; }
+.md-meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #A9ABA6; flex-wrap: wrap; }
+.md-meta a { color: #D4A03A; text-decoration: none; }
+.md-meta a:hover { text-decoration: underline; }
+.md-meta b { color: #F2F2EF; font-weight: 500; }
+.md-meta-sep { color: #54514A; }
+
+.md-section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; gap: 16px; flex-wrap: wrap; }
+.md-section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #D4A03A; }
+.md-section-meta { font-size: 11.5px; color: #7C7E7A; font-family: 'Source Serif 4', serif; font-style: italic; }
+.md-section-link { font-size: 12px; color: #D4A03A; text-decoration: none; font-weight: 500; }
+.md-section-link:hover { color: #F2F2EF; }
+
+.md-chart-block { padding: 24px 24px 18px; background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+.md-chart-delta { font-size: 11.5px; color: #7C7E7A; }
+.md-chart-delta b { color: #6FA184; font-weight: 600; }
+.md-chart-wrap { height: 220px; margin: 6px 0 14px; }
+.md-chart { width: 100%; height: 100%; display: block; }
+.md-chart-legend { display: flex; gap: 22px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid #2A2C30; font-size: 12.5px; color: #F2F2EF; }
+.md-leg { display: inline-flex; align-items: center; gap: 8px; }
+.md-leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+.md-leg b { color: #A9ABA6; font-weight: 500; margin-left: 4px; }
+
+.md-vote-block { padding: 24px; background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+.md-vote-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+.md-vote-opt { display: grid; grid-template-columns: 22px 1fr auto auto; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 6px; background: #0E0F11; border: 1px solid #2A2C30; text-decoration: none; color: #F2F2EF; transition: all 0.15s; position: relative; overflow: hidden; }
+.md-vote-opt::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--fill, 0%); background: rgba(94,156,123,0.18); pointer-events: none; transition: all 0.15s; }
+.md-vote-opt:hover { border-color: #5E9C7B; }
+.md-vote-opt:hover::before { background: rgba(94,156,123,0.32); }
+.md-vote-num { font-family: 'Source Serif 4', serif; font-size: 14px; color: #54514A; font-weight: 400; z-index: 1; }
+.md-vote-text { font-size: 15px; color: #F2F2EF; z-index: 1; }
+.md-vote-meta { font-size: 11px; color: #7C7E7A; font-family: 'Source Serif 4', serif; font-style: italic; z-index: 1; }
+.md-vote-pct { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 400; color: #6FA184; min-width: 50px; text-align: right; z-index: 1; }
+
+.md-reasoning { padding-top: 18px; border-top: 1px solid #2A2C30; }
+.md-reasoning-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #A9ABA6; margin-bottom: 8px; }
+.md-reasoning-opt { color: #54514A; font-weight: 400; letter-spacing: 0.04em; text-transform: none; font-style: italic; font-family: 'Source Serif 4', serif; }
+.md-reasoning-input { width: 100%; min-height: 80px; padding: 12px 14px; background: #0E0F11; border: 1px solid #2A2C30; border-radius: 5px; color: #F2F2EF; font-family: 'Source Serif 4', serif; font-size: 14px; line-height: 1.5; resize: vertical; outline: none; transition: border-color 0.15s; }
+.md-reasoning-input:focus { border-color: #5E9C7B; }
+.md-reasoning-input::placeholder { color: #54514A; font-style: italic; }
+.md-reasoning-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.md-reasoning-counter { font-size: 11px; color: #54514A; font-family: 'Source Serif 4', serif; font-style: italic; }
+.md-submit-btn { background: #5E9C7B; color: #F2F2EF; border: none; padding: 10px 22px; border-radius: 5px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.md-submit-btn:hover { background: #3d6b4e; }
+
+.md-echo-block { padding: 24px; background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+.md-echo-headline { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 400; line-height: 1.3; color: #F2F2EF; margin-bottom: 14px; letter-spacing: -0.005em; }
+.md-echo-body { font-size: 14.5px; line-height: 1.6; color: #A9ABA6; margin-bottom: 20px; max-width: 760px; }
+.md-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding-top: 18px; border-top: 1px solid #2A2C30; }
+@media (max-width: 880px) { .md-cases { grid-template-columns: 1fr; } }
+.md-case { display: flex; gap: 14px; align-items: flex-start; padding: 14px; background: #0E0F11; border: 1px solid #2A2C30; border-radius: 6px; }
+.md-case-year { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 300; color: #D4A03A; line-height: 1; min-width: 42px; }
+.md-case-title { font-family: 'Source Serif 4', serif; font-size: 14.5px; font-weight: 500; color: #F2F2EF; margin-bottom: 4px; }
+.md-case-text { font-size: 12.5px; line-height: 1.5; color: #7C7E7A; }
+.md-case-text i { color: #6FA184; font-style: italic; font-weight: 500; }
+.md-case-source { color: #D4A03A; text-decoration: none; font-size: 11.5px; }
+.md-case-source:hover { color: #F2F2EF; }
+
+.md-coverage-block { padding: 0 0 28px; margin-bottom: 28px; border-bottom: 1px solid #2A2C30; }
+.md-coverage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 880px) { .md-coverage-grid { grid-template-columns: 1fr; } }
+.md-cov-card { display: flex; flex-direction: column; padding: 18px 20px; background: #17181B; border: 1px solid #2A2C30; border-radius: 6px; text-decoration: none; color: #F2F2EF; transition: all 0.15s; }
+.md-cov-card:hover { border-color: #5E9C7B; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.md-cov-source { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D4A03A; margin-bottom: 8px; }
+.md-cov-headline { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 500; line-height: 1.35; color: #F2F2EF; margin-bottom: 8px; }
+.md-cov-excerpt { font-size: 12.5px; line-height: 1.5; color: #A9ABA6; margin-bottom: 12px; flex: 1; }
+.md-cov-meta { font-size: 11px; color: #54514A; font-family: 'Source Serif 4', serif; font-style: italic; margin-top: auto; }
+
+.md-resolved-block { padding: 0 0 28px; margin-bottom: 28px; border-bottom: 1px solid #2A2C30; }
+.md-resolved-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 880px) { .md-resolved-grid { grid-template-columns: 1fr; } }
+.md-res-card { display: flex; flex-direction: column; padding: 16px 18px; background: #17181B; border: 1px solid #2A2C30; border-radius: 6px; text-decoration: none; color: #F2F2EF; transition: all 0.15s; }
+.md-res-card:hover { border-color: #5E9C7B; }
+.md-res-cat { font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 8px; }
+.md-res-title { font-family: 'Source Serif 4', serif; font-size: 14.5px; font-weight: 500; line-height: 1.35; color: #F2F2EF; margin-bottom: 10px; }
+.md-res-outcome { font-size: 12.5px; color: #A9ABA6; margin-bottom: 6px; }
+.md-res-yes { color: #6FA184; font-weight: 600; }
+.md-res-no { color: #D8A19C; font-weight: 600; }
+.md-res-meta { font-size: 11px; color: #54514A; font-family: 'Source Serif 4', serif; font-style: italic; margin-top: auto; }
+.md-res-user { color: #D4A03A; }
+
+.md-discussion-block { padding: 0 0 32px; margin-bottom: 32px; }
+.md-discussion-list { display: flex; flex-direction: column; gap: 14px; }
+.md-d-item { padding: 18px 20px; background: #17181B; border: 1px solid #2A2C30; border-radius: 6px; }
+.md-d-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.md-d-user { font-size: 13px; font-weight: 600; color: #F2F2EF; }
+.md-d-position { font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; background: rgba(94,156,123,0.18); color: #6FA184; border-radius: 3px; }
+.md-d-meta { font-size: 11.5px; color: #7C7E7A; font-family: 'Source Serif 4', serif; font-style: italic; margin-left: auto; }
+.md-d-body { font-size: 13.5px; line-height: 1.55; color: #A9ABA6; margin-bottom: 12px; }
+.md-d-actions { display: flex; gap: 14px; }
+.md-d-btn { background: transparent; border: none; font-size: 11.5px; color: #7C7E7A; cursor: pointer; padding: 2px 0; font-family: inherit; transition: color 0.15s; }
+.md-d-btn:hover { color: #F2F2EF; }
+.md-d-more { margin-top: 14px; align-self: center; padding: 9px 20px; background: transparent; border: 1px solid #2A2C30; border-radius: 999px; font-size: 12.5px; color: #A9ABA6; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.md-d-more:hover { background: #35573F; color: #FFFFFF; border-color: #5E9C7B; }
+
+</style>
+<style>/* bet-button spec v5 — markets live */.poll .p-yes,.mkt-poll .my,.ec-poll .p-yes,.mr-poll .p-yes,.market-row .mr-poll .p-yes,.mc-poll-binary .mc-vote-yes,.market-card .mc-vote-yes,.opt.yes{background:#1C2620 !important;border:1px solid #3A5244 !important;color:#9FCDB4 !important;cursor:pointer;}.poll .p-no,.mkt-poll .mn,.ec-poll .p-no,.mr-poll .p-no,.market-row .mr-poll .p-no,.mc-poll-binary .mc-vote-no,.market-card .mc-vote-no,.opt.no{background:#291B1A !important;border:1px solid #57302E !important;color:#D8A19C !important;cursor:pointer;}.opt.yes .nm,.opt.yes .on,.opt.yes .op,.opt.yes .pc{color:#9FCDB4 !important;}.opt.no .nm,.opt.no .on,.opt.no .op,.opt.no .pc{color:#D8A19C !important;}.poll .p-yes:hover,.mkt-poll .my:hover,.ec-poll .p-yes:hover,.mr-poll .p-yes:hover,.market-row .mr-poll .p-yes:hover,.mc-poll-binary .mc-vote-yes:hover,.market-card .mc-vote-yes:hover,.poll .p-yes.selected,.mkt-poll .my.selected,.ec-poll .p-yes.selected,.mr-poll .p-yes.selected,.market-row .mr-poll .p-yes.selected,.mc-poll-binary .mc-vote-yes.selected,.market-card .mc-vote-yes.selected,.opt.yes:hover,.opt.yes.selected{background:#2E4A37 !important;border-color:#3d6b4e !important;color:#F2F2EF !important;}.poll .p-no:hover,.mkt-poll .mn:hover,.ec-poll .p-no:hover,.mr-poll .p-no:hover,.market-row .mr-poll .p-no:hover,.mc-poll-binary .mc-vote-no:hover,.market-card .mc-vote-no:hover,.poll .p-no.selected,.mkt-poll .mn.selected,.ec-poll .p-no.selected,.mr-poll .p-no.selected,.market-row .mr-poll .p-no.selected,.mc-poll-binary .mc-vote-no.selected,.market-card .mc-vote-no.selected,.opt.no:hover,.opt.no.selected{background:#8B3E3A !important;border-color:#a4524c !important;color:#F2F2EF !important;}.opt.yes:hover .nm,.opt.yes:hover .on,.opt.yes:hover .op,.opt.yes:hover .pc,.opt.yes.selected .nm,.opt.yes.selected .on,.opt.yes.selected .op,.opt.yes.selected .pc,.opt.no:hover .nm,.opt.no:hover .on,.opt.no:hover .op,.opt.no:hover .pc,.opt.no.selected .nm,.opt.no.selected .on,.opt.no.selected .op,.opt.no.selected .pc{color:#F2F2EF !important;}.mc-poll-binary .mc-vote .mc-vote-pct{color:inherit !important;}.market-card:hover .mc-vote-yes{border-color:#3A5244 !important;}.market-card:hover .mc-vote-no{border-color:#57302E !important;}.multi .mopt,.md-vote-opt,.fcbtn{cursor:pointer;}.multi .mopt:hover,.multi .mopt:nth-child(1):hover,.multi .mopt:nth-child(2):hover,.multi .mopt:nth-child(3):hover,.multi .mopt:nth-child(4):hover,.multi .mopt:nth-child(5):hover{background:#222A25 !important;border-color:#5E9C7B !important;}.multi .mopt:hover .on,.multi .mopt:hover .op,.multi .mopt:nth-child(2):hover .on,.multi .mopt:nth-child(2):hover .op,.multi .mopt.selected .on,.multi .mopt.selected .op{color:#F2F2EF !important;}.multi .mopt.selected{background:#2E4A37 !important;border-color:#5E9C7B !important;}.md-vote-opt.selected{border-color:#3d6b4e !important;}.md-vote-opt.selected::before{background:rgba(74,111,92,0.34) !important;}</style>
+<style>/* designer review pass 31Jul */
+.row2 .topics a.active{ color:#F2F2EF !important; font-weight:600; position:relative; }
+.row2 .topics a.active:after{ content:''; position:absolute; left:0; right:0; bottom:-15px; height:3px; background:#5E9C7B; }
+.sec-head{ padding-left:14px; padding-right:14px; }
+.cat-hdr{ padding-left:14px; padding-right:14px; }
+.lead-section{ padding-left:14px; }
+.row2 .topics{ padding-left:14px; }
+.mkt{ position:relative; }
+.mkt .mkt-section{ position:absolute; top:16px; right:16px; margin:0; }
+.mkt .badge{ margin-bottom:12px; }
+.echo-prev{ display:flex; flex-direction:column; height:100%; }
+.echo-prev .pat-label-out{ background:transparent; margin-bottom:6px; padding-left:18px; }
+.echo-prev .pat-card{ margin:0; flex:1; min-height:0; overflow:hidden; box-sizing:border-box; display:flex; flex-direction:column; padding-top:8px; }
+.echo-prev .echo-cases{ flex:1 1 auto; overflow:hidden; display:flex; flex-direction:column; justify-content:space-evenly; }
+.echo-prev .echo-more{ margin-top:auto; padding-top:10px; }
+.echo-prev .pat-h{ font-size:18px !important; line-height:24px !important; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.echo-prev .pat-d{ font-size:14px; min-height:101px; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.lead-title{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.lead-desc{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.echo-prev .echo-text{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+.lead-content .badge{ margin-bottom:8px; }
+@media (min-width:861px){ .lead-split{ height:500px; align-items:stretch; } }
+.lead-sidebar{ display:flex; flex-direction:column; padding-bottom:10px; box-sizing:border-box; }
+.sec-head .sec-title{ font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A; }
+.lb-title{ font-size:11px !important; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A !important; font-weight:600 !important; }
+.lead-slide .sparkline{ height:72px; margin:12px 0 4px; display:block; width:100%; }
+.lead-split{ min-height:500px; }
+.lead-content{ flex:1; }
+.mkts{ display:grid; gap:12px; }
+.lb-row{ padding-left:14px; padding-right:14px; }
+.chart-svg-wrap{ padding-left:46px; }
+.chart-yax{ position:absolute; left:0; top:0; bottom:0; width:40px; pointer-events:none; }
+.chart-yax span{ position:absolute; right:0; font-family:'Inter',sans-serif; font-size:9px; color:#54514A; transform:translateY(-50%); }
+.row1 .btn-primary{ white-space:nowrap; }
+.footer-social a[aria-disabled="true"]{ opacity:.45; cursor:default; }
+.footer-social a[aria-disabled="true"]:hover{ border-color:#2A2C30; color:#54514A; }
+</style>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon-dark.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/market-detail/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/market-detail/">
+<meta property="og:title" content="How will the Online Safety Bill resolve? — Hunch">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="page">
+
+  <!-- V2-MOD: row1 = search+date | brand center | sign in+menu -->
+  <div class="row1">
+    <div class="left">
+      <button class="search-btn" data-search-open title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <span class="date" id="navDate">Fri, 21 Aug 2026</span>
+    </div>
+    <a class="brand" href="/dark/" style="text-decoration:none; color:inherit;">Hunch</a>
+    <div class="right">
+      <a href="/signin/dark/" class="btn-primary">Sign in</a>
+      <button class="menu-btn" data-menu-open title="Menu" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ROW 2: This week | topics | Subscribe (Echo + Archive + Leaderboard + All markets → ☰ menu) -->
+  <div class="row2" id="navSub">
+    <div class="topics">
+      <a href="/dark/" class="on">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/dark/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#17181B" stroke="#D4A03A" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#D4A03A" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div>
+    <div class="search-overlay">
+      <button class="nav-search-close" data-search-close aria-label="Close search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search markets, topics, predictors...">
+      <button class="nav-search-close" data-search-close aria-label="Close search">×</button>
+    </div>
+  </div>
+
+  <!-- OFF-CANVAS MENU -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/dark/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/dark/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/dark/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/market-detail/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <!-- BREADCRUMB -->
+  <div class="md-crumb">
+    <a href="/markets/dark/">All markets</a>
+    <span class="md-crumb-sep">›</span>
+    <a href="#">Politics</a>
+    <span class="md-crumb-sep">›</span>
+    <span class="md-crumb-current">Parliament</span>
+  </div>
+
+  <!-- MARKET HERO -->
+  <div class="md-hero">
+    <div class="md-cat-row">
+      <span class="md-cat">Politics · Parliament</span>
+      <span class="md-live">● Live</span>
+    </div>
+    <h1 class="md-title">How will the Online Safety Bill resolve?</h1>
+    <div class="md-meta">
+      <span>Resolves <b>22 Jul 2026</b></span>
+      <span class="md-meta-sep">·</span>
+      <span>Source: <a href="https://parliament.uk" target="_blank" rel="noopener">Parliament.uk</a></span>
+      <span class="md-meta-sep">·</span>
+      <span><b>1,240</b> opinions from <b>872</b> contributors</span>
+    </div>
+  </div>
+
+  <!-- CONVICTION CHART -->
+  <div class="md-chart-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Conviction · last 90 days</span>
+      <span class="md-chart-delta">Leading outcome moved <b>+12 pts</b> in 30 days</span>
+    </div>
+    <div class="md-chart-wrap">
+      <svg class="md-chart" viewBox="0 0 800 220" preserveAspectRatio="none">
+        <line x1="0" y1="44" x2="800" y2="44" stroke="#2A2C30" stroke-dasharray="2,4" stroke-width="1"/>
+        <line x1="0" y1="110" x2="800" y2="110" stroke="#2A2C30" stroke-dasharray="2,4" stroke-width="1"/>
+        <line x1="0" y1="176" x2="800" y2="176" stroke="#2A2C30" stroke-dasharray="2,4" stroke-width="1"/>
+        <text x="6" y="40" font-family="Inter, sans-serif" font-size="10" fill="#54514A">80%</text>
+        <text x="6" y="106" font-family="Inter, sans-serif" font-size="10" fill="#54514A">50%</text>
+        <text x="6" y="172" font-family="Inter, sans-serif" font-size="10" fill="#54514A">20%</text>
+        <polyline fill="none" stroke="#6FA184" stroke-width="2.2" stroke-linejoin="round" points="0,90 80,86 160,82 240,74 320,68 400,62 480,58 560,54 640,50 720,46 800,42"/>
+        <circle cx="800" cy="42" r="4" fill="#6FA184"/>
+        <polyline fill="none" stroke="#D4A03A" stroke-width="1.8" stroke-linejoin="round" points="0,118 80,120 160,124 240,128 320,130 400,134 480,138 560,140 640,142 720,144 800,146"/>
+        <circle cx="800" cy="146" r="3.5" fill="#D4A03A"/>
+        <polyline fill="none" stroke="#7C5BAA" stroke-width="1.6" stroke-linejoin="round" points="0,158 80,160 160,162 240,164 320,165 400,166 480,168 560,170 640,172 720,174 800,176"/>
+        <circle cx="800" cy="176" r="3" fill="#7C5BAA"/>
+        <polyline fill="none" stroke="#54514A" stroke-width="1.4" stroke-linejoin="round" stroke-dasharray="3,3" points="0,194 80,194 160,195 240,196 320,197 400,198 480,199 560,200 640,201 720,202 800,202"/>
+      </svg>
+    </div>
+    <div class="md-chart-legend">
+      <span class="md-leg"><span class="md-leg-dot" style="background:#6FA184;"></span>Passes before recess <b>62%</b></span>
+      <span class="md-leg"><span class="md-leg-dot" style="background:#D4A03A;"></span>Passes after recess <b>24%</b></span>
+      <span class="md-leg"><span class="md-leg-dot" style="background:#7C5BAA;"></span>Sent back to Lords <b>10%</b></span>
+      <span class="md-leg"><span class="md-leg-dot" style="background:#54514A;"></span>Withdrawn <b>4%</b></span>
+    </div>
+  </div>
+
+  <!-- VOTE BLOCK -->
+  <div class="md-vote-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Cast your prediction</span>
+      <span class="md-section-meta">No account required to read · Sign in to track accuracy</span>
+    </div>
+    <div class="md-vote-options">
+      <a href="#vote-pass-before" class="md-vote-opt" style="--fill:62%;">
+        <span class="md-vote-num">1</span>
+        <span class="md-vote-text">Passes before recess</span>
+        <span class="md-vote-meta">744 opinions</span>
+        <span class="md-vote-pct">62%</span>
+      </a>
+      <a href="#vote-pass-after" class="md-vote-opt" style="--fill:24%;">
+        <span class="md-vote-num">2</span>
+        <span class="md-vote-text">Passes after recess</span>
+        <span class="md-vote-meta">298 opinions</span>
+        <span class="md-vote-pct">24%</span>
+      </a>
+      <a href="#vote-lords" class="md-vote-opt" style="--fill:10%;">
+        <span class="md-vote-num">3</span>
+        <span class="md-vote-text">Sent back to Lords</span>
+        <span class="md-vote-meta">124 opinions</span>
+        <span class="md-vote-pct">10%</span>
+      </a>
+      <a href="#vote-withdrawn" class="md-vote-opt" style="--fill:4%;">
+        <span class="md-vote-num">4</span>
+        <span class="md-vote-text">Withdrawn</span>
+        <span class="md-vote-meta">74 opinions</span>
+        <span class="md-vote-pct">4%</span>
+      </a>
+    </div>
+    <div class="md-reasoning">
+      <label class="md-reasoning-label">Your reasoning <span class="md-reasoning-opt">optional · 280 chars</span></label>
+      <textarea class="md-reasoning-input" placeholder="Why do you think this outcome? Add context, a historical analogy, or a source."></textarea>
+      <div class="md-reasoning-actions">
+        <span class="md-reasoning-counter">0 / 280</span>
+        <button class="md-submit-btn">Submit your hunch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ECHO: HISTORICAL PATTERN -->
+  <div class="md-echo-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Echo · Historical Pattern</span>
+      <a href="#" class="md-section-link">Read full Echo →</a>
+    </div>
+    <div class="md-echo-headline">Contested bills under similar pressure tend to pass — but the recess deadline matters most.</div>
+    <div class="md-echo-body">In 3 of the last 4 cases where the Lords returned a major bill with 10+ amendments mid-session, the Commons passed it within four weeks. The exception — Thatcher's Shops Bill (1986) — was defeated when 72 Tory MPs rebelled against a free-Sunday-trading provision. The Online Safety Bill's amendments are technical, not values-based.</div>
+    <div class="md-cases">
+      <div class="md-case">
+        <div class="md-case-year">2016</div>
+        <div class="md-case-body">
+          <div class="md-case-title">Investigatory Powers Act</div>
+          <div class="md-case-text">13 amendments returned by Lords, divided cabinet. <i>Passed</i> in 3 weeks. <a href="#" class="md-case-source">Hansard ↗</a></div>
+        </div>
+      </div>
+      <div class="md-case">
+        <div class="md-case-year">2013</div>
+        <div class="md-case-body">
+          <div class="md-case-title">Defamation Act</div>
+          <div class="md-case-text">Cross-bench pressure on Section 5, but ministerial concessions secured passage. <i>Passed</i> in 5 weeks. <a href="#" class="md-case-source">The Times ↗</a></div>
+        </div>
+      </div>
+      <div class="md-case">
+        <div class="md-case-year">1986</div>
+        <div class="md-case-body">
+          <div class="md-case-title">Shops Bill (Thatcher)</div>
+          <div class="md-case-text">The one exception — 72 Tory MPs rebelled on the free-Sunday-trading clause. <i>Defeated</i>. <a href="#" class="md-case-source">The Times ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TODAY'S COVERAGE -->
+  <div class="md-coverage-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Today's coverage</span>
+      <span class="md-section-meta">From sources we trust to report — we link them, we don't replace them.</span>
+    </div>
+    <div class="md-coverage-grid">
+      <a href="#" class="md-cov-card">
+        <div class="md-cov-source">The Times</div>
+        <div class="md-cov-headline">Ministers table fresh amendments amid free-speech backlash</div>
+        <div class="md-cov-excerpt">Backbenchers signal rebellion as Lords return bill with 13 amendments. Vote expected before 22 July recess. Whips reportedly canvassing 18 wavering MPs.</div>
+        <div class="md-cov-meta">2 hours ago · 7 min read</div>
+      </a>
+      <a href="#" class="md-cov-card">
+        <div class="md-cov-source">Financial Times</div>
+        <div class="md-cov-headline">Tech industry pushes for narrower scope as deadline nears</div>
+        <div class="md-cov-excerpt">Major platforms quietly lobby for amendments that would limit duties on small services. Government resists.</div>
+        <div class="md-cov-meta">5 hours ago · 6 min read</div>
+      </a>
+      <a href="#" class="md-cov-card">
+        <div class="md-cov-source">The Guardian</div>
+        <div class="md-cov-headline">Child safety campaigners warn against last-minute dilution</div>
+        <div class="md-cov-excerpt">NSPCC and Internet Matters issue joint statement urging Commons to reject Lords amendments on encrypted services.</div>
+        <div class="md-cov-meta">Yesterday · 8 min read</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- RECENTLY RESOLVED -->
+  <div class="md-resolved-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Recently resolved · Parliament</span>
+      <a href="/markets/dark/" class="md-section-link">All markets →</a>
+    </div>
+    <div class="md-resolved-grid">
+      <a href="#" class="md-res-card">
+        <div class="md-res-cat">Politics · Bills · 18 May 2026</div>
+        <div class="md-res-title">Will the Renters' Reform Bill receive Royal Assent before May?</div>
+        <div class="md-res-outcome"><b class="md-res-yes">Yes</b> · resolved at 73% conviction</div>
+        <div class="md-res-meta">920 opinions · top forecaster: <span class="md-res-user">@WestminsterOwl</span></div>
+      </a>
+      <a href="#" class="md-res-card">
+        <div class="md-res-cat">Politics · Bills · 02 Apr 2026</div>
+        <div class="md-res-title">Will the AI Safety Bill pass committee stage before April?</div>
+        <div class="md-res-outcome"><b class="md-res-no">No</b> · resolved against 58% conviction</div>
+        <div class="md-res-meta">640 opinions · top forecaster: <span class="md-res-user">@PolicyNerd42</span></div>
+      </a>
+      <a href="#" class="md-res-card">
+        <div class="md-res-cat">Politics · Bills · 14 Feb 2026</div>
+        <div class="md-res-title">Will the Procurement Bill receive Royal Assent in February?</div>
+        <div class="md-res-outcome"><b class="md-res-yes">Yes</b> · resolved at 81% conviction</div>
+        <div class="md-res-meta">380 opinions · top forecaster: <span class="md-res-user">@BackbenchBaron</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- DISCUSSION -->
+  <div class="md-discussion-block">
+    <div class="md-section-head">
+      <span class="md-section-label">Hunches from the room</span>
+      <span class="md-section-meta">Most upvoted · 18 active threads</span>
+    </div>
+    <div class="md-discussion-list">
+      <div class="md-d-item">
+        <div class="md-d-head">
+          <span class="md-d-user">@WestminsterOwl</span>
+          <span class="md-d-position">Passes before recess</span>
+          <span class="md-d-meta">2h · 91% accuracy · Expert</span>
+        </div>
+        <div class="md-d-body">The whips count 17 vacillating MPs. Three have constituency interests in tech enterprise (Cambridge, Reading, Slough). Concession on small-service threshold likely. Recess is hard deadline — government has zero appetite for return after 22 July with this still open.</div>
+        <div class="md-d-actions">
+          <button class="md-d-btn">▲ 47</button>
+          <button class="md-d-btn">Reply (12)</button>
+          <button class="md-d-btn">Save</button>
+        </div>
+      </div>
+      <div class="md-d-item">
+        <div class="md-d-head">
+          <span class="md-d-user">@PolicyNerd42</span>
+          <span class="md-d-position">Passes after recess</span>
+          <span class="md-d-meta">5h · 87% accuracy · Analyst</span>
+        </div>
+        <div class="md-d-body">Disagreeing with the conviction. Investigatory Powers Act analogy is weak — that bill had narrow technical objections. Online Safety has values-based opposition from civil liberties wing AND tech industry simultaneously. Different pressure dynamics. Recess slip more likely than people think.</div>
+        <div class="md-d-actions">
+          <button class="md-d-btn">▲ 31</button>
+          <button class="md-d-btn">Reply (8)</button>
+          <button class="md-d-btn">Save</button>
+        </div>
+      </div>
+      <div class="md-d-item">
+        <div class="md-d-head">
+          <span class="md-d-user">@FiscalHawk</span>
+          <span class="md-d-position">Sent back to Lords</span>
+          <span class="md-d-meta">1d · 80% accuracy · Pundit</span>
+        </div>
+        <div class="md-d-body">One scenario nobody's pricing: amendments accepted in Commons but Lords reject the watered-down version. Constitutional convention says they relent eventually, but recess timing could force a delay-by-process. 10% feels low.</div>
+        <div class="md-d-actions">
+          <button class="md-d-btn">▲ 24</button>
+          <button class="md-d-btn">Reply (5)</button>
+          <button class="md-d-btn">Save</button>
+        </div>
+      </div>
+      <button class="md-d-more">Show 15 more →</button>
+    </div>
+  </div>
+
+  <!-- Quiet CTA -->
+  <div style="text-align:center; padding:44px 0; border-bottom:1px solid #2A2C30;">
+    <div style="font-family:'Source Serif 4',serif; font-size:23px; font-weight:300; margin-bottom:6px;">Back your hunch.</div>
+    <div style="font-size:13px; color:#7C7E7A; margin-bottom:16px; max-width:340px; margin-left:auto; margin-right:auto; line-height:1.5;">You've been right for years. Now prove it. No crypto. No jargon.</div>
+    <a href="#" style="display:inline-block; padding:10px 24px; background:#2E4A37; border:1px solid #3d6b4e; color:#F2F2EF; border-radius:4px; font-size:13px; font-weight:500; text-decoration:none;">Get started</a>
+  </div>
+
+  <!-- COMPREHENSIVE FOOTER -->
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#5E9C7B; margin-left:2px;">™</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/dark/">This week</a></li>
+          <li><a href="/markets/dark/">All markets</a></li>
+          <li><a href="/echo/library/dark/">Echo</a></li>
+          <li><a href="/archive/dark/">Archive</a></li>
+          <li><a href="/leaderboard/dark/">Leaderboard</a></li>
+          <li><a href="/mobile-app/dark/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/dark/">Politics</a></li>
+          <li><a href="/sports/dark/">Sports</a></li>
+          <li><a href="/finance/dark/">Finance</a></li>
+          <li><a href="/tech/dark/">Tech</a></li>
+          <li><a href="/culture/dark/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/dark/">About Hunch</a></li>
+          <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+          <li><a href="/partners/dark/">Partners</a></li>
+          <li><a href="/methodology/dark/">How it works</a></li>
+          <li><a href="/press/dark/">Press</a></li>
+          <li><a href="/careers/dark/">Careers</a></li>
+          <li><a href="/contact/dark/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/dark/">Blog</a></li>
+          <li><a href="/help/dark/">Help centre</a></li>
+          <li><a href="/api/dark/">API documentation</a></li>
+          <li><a href="/status/dark/">Status</a></li>
+          <li><a href="/responsible-play/dark/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/dark/">Terms of service</a></li>
+          <li><a href="/privacy/dark/">Privacy policy</a></li>
+          <li><a href="/cookies/dark/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/dark/">Acceptable use</a></li>
+          <li><a href="/licences/dark/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>© KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#7C7E7A;">Company No. 17183343 · Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">🇬🇧 United Kingdom · EN</span>
+        <div class="small-links">
+          <a href="/sitemap/dark/">Sitemap</a>
+          <a href="/accessibility/dark/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Rotating chart — 5s auto, manual pager
+(function() {
+  const slides = document.querySelectorAll('.chart-slide');
+  const dots = document.querySelectorAll('#chartPager .pdot');
+  let idx = 0, timer;
+  function show(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+    idx = i;
+  }
+  function next() { show((idx + 1) % slides.length); }
+  function start() { timer = setInterval(next, 5000); }
+  function stop() { clearInterval(timer); }
+  dots.forEach(d => d.addEventListener('click', () => { stop(); show(+d.dataset.i); start(); }));
+  start();
+})();
+
+// Hamburger menu — slide-out panel
+(function() {
+  const backdrop = document.getElementById('menuBackdrop');
+  const panel = document.getElementById('menuPanel');
+  function open() { backdrop.classList.add('open'); panel.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { backdrop.classList.remove('open'); panel.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-menu-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-menu-close]').forEach(b => b.addEventListener('click', close));
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+})();
+
+// Search expansion (inline overlay in nav-sub)
+(function() {
+  const navSub = document.getElementById('navSub');
+  const input = document.getElementById('navSearchInput');
+  function open() { navSub.classList.add('search-mode'); setTimeout(() => input?.focus(), 50); }
+  function close() { navSub.classList.remove('search-mode'); if (input) input.value = ''; }
+  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-search-close]').forEach(b => b.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navSub.classList.contains('search-mode')) close(); });
+})();
+
+// Date display
+(function() {
+  const el = document.getElementById('navDate');
+  if (!el) return;
+  const d = new Date();
+  el.textContent = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+})();
+
+// Featured market — manual carousel (no auto-rotation)
+(function() {
+  const slider = document.getElementById('leadSlider');
+  if (!slider) return;
+  const viewport = document.getElementById('leadViewport');
+  const track = document.getElementById('leadTrack');
+  const slides = track.querySelectorAll('.lead-slide');
+  const dots = document.querySelectorAll('#leadDots .lead-tick');
+  const prev = document.querySelector('[data-lead-prev]');
+  const next = document.querySelector('[data-lead-next]');
+  let i = 0;
+  const total = slides.length;
+
+  function go(n) {
+    i = ((n % total) + total) % total;
+    track.style.transform = `translateX(-${i * 100}%)`;
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+
+  prev && prev.addEventListener('click', () => go(i - 1));
+  next && next.addEventListener('click', () => go(i + 1));
+  dots.forEach((d, idx) => d.addEventListener('click', () => go(idx)));
+
+  // Touch swipe (mobile)
+  let startX = 0, dx = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; dx = 0; }, { passive: true });
+  track.addEventListener('touchmove',  e => { dx = e.touches[0].clientX - startX; }, { passive: true });
+  track.addEventListener('touchend',   () => { if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1)); });
+
+  // Keyboard arrows when focus is anywhere inside the lead section
+  function handleKeys(e) {
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
+  }
+  const lead = slider.closest('.lead');
+  if (lead) lead.addEventListener('keydown', handleKeys);
+
+  go(0);
+})();
+</script>
+
+<script src="/assets/hunch-live-dark.js?v=1788512159"></script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/dark/"><span>Today</span></a>
+  <a href="/echo/library/dark/"><span>Echoes</span></a>
+  <a href="/markets/dark/"><span>Markets</span></a>
+  <a href="/account/dark/"><span>My record</span></a>
+</nav>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-bet-state.css?v=1788425424">
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

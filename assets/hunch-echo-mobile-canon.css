@@ -1,0 +1,1077 @@
+/* Канон мобільного Echo. Зібрано 31 Aug 2026 з 20 послідовних латок,
+   порядок каскаду збережено. Правити тільки тут. */
+
+/* ========= ТОКЕНИ ДИЗАЙН-СИСТЕМИ НА СТОРІНЦІ ECHO (Pavlo, 29 Aug) ===========
+   КОРІНЬ ЦІЛОГО КЛАСУ БАГІВ. Сторінки Echo не оголошували ЖОДНОГО токена, тому
+   кожен var(--bg), var(--mut), var(--line) у будь-якому CSS мовчки падав у
+   успадковане значення. Саме через це шапка була прозорою, нижнє меню було
+   прозорим, а дата виходила чорнильною замість приглушеної.
+   Значення взяті заміром з лендингу, не з памʼяті. ======================== */
+:root {
+  --bg: #FAF7EF;
+  --ink: #1F241F;
+  --mut: #6B6455;
+  --line: #E4DCC8;
+  --acc: #216945;
+  --gold: #7A5210;
+  --panel: #F5EFE1;
+  --body: #4C463C;
+}
+
+/* вордмарк у мастхеді на 15% жирніший (Pavlo, 29 Aug): 347 -> 399.
+   Однаково на десктопі і на телефоні, щоб лого лишалось одним знаком. */
+.row1 .brand { font-weight: 399 !important; }
+
+/* ========= ТИПОГРАФІЧНА ДРАБИНА ECHO (ревізія 29 Aug) =======================
+   Замір показав 30 різних наборів шрифт-кегль-вага на одній сторінці, з них
+   одинадцять розмірів Inter: 9.5, 10, 10.5, 11, 11.5, 12, 13, 13.5, 14, 15, 16.
+   Різниця в пів пікселя не читається як ієрархія, вона читається як безлад.
+   Зводимо службовий текст до чотирьох щаблів:
+     10.5  версальні лейбли (кікери, «How this resolves», «Base rate»)
+     11.5  дрібне службове (номер Echo, дати, джерела)
+     13.5  вторинний текст (описи випадків, назви опцій)
+     15    інтерфейс (навігація, кнопки) — не чіпаємо
+   Серифна проза лишається на 16px, серифні акценти на 15px.
+   Кольори прози не чіпаю: #2B2822 для основної і #4C463C для вторинної це
+   свідома ієрархія, а не різнобій. =========================================== */
+.kick, .bl, .h5, h5 { font-size: 10.5px !important; font-weight: 600 !important;
+  letter-spacing: 0.13em !important; }
+.srcs { font-size: 11.5px !important; }
+.nm, .on, .op { font-size: 13.5px !important; }
+.opt .op { font-family: 'Source Serif 4', serif; }
+
+/* ========= ВІДЖЕТ «MAKE YOUR CALL» НА ТЕЛЕФОНІ (ревізія 29 Aug) =============
+   Було: бейдж LIVE стояв збоку і віджимав питання, воно ламалось на пʼять
+   рядків; графік займав близько 300px висоти щоб показати дві майже рівні
+   лінії; кнопки Yes і No лежали внизу двома блідими смугами без ознак того,
+   що на них можна натиснути. Тобто найголовніша дія продукту опинилась під
+   найменш інформативним елементом.
+   Стало: бейдж окремим рядком над питанням, кнопки одразу під службовим
+   рядком і поруч одна з одною, графік пішов униз і став утричі нижчим,
+   проміжні поділки осі зняті. Дія попереду історії. ======================== */
+@media (max-width: 560px) {
+  .mqrow { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .mqrow .live-badge { order: 1; }
+  .mqrow .mq { order: 2; font-size: 19px !important; line-height: 1.32; }
+
+  .mkt-body { display: flex !important; flex-direction: column; gap: 16px !important; }
+  .bins { order: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mktchart { order: 2; }
+
+  .opt { min-height: 62px; flex-direction: column; align-items: flex-start !important;
+    justify-content: center; gap: 4px; padding: 12px 14px !important; }
+  .opt .on { font-size: 13px !important; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; }
+  .opt .op { font-family: 'Source Serif 4', serif; font-size: 24px !important;
+    font-weight: 600; line-height: 1; }
+  .opt.yes { border-width: 1.5px !important; }
+  .opt.no { border-width: 1.5px !important; }
+
+  /* графік: нижчий. Висоту задає сам svg (190px), не контейнер, інакше лінії
+     вилазять за межі картки. Осі проріджені до трьох поділок, бо шість підписів
+     на 393px налазять один на одного. */
+  .pm-svg svg { height: 110px !important; }
+  .pm-yax span:nth-child(2), .pm-yax span:nth-child(4) { visibility: hidden; }
+  .pm-xax span:nth-child(2), .pm-xax span:nth-child(4),
+  .pm-xax span:nth-child(5) { display: none; }
+  .pm-vol { font-size: 11.5px; }
+
+  /* кнопки на всю ширину картки */
+  .bins { width: 100%; }
+}
+
+/* ========= МОБІЛЬНИЙ КАНОН СТОРІНКИ ECHO (ревізія 29 Aug) ===================
+   Приводимо статтю до тих самих правил, що вже стоять на головній.
+   1. Шапка з категоріями липне. Аудит паритету з v8 вимикав це на всьому,
+      вужчому за 860px, тому на статті бренд і навігація їхали геть.
+   2. Заголовок був 38px вагою 565 і давав пʼять рядків на 393px. Тепер 32px
+      вагою 505, як у ліді головної.
+   3. Лід був набраний Inter, тобто інтерфейсним шрифтом. Стаття читається
+      серифом, лід теж.
+   4. Байлайн ламався в стовпчик по одному слову. Тепер це рядок, що чесно
+      переноситься, з датою публікації на першому місці.
+   5. Нижнього меню на статті не було взагалі. Додано, вкладка Echoes активна.
+   ========================================================================= */
+@media (max-width: 860px) {
+  .row1 { position: sticky !important; top: 0 !important; z-index: 30 !important;
+    background: var(--bg) !important; }
+  .row2 { position: sticky !important; top: var(--row1h, 49px) !important;
+    z-index: 29 !important; background: var(--bg) !important; }
+}
+@media (max-width: 560px) {
+  .page-title { font-size: 32px !important; font-weight: 505 !important;
+    line-height: 1.13 !important; letter-spacing: -0.012em; }
+  .page-lead { font-family: 'Source Serif 4', serif !important; font-size: 17px !important;
+    line-height: 1.45 !important; }
+  .echo-by-id { display: flex; flex-wrap: wrap; align-items: center; gap: 9px;
+    font-size: 11.5px !important; }
+  .echo-byline .echo-date { font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--mut); }
+  body { padding-bottom: 62px; }
+}
+
+/* нижнє меню було прозорим: воно фарбується через var(--bg), а цього токена на
+   сторінці Echo не існує, тому текст статті просвічував крізь панель. */
+.m-tabbar { background: #FAF7EF !important; border-top: 1px solid #E4DCC8 !important; }
+
+/* дата піднята над заголовком, як кікер на лендингу; байлайн лишає номер Echo
+   з іконками зліва і час читання праворуч (Pavlo, 29 Aug) */
+.echo-topdate { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.13em; text-transform: uppercase; color: var(--mut);
+  margin-bottom: 10px; }
+.echo-byline { justify-content: space-between; }
+.echo-by-stat { margin-left: auto; white-space: nowrap; }
+
+/* ========= МОБІЛЬНА РЕВІЗІЯ ECHO, ДРУГИЙ ЗАХІД (Pavlo, 29 Aug) ==============
+   1. Шапка липла, але лишалась прозорою: вона фарбується через var(--bg), а
+      цього токена на сторінці Echo нема, тому текст статті їхав крізь мастхед.
+   2. Переносів зі знаком дефіса ми не робимо, текст вирівнюємо по обох краях.
+   3. Картки в тілі статті: без контурів і без заокруглень. У прототипі жили
+      сім різних радіусів (2, 3, 5, 8, 10, 12, 14, 20px). На телефоні панель
+      тримає сама заливка і відступ, рамка їй не потрібна.
+   4. Блок базової ставки був окремою карткою з великою цифрою і рамкою, чого
+      в нашій системі нема. Приводимо до канону лендингу: дріб зліва, золота
+      вертикальна риска, текст праворуч, без заливки.
+   ========================================================================= */
+@media (max-width: 860px) {
+  .row1, .row2 { background: #FAF7EF !important; }
+}
+@media (max-width: 560px) {
+  .echo-section p, .page-lead, .btxt, .echo-frame p {
+    hyphens: none !important; -webkit-hyphens: none !important;
+    text-align: left; }
+
+  .echo-frame, .base, .mkt, .mkt-verify, .echo-card, .v9-stat {
+    border: 0 !important; border-radius: 0 !important; }
+  .opt { border-radius: 0 !important; }
+  .live-badge { border-radius: 2px !important; }
+
+  .base { display: flex !important; align-items: flex-start; gap: 14px;
+    background: none !important; padding: 0 !important; margin: 22px 0 !important; }
+  .base .stat { flex: 0 0 auto; font-family: 'Source Serif 4', serif;
+    font-size: 16px !important; font-weight: 600; color: #7A5210; line-height: 1.35;
+    margin: 0 !important; }
+  .base .stat span { font-size: 16px !important; }
+  .base .btxt { flex: 1; border-left: 1.5px solid #7A5210; padding: 3px 0 3px 14px;
+    font-family: 'Source Serif 4', serif; font-size: 16px; line-height: 1.55; }
+  .base .bl { display: block; margin-bottom: 6px; }
+}
+
+/* дата: точно як на лендингу — правий край, 10px, розрив від шапки 20px */
+@media (max-width: 560px) {
+  .echo-topdate { text-align: right; font-size: 10px !important; letter-spacing: 0.11em !important; margin-bottom: 9px !important; }
+  .echo-head, .echo-hero, .page-title { margin-top: 0 !important; }
+  .echo-topdate { margin-top: 0 !important; padding-top: 0 !important; }
+  .echo-wrap, .echo-hero, .page > .echo-top { padding-top: 20px !important; }
+}
+
+/* розрив від шапки до дати: 20px, як на лендингу (було 36px від .page-hdr) */
+@media (max-width: 560px) { .page-hdr { padding-top: 20px !important; } }
+
+/* цитата в дужках не розривається: дужка, назва джерела, іконка і крапка
+   переносяться одним куском. Одну літеру чи символ на новий рядок не кидаємо
+   (Pavlo, 29 Aug) */
+.paren { white-space: nowrap; }
+
+/* повітря навколо байлайна: було 52px згори і 44px знизу (18 всередині + 26
+   зовні). Для одного рядка службового тексту це забагато. Стало 22 і 30.
+   (Pavlo, 29 Aug) */
+@media (max-width: 560px) {
+  .page-hdr { margin-bottom: 0 !important; }
+  .echo-wrap { padding-top: 22px !important; }
+  .echo-byline { padding-bottom: 12px !important; margin-bottom: 18px !important; }
+}
+
+/* номер Echo стоїть понад заголовком, у правому краю, поруч із датою
+   (Pavlo, 29 Aug). З байлайна він знятий, щоб не дублювався. */
+.echo-topdate .echo-topnum { margin-left: 9px; }
+.echo-topdate .echo-topnum:before { content: "\00b7"; margin-right: 9px; color: var(--line); }
+
+/* рядок над заголовком: номер Echo ліворуч, дата праворуч — так само, як на
+   лендингу стоять FEATURED і дата (Pavlo, 29 Aug, виправлення) */
+.echo-topdate { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  text-align: left !important; }
+.echo-topdate .echo-topnum { margin-left: 0 !important; }
+.echo-topdate .echo-topnum:before { content: none !important; }
+
+/* ========= ECHO НА ТЕЛЕФОНІ = ДИЗАЙН 1 «ЛІНІЙНИЙ СВИТОК» (Pavlo, 29 Aug) =====
+   Зводимо живу сторінку до макета з `hunch-echo-mobile-6-20260829.html`,
+   варіант 1. Рядок категорій прибраний: у макеті над статтею стоїть лише
+   мастхед, а навігація по розділах живе в нижньому меню. Кеглі H2 і прози
+   вирівняні на макет. Правила резолюції під маркетом набрані як виноска:
+   золотий версальний лейбл, дрібний приглушений текст, лінійка згори. ====== */
+@media (max-width: 560px) {
+  .echo-section h2 { font-size: 21px !important; font-weight: 600 !important;
+    line-height: 1.24 !important; margin-bottom: 11px !important; }
+  .echo-section p { font-size: 16.5px !important; line-height: 1.62 !important; }
+
+  .mkt-verify { border-top: 1px solid #E4DCC8 !important; margin-top: 11px;
+    padding-top: 10px; }
+  .mkt-verify h5 { font-size: 9.5px !important; font-weight: 600 !important;
+    letter-spacing: .13em !important; text-transform: uppercase;
+    color: #7A5210 !important; margin-bottom: 6px !important; }
+  .mkt-verify p { font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    line-height: 1.55 !important; color: #6B6455 !important; text-align: left !important; }
+
+  .disc { border-top: 1px solid #E4DCC8; margin-top: 20px; padding-top: 13px;
+    font-size: 11.5px; line-height: 1.6; color: #6B6455; }
+  .disc b { color: #1F241F; font-weight: 600; }
+}
+
+/* ========= РОЗДІЛ 3 «WHAT IT MEANS» = МАКЕТ (Pavlo, 29 Aug) =================
+   Еталон: варіант 1 у `hunch-echo-mobile-6-20260829.html`.
+   Дріб «4 of 4» ліворуч, золота вертикальна риска, речення праворуч. Лейбл
+   BASE RATE знято: кікер розділу вже назвав блок. Кремова заливка з рамки
+   патерну на телефоні теж знята, у макеті блок стоїть просто на тлі. ====== */
+@media (max-width: 560px) {
+  .echo-frame { background: none !important; padding-left: 0 !important;
+    padding-right: 0 !important; }
+  .base { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+    align-items: flex-start; gap: 14px;
+    background: none !important; padding: 0 !important; margin: 18px 0 !important; }
+  .base .stat { flex: 0 0 auto; font-family: 'Source Serif 4', serif;
+    font-size: 16px !important; font-weight: 600; color: #7A5210; line-height: 1.45;
+    margin: 0 !important; }
+  .base .stat span { font-size: 16px !important; }
+  .base .btxt { flex: 1; border-left: 1.5px solid #7A5210; padding: 2px 0 2px 14px;
+    font-family: 'Source Serif 4', serif; font-size: 16.5px; line-height: 1.5;
+    color: #1F241F; }
+  .base .bl { display: none !important; }
+}
+
+/* ========= ПРАВКИ ЗА ЗВІТОМ QA (29 Aug) =====================================
+   1. Графік у маркеті на телефоні став квадратиком 110px посеред картки 325px,
+      з налізлими підписами осі. У затвердженому макеті графіка нема взагалі —
+      знімаємо його на телефоні, лишаємо на десктопі.
+   2. Лінійка мастхеда була коротша за екран на 16px з кожного боку, а нижнє
+      меню на всю ширину. Тепер обидві межі на всю ширину, поля тримає padding.
+   3. `--row1h` не був оголошений ніде: на 561-860px це давало перекриття
+      мастхеда і рядка категорій на 26px. Оголошуємо явно. ================== */
+:root { --row1h: 75px; }
+@media (max-width: 860px) { :root { --row1h: 49px; } }
+@media (max-width: 560px) {
+  .mktchart { display: none !important; }
+}
+
+/* маркет без картки: у затвердженому макеті це не панель, а блок статті —
+   заливки нема, рамки нема, зверху лінійка, поля нульові (Pavlo, 29 Aug) */
+@media (max-width: 560px) {
+  .mkt { background: none !important; padding: 0 !important;
+    border-top: 1px solid #E4DCC8 !important; padding-top: 16px !important;
+    margin-bottom: 18px !important; }
+}
+
+/* ========= LIVE І СТАН ВИБОРУ (Pavlo, 29 Aug) ==============================
+   1. Бейдж LIVE був рамкою з чисто білою заливкою #FFFFFF, якої нема в нашій
+      палітрі, тому виглядав коробкою. У макеті це крапка і слово, без рамки.
+   2. Обрана відповідь фарбувалась суцільним темно-зеленим із золотим кільцем
+      усередині. Тепер лишається той самий тінт, а вибір показує суцільна
+      рамка 2px кольором сторони. ========================================== */
+@media (max-width: 560px) {
+  .live-badge { border: 0 !important; background: none !important;
+    padding: 0 !important; border-radius: 0 !important; color: #216945 !important; }
+}
+
+/* Блок базової ставки переїхав усередину розділу 3 і опинився впритул до
+   заголовка «How to read it»: у нього не було нижнього відступу. Ставимо його
+   на всіх ширинах, бо на десктопі це помітніше (31 Aug). */
+.base { margin-bottom: 26px; }
+@media (max-width: 560px) { .base { margin-bottom: 18px !important; } }
+
+/* Посилання в тілі статті без нашого класу малювались браузерним синім із
+   підкресленням: генератор 20 нових Echo лишив інлайнові лінки з випадків
+   голими. Даємо їм той самий вигляд, що й .case-src (31 Aug). */
+.echo-section a[href^="http"]:not([class]),
+.tl a[href^="http"]:not([class]),
+.echo-frame a[href^="http"]:not([class]) {
+  font-family: 'Inter', sans-serif; font-size: 11px; color: #216945;
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid rgba(33,105,69,.35); }
+.echo-section a[href^="http"]:not([class]):hover { text-decoration: underline; }
+
+/* ========= ЧЛЕНСТВО НА ТЕЛЕФОНІ (Pavlo, 2 Sep) =============================
+   Було: два тарифи в сітці 1fr 1fr на 393px, тобто по 170 пікселів на картку,
+   де кожен рядок переваг ламався на два-три слова. Плюс центрований герой із
+   курсивом, чого нема ніде більше в системі.
+   Стало: тарифи одне під одним на всю ширину, річний першим бо вигідніший,
+   заголовок і лід по лівому краю за загальним каноном, ціна серифом 38px. == */
+@media (max-width: 560px) {
+  .hero-tiers { display: block !important; max-width: none !important; }
+  .hero-tier { border: 0 !important; border-radius: 0 !important; background: none !important;
+    box-shadow: none !important; padding: 18px 0 !important;
+    border-top: 1px solid var(--line) !important; }
+  .hero-tier.featured { border-top: 1.5px solid var(--gold) !important; order: -1; }
+  .hero-tiers { display: flex !important; flex-direction: column; }
+  .hero-tier-hdr { padding-bottom: 8px !important; margin-bottom: 10px !important; border-bottom: 0 !important; }
+  .hero-tier-price .amount { font-family: 'Source Serif 4', serif; font-size: 38px !important;
+    font-weight: 600; line-height: 1; }
+  .hero-tier-price .unit { font-family: 'Source Serif 4', serif; font-size: 16px !important; color: var(--mut); }
+  .hero-tier-list li { font-size: 14.5px !important; line-height: 1.45 !important; margin-bottom: 8px !important; }
+  .hero-tier-btn { display: flex !important; align-items: center; justify-content: center;
+    min-height: 52px; border-radius: 0 !important; margin-top: 14px !important; }
+  /* герой: ліворуч, без курсиву, за каноном сторінок */
+  .hero-sub, .hero-lede, .mb-hero p { text-align: left !important; font-style: normal !important;
+    max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+  .mb-hero h1, .hero h1 { text-align: left !important; font-size: 32px !important;
+    font-weight: 505 !important; line-height: 1.13 !important; }
+  .mb-hero .kicker, .hero .kicker { text-align: left !important; }
+}
+
+/* ========= МОБІЛЬНИЙ МАСТХЕД І НАВІГАЦІЯ ДЛЯ СТАТИЧНИХ СТОРІНОК (2 Sep) =====
+   Статичні сторінки (членство, вхід, легал) ніколи не отримували мобільної
+   шапки: на них лишався десктопний рядок, де дата ламалась на три рядки, а
+   категорії шикувались у три ряди разом із Subscribe. Правила зняті дослівно
+   з лендингу: бургер ліворуч, вордмарк по центру, вхід праворуч текстом,
+   теми одним рядком без переносу. ======================================== */
+@media (max-width: 560px) {
+  .row1 { display: flex !important; align-items: center !important;
+    padding: 10px 0 !important; gap: 12px !important;
+    /* sticky, НЕ relative: інакше шапка відклеюється при першому скролі (QA, 2 Sep) */
+    position: sticky !important; top: 0 !important; z-index: 30 !important;
+    background: #FAF7EF !important; }
+  .row1 .left { display: none !important; }
+  .row1 .right { display: contents !important; }
+  .row1 .menu-btn { order: -1 !important; margin-right: auto !important;
+    width: 28px !important; height: 28px !important; border: none !important;
+    background: transparent !important; }
+  .row1 .menu-btn svg { width: 20px; height: 20px; }
+  .row1 .brand { order: 0 !important; margin: 0 !important; position: absolute;
+    left: 50%; transform: translateX(-50%); font-size: 24px !important; }
+  .row1 .btn-primary { order: 1 !important; margin-left: auto !important;
+    background: transparent !important; border: none !important;
+    color: var(--ink) !important; padding: 0 !important; border-radius: 0 !important;
+    font-size: 15px !important; font-weight: 400 !important; }
+
+  .row2 { padding: 12px 0 !important; font-size: 15px !important; flex-wrap: nowrap !important; }
+  .row2 .topics { flex-wrap: nowrap !important; overflow-x: auto !important;
+    padding-left: 0 !important; gap: 10px !important; white-space: nowrap;
+    scrollbar-width: none; }
+  .row2 .topics::-webkit-scrollbar { display: none; }
+  .row2 a { font-size: 15px !important; }
+  .row2 .topics a.premium { display: none !important; }
+  .nav-mm { display: none !important; }
+}
+
+/* ========= ВХІД НА ТЕЛЕФОНІ (Pavlo, 2 Sep) =================================
+   Картка входу була вузькою коробкою з рамкою і заокругленням посеред екрана,
+   а банер «Accounts open soon» стояв першим і забирав увагу в дії.
+   Стало: без картки, на всю ширину колонки; заголовок 32/505 за каноном;
+   вкладки Log in / Sign up сегментом; кнопки і поля не нижчі за 50px, тобто
+   в зоні пальця; повідомлення про бету опущене вниз як виноска. ========== */
+@media (max-width: 560px) {
+  .wrap { padding: 0 !important; }
+  .card { border: 0 !important; border-radius: 0 !important; background: none !important;
+    box-shadow: none !important; padding: 22px 16px 30px !important; max-width: none !important; }
+  .card-title { font-family: 'Source Serif 4', serif; font-size: 32px !important;
+    font-weight: 505 !important; line-height: 1.13 !important; text-align: left !important;
+    margin-bottom: 10px !important; }
+  .card-sub { font-family: 'Source Serif 4', serif; font-size: 17px !important;
+    line-height: 1.5 !important; text-align: left !important; margin-bottom: 20px !important; }
+  .mode-tabs { display: flex !important; border-bottom: 1px solid var(--line) !important;
+    border-radius: 0 !important; background: none !important; padding: 0 !important;
+    margin-bottom: 20px !important; }
+  .mode-tab { flex: 1; border: 0 !important; border-radius: 0 !important; background: none !important;
+    padding: 11px 0 9px !important; font-size: 12px !important; font-weight: 600 !important;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--mut) !important;
+    border-bottom: 2px solid transparent !important; margin-bottom: -1px; }
+  .mode-tab.active { color: var(--ink) !important; border-bottom-color: var(--acc) !important; }
+  .oauth-btn, .btn-oauth, .card button[type="submit"], .card .btn {
+    min-height: 52px !important; border-radius: 0 !important; font-size: 15px !important; }
+  .card input { min-height: 50px !important; border-radius: 0 !important; font-size: 15px !important; }
+  /* повідомлення про бету стає виноскою в кінці, а не банером угорі */
+  .coming-notice { order: 99; background: none !important; border: 0 !important;
+    border-top: 1px solid var(--line) !important; border-radius: 0 !important;
+    padding: 14px 0 0 !important; margin: 22px 0 0 !important;
+    font-size: 11.5px !important; line-height: 1.55 !important; color: var(--mut) !important; }
+  .card { display: flex !important; flex-direction: column; }
+}
+
+/* Рядок категорій має бути однаковий скрізь. На редакційних сторінках «This week»
+   і роздільники сховані ще з 28 Aug, а статичні їх показували, тому шапка на
+   членстві й вході починалась не з Politics (Pavlo, 2 Sep). */
+@media (max-width: 560px) {
+  .row2 .topics a[href*="layout-v9-clean"] { display: none !important; }
+  .row2 .topics .sep { display: none !important; }
+  .row2 .topics a.premium { display: none !important; }
+}
+
+/* Шість категорій мають ВМІЩАТИСЬ у 361px без бокового скролу (правило Pavlo).
+   При gap 16px рядку треба 381px і «Regional» обрізався. 10px вистачає. (2 Sep) */
+@media (max-width: 560px) {
+  .row2 .topics { gap: 10px !important; }
+  .row2 .topics a { padding-left: 0 !important; padding-right: 0 !important; }
+}
+
+
+
+
+
+
+
+/* ========= КНОПКИ СТАВКИ = ТОЧНО ЯК НА СТОРІНЦІ РИНКІВ (Pavlo, 2 Sep) ======
+   Заміряно з .mc-vote на hunch-markets.html при 1280: висота 37, радіус 5,
+   межа 1px, паддинг 9/12, обидва написи Source Serif 12.5px вагою 500, gap 6.
+   Тут ті самі числа, щоб кнопка була одна на весь сайт. */
+.bins { display: grid !important; grid-template-columns: 1fr 1fr; gap: 6px !important; }
+.bins .opt, .opts .opt {
+  display: flex !important; flex-direction: row !important;
+  align-items: center !important; justify-content: space-between !important;
+  height: 37px !important; min-height: 37px !important;
+  padding: 9px 12px !important; border: 1px solid; border-radius: 5px !important;
+  box-shadow: none !important; }
+.bins .opt .on, .bins .opt .op, .opts .opt .on, .opts .opt .op {
+  font-family: 'Source Serif 4', serif !important; font-size: 12.5px !important;
+  font-weight: 500 !important; letter-spacing: normal !important;
+  text-transform: none !important; line-height: 1 !important; }
+.bins .opt.yes:not(:hover):not(.selected), .opts .opt.yes:not(:hover):not(.selected) { background: #E7EDE2 !important; border-color: #BBCDBC !important; }
+.bins .opt.yes:not(:hover):not(.selected) .on, .bins .opt.yes:not(:hover):not(.selected) .op { color: #194D2E !important; }
+.bins .opt.no:not(:hover):not(.selected), .opts .opt.no:not(:hover):not(.selected) { background: #F4E6E1 !important; border-color: #DCB9B0 !important; }
+.bins .opt.no:not(:hover):not(.selected) .on, .bins .opt.no:not(:hover):not(.selected) .op { color: #741F17 !important; }
+
+
+/* смуга розподілу над кнопками: зелена частка = Yes, решта — тло сторони No */
+@media (max-width: 560px) {
+  .hb-split { width: 100%; align-self: stretch; flex: 0 0 auto; height: 6px; border-radius: 3px; overflow: hidden;
+    background: #EFE0DA; margin: 0 0 8px; }
+  .hb-split i { display: block; height: 6px; background: #216945; opacity: .75; }
+}
+
+/* ========= НАВЕДЕННЯ І ВИБІР: СУЦІЛЬНА ЗАЛИВКА (Pavlo, 3 Sep) ==============
+   Еталон зі скріна: на наведенні кнопка заливається повним кольором своєї
+   сторони, текст вивертається в кремовий. Так само виглядає обраний стан.
+   Однаково в Echo і на картках ринків, у світлій і темній темі. */
+.bins .opt.yes:hover, .bins .opt.yes.selected,
+.opts .opt.yes:hover, .opts .opt.yes.selected,
+.mc-vote-yes:hover, .mc-vote-yes.selected {
+  background: #216945 !important; border-color: #1B5A39 !important; }
+.bins .opt.no:hover, .bins .opt.no.selected,
+.opts .opt.no:hover, .opts .opt.no.selected,
+.mc-vote-no:hover, .mc-vote-no.selected {
+  background: #8F2B21 !important; border-color: #741F17 !important; }
+.bins .opt.yes:hover .on, .bins .opt.yes:hover .op,
+.bins .opt.yes.selected .on, .bins .opt.yes.selected .op,
+.bins .opt.no:hover .on, .bins .opt.no:hover .op,
+.bins .opt.no.selected .on, .bins .opt.no.selected .op,
+.mc-vote-yes:hover, .mc-vote-yes:hover .mc-vote-pct,
+.mc-vote-no:hover, .mc-vote-no:hover .mc-vote-pct,
+.mc-vote-yes.selected, .mc-vote-yes.selected .mc-vote-pct,
+.mc-vote-no.selected, .mc-vote-no.selected .mc-vote-pct { color: #FAF7EF !important; }
+.bins .opt, .mc-vote { transition: background .12s, border-color .12s, color .12s; }
+
+/* Підняття ваги: щось у сторінках перебивало заливку, тому селектор посилений
+   повтором класу (легальний спосіб підняти специфічність) (3 Sep). */
+.bins .opt.opt.opt.yes:hover, .bins .opt.opt.opt.yes.selected,
+.mc-vote.mc-vote.mc-vote-yes:hover, .mc-vote.mc-vote.mc-vote-yes.selected {
+  background: #216945 !important; border-color: #1B5A39 !important; }
+.bins .opt.opt.opt.no:hover, .bins .opt.opt.opt.no.selected,
+.mc-vote.mc-vote.mc-vote-no:hover, .mc-vote.mc-vote.mc-vote-no.selected {
+  background: #8F2B21 !important; border-color: #741F17 !important; }
+.bins .opt.opt.opt.yes:hover .on, .bins .opt.opt.opt.yes:hover .op,
+.bins .opt.opt.opt.yes.selected .on, .bins .opt.opt.opt.yes.selected .op,
+.bins .opt.opt.opt.no:hover .on, .bins .opt.opt.opt.no:hover .op,
+.bins .opt.opt.opt.no.selected .on, .bins .opt.opt.opt.no.selected .op {
+  color: #FAF7EF !important; }
+
+/* ===== ВІДСОТКИ ОБАБІЧ СМУГИ, КНОПКИ ТІЛЬКИ ЗІ СЛОВАМИ (Pavlo, 3 Sep) =====
+   Число більше не живе всередині кнопки: зелений відсоток стоїть зліва перед
+   смугою, кларетовий справа після неї. Смуга від того трохи коротша, зате
+   кнопка читається як дія, а не як таблиця. Однаково в Echo і на картках. */
+.hb-row { display: flex; align-items: center; gap: 10px; width: 100%;
+  margin: 0 0 8px; }
+.hb-track { flex: 1 1 auto; height: 6px; border-radius: 3px; overflow: hidden;
+  background: var(--hb-no-soft, #EFDCD8); }
+.hb-track > i { display: block; height: 100%; border-radius: 3px;
+  background: var(--hb-yes, #216945); }
+.hb-num { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  line-height: 1; font-variant-numeric: tabular-nums; flex: 0 0 auto;
+  min-width: 30px; }
+.hb-num.y { color: var(--hb-yes, #216945); text-align: left; }
+.hb-num.n { color: var(--hb-no, #8F2B21); text-align: right; }
+
+/* число всередині кнопки прибране, слово стає по центру */
+.bins .opt .op, .mc-poll-binary .mc-vote-pct { display: none !important; }
+.bins .opt, .mc-poll-binary .mc-vote { justify-content: center !important; }
+
+/* Сузірʼя патерну в бічній колонці: рівно два рядки на рік, решта під
+   трикрапку. Три рядки робили панель довшою за сам лід, і око йшло вправо
+   замість заголовка (Pavlo, 3 Sep). */
+.v9-yr .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; }
+
+/* Між ринками в Echo на телефоні йде подвійна лінійка, а не одинарна:
+   одна лінія плуталась із волосінню всередині самого ринку, і межа між
+   двома питаннями читалась як ще один рядок того самого (Pavlo, 3 Sep).
+   подвійна лінійка між ринками */
+@media (max-width: 560px) {
+  .mkt + .mkt { border-top: 3px double #E4DCC8 !important; padding-top: 18px !important; }
+}
+
+/* ===== ШАПКА РОЗДІЛУ: ОДИН ПІДХІД НА ВСІ СТОРІНКИ (Pavlo, 3 Sep) ===========
+   Я щоразу збирав цей блок наново і щоразу щось злипалось: то чипи сідали на
+   заголовок таблиці, то рядок з числами тулився до підзаголовка. Фіксую
+   порядок і відстані раз і назавжди, кратно кроку --s.
+   Порядок згори вниз: кікер, заголовок, рядок чисел, волосінь, чипи фільтра,
+   волосінь, і аж тоді вміст. Між чипами і вмістом завжди повний крок. */
+.v9-cat { padding-bottom: 0; }
+.v9-cat-k { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--acc);
+  margin-bottom: calc(var(--s) * 0.33); }
+.v9-cat-h { margin: 0 0 calc(var(--s) * 0.25); }
+.v9-cat-meta { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--mut);
+  padding-bottom: calc(var(--s) * 0.75);
+  border-bottom: 1px solid var(--line); margin-bottom: 0; }
+.v9-mfilter { padding: calc(var(--s) * 0.66) 0 !important;
+  border-bottom: 1px solid var(--line); margin-bottom: var(--s) !important; }
+
+/* ===== АРХІВ: ХРОНІКА, А НЕ ТАБЛИЦЯ =======================================
+   Чотири колонки з довгим курсивним рядком патерну не читались: око не мало
+   де зупинитись. Архів це хроніка, тому веде місяць, під ним дата і питання,
+   а категорія з ціною йдуть дрібним підписом. Результат стоїть праворуч
+   окремим словом, бо саме за ним сюди й приходять. */
+.arc-month { display: flex; align-items: baseline; justify-content: space-between;
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+  padding: calc(var(--s) * 0.9) 0 calc(var(--s) * 0.35);
+  border-bottom: 1px solid var(--line); }
+.arc-month:first-child { padding-top: 0; }
+.arc-month .n { font-family: 'Source Serif 4', serif; font-size: 13px;
+  letter-spacing: 0; text-transform: none; color: var(--mut); }
+.arc-row { display: grid; grid-template-columns: 88px 1fr 64px; gap: 16px;
+  align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line);
+  text-decoration: none; color: var(--ink); }
+.arc-row:hover .arc-q { color: var(--acc); }
+.arc-d { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--mut);
+  font-variant-numeric: tabular-nums; }
+.arc-q { display: block; font-family: 'Source Serif 4', serif; font-size: 16.5px;
+  line-height: 1.35; color: var(--ink); }
+.arc-m { display: block; margin-top: 3px; font-family: 'Inter', sans-serif;
+  font-size: 11px; color: var(--mut); text-transform: uppercase;
+  letter-spacing: .08em; }
+.arc-o { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; text-align: right; }
+.arc-o.yes { color: var(--acc); }
+.arc-o.no { color: #8F2B21; }
+.arc-o.void { color: var(--mut); }
+@media (max-width: 560px) {
+  .arc-row { grid-template-columns: 1fr auto; gap: 10px; padding: 14px 0; }
+  .arc-d { grid-column: 1 / -1; margin-bottom: 2px; }
+  .arc-q { font-size: 16px; }
+}
+
+
+/* проміжок під фільтром: повний крок --s, інакше перший рядок списку
+   злипається з волосінню фільтра (Pavlo, 3 Sep) */
+.v9-mfilter { margin-bottom: var(--s, 24px) !important; }
+
+/* ===== ОДНА МІРА ТЕКСТОВОЇ КОЛОНКИ І ЩІЛЬНІСТЬ ФІЧ-БЛОКУ (Pavlo, 3 Sep) ====
+   1. Заголовок і лід на сторінці Echo розтягувались на всі 1148 px, тобто
+      близько 130 знаків у рядку, тоді як на головній та сама пара живе у
+      колонці 622 px. Через це при переході між сторінками текст стрибав.
+      Ставимо одну міру: 760 px на заголовок, лід і байлайн.
+   2. У фіч-блоці підвал мав margin-top:auto і притискався до низу колонки,
+      яку розтягувала панель патерну праворуч. Виходила мертва діра між
+      «Resolves» і рядком Pattern → Market. Колонки більше не розтягуються,
+      підвал іде одразу за вмістом. */
+.v10-lead { align-items: flex-start !important; }
+.v10-lead-main .v9-foot { margin-top: 16px !important; }
+.v10-lead-main .v10-readmore { margin-top: 10px; }
+/* рік у сузірʼї: два рядки і закінчена думка, без обрубків */
+.v9-yr .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; }
+
+/* ===== ФІЧ-БЛОК НА ГОЛОВНІЙ ЗА ФОРМАТОМ КАТЕГОРІЙ (Pavlo, 3 Sep) ==========
+   На категоріях блок читається однією течією: кікер із показниками, заголовок,
+   лід, один дрібний рядок про ринок, посилання. На головній між ними стояв
+   ще й блок «4 of 4 + речення», який слово в слово повторює панель патерну
+   праворуч, а питання ринку було набране великим напівжирним серифом і
+   сперечалось із лідом. Прибираємо дубль і зводимо рядок ринку до підпису. */
+.v10-lead-main .lead-pat { display: none; }
+.v10-lead-main .v9-meta-line { display: block; font-family: 'Inter', sans-serif;
+  font-size: 12px; line-height: 1.5; color: var(--mut); margin-top: 10px; }
+.v10-lead-main .v9-meta-line .q { font-family: 'Inter', sans-serif; font-size: 12px;
+  font-weight: 400; color: var(--body); }
+.v10-lead-main .v9-meta-line .res { color: var(--mut); }
+.v10-lead-main .v9-meta-line .q::after { content: ' \00b7 '; color: var(--line); }
+
+/* Продовження: на лендингу фіч-блок навмисно розкладений через display:contents
+   і order, тому питання ринку виходило серифом 17 px, а показники патерну
+   падали в самий низ. На категоріях порядок природний. Зводимо до категорій,
+   але тільки на широких екранах: на телефоні той порядок потрібен. */
+@media (min-width: 861px) {
+  .v10-lead-main .v9-meta-lead { display: flex !important; align-items: baseline;
+    justify-content: space-between; }
+  .v10-lead-main .v9-meta-line { display: block !important; margin-top: 10px;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    color: var(--mut); }
+  .v10-lead-main .v9-meta-line .q { display: inline !important; order: 0 !important;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    font-weight: 400 !important; color: var(--body) !important; margin: 0 !important; }
+  .v10-lead-main .v9-meta-line .res { display: inline !important; order: 0 !important;
+    border-bottom: 0 !important; padding-bottom: 0 !important; }
+  .v10-lead-main .v9-meta-line .q::after { content: ' \00b7 '; color: var(--mut); }
+}
+
+/* Кікер і показники патерну у фіч-блоці вирівнюються по верху, а не по базовій
+   лінії: шрифти в них різні, тому базова лінія давала розбіжність у 3 px між
+   головною і категоріями (Pavlo, 4 Sep). */
+.v10-lead-main .v9-meta-lead { align-items: flex-start !important; }
+
+/* ===== ОДИН ВІДСТУП КОНТЕНТУ НА ВСЬОМУ САЙТІ (Pavlo, 4 Sep) ===============
+   Зміряно: на лендингу і категоріях контентні блоки мають горизонтальний
+   відступ 14 px і йдуть 80..1200, а сторінка Echo йшла 66..1214, тобто
+   виглядала ширшою. Даємо Echo той самий відступ. */
+@media (min-width: 861px) {
+  .page-hdr, .echo-wrap { padding-left: 14px !important; padding-right: 14px !important; }
+}
+
+/* Питання ринку у фіч-блоці було 12 px і губилось (Pavlo, 4 Sep) */
+/* Питання ринку це частина тексту, а не підпис: той самий сериф і той самий
+ кегль, що в ліді. Дата резолюції лишається дрібним інтерфейсним підписом
+ (Pavlo, 4 Sep). */
+.v10-lead-main .v9-meta-line { font-family: 'Source Serif 4', serif !important;
+font-size: 17px !important; line-height: 26.35px !important; margin-top: 0 !important; }
+.v10-lead-main .v9-meta-line .q { font-family: 'Source Serif 4', serif !important;
+font-size: 17px !important; font-weight: 400 !important;
+color: var(--body) !important; }
+.v10-lead-main .v9-meta-line .res { font-family: 'Inter', sans-serif !important;
+font-size: 12.5px !important; color: var(--mut) !important; }
+
+/* ===== РИНОК В ECHO БЕЗ КАРТКИ І НА ВЕБІ ТЕЖ (Pavlo, 4 Sep) ===============
+   На телефоні ринок давно не панель, а блок статті: без заливки, без рамки,
+   зверху лінійка. На вебі він досі малювався карткою #FFFDF7 з рамкою і
+   радіусом. Зводимо до одного вигляду на всіх ширинах. Значок Live теж:
+   крапка і слово, без капсули і без заливки. */
+.mkt { background: none !important; border: 0 !important; border-radius: 0 !important;
+  padding: 0 !important; border-top: 1px solid var(--line, #E4DCC8) !important;
+  padding-top: 16px !important; margin-bottom: 18px !important; }
+.live-badge { border: 0 !important; background: none !important; padding: 0 !important;
+  border-radius: 0 !important; color: var(--acc, #216945) !important; }
+
+/* Трохи повітря навколо смуги і кнопок у віджеті ринку: було 14 / 8 / 14,
+   стало 20 / 12 / 20. Небагато, але блок перестає злипатись (Pavlo, 4 Sep). */
+#markets .hb-row, .mkt .hb-row { margin-top: 20px !important; margin-bottom: 12px !important; }
+#markets .mkt-verify, .mkt .mkt-verify { margin-top: 20px !important; }
+
+/* ===== ПАНЕЛІ БЕЗ КОНТУРІВ І З ПРЯМИМИ КУТАМИ (Pavlo, 4 Sep) ==============
+   На головній панель патерну це просто бежевий блок без рамки і без радіуса.
+   На сторінці Echo ті самі панелі малювались рамкою #E4DCC8 із радіусом 10-12.
+   Зводимо до головної: лишається тільки заливка. */
+.echo-frame, .base, .echo-card, .v9-stat {
+  border: 0 !important; border-radius: 0 !important; }
+/* у базової ставки лишається смуга зліва, це її позначка, а не рамка */
+.base { border-left: 4px solid var(--gold-soft, #D9C391) !important; }
+
+
+/* ===== РОЗДІЛЬНІ ЯК НА ГОЛОВНІЙ (Pavlo, 4 Sep) ============================
+   На головній сітка розділена так: проміжок --s*1.25, а волосінь малюється
+   псевдоелементом рівно посередині проміжку, тому вона не торкається тексту
+   і не потребує додаткових падінгів. Переносимо ту саму механіку на ринки
+   в Echo. Колонки від того трохи вужчі, і це правильно: повітря між ними
+   стає видимим. Подвійна лінійка по вертикалі лишається. */
+@media (min-width: 861px) {
+  #markets { column-gap: calc(var(--s, 24px) * 1.25) !important; }
+  /* подвійна лінійка скасована на вебі: лишається одинарна волосінь.
+     На телефоні подвійна лишається, там вона розділяє ринки в одну колонку. */
+  #markets .mkt { position: relative;
+    border-top: 1px solid var(--line, #E4DCC8) !important;
+    padding: 20px 0 0 0 !important;
+    border-left: 0 !important; }
+  #markets .mkt:nth-child(even)::before { content: ''; position: absolute;
+    top: 0; bottom: 0; left: calc(var(--s, 24px) * -0.625); width: 1px;
+    background: var(--line, #E4DCC8); }
+}
+
+/* ===== БАЗОВА СТАВКА: КОЛЬОРИ З ПАЛІТРИ (Pavlo, 4 Sep) ===================
+   Блок стояв на майже білому #FFFDF7 із блідо-золотою смугою #D9C391, якої
+   в палітрі нема, тому й виглядав чужим. Тло тепер панельне #F5EFE1, як в
+   інших панелей сторінки, смуга ліворуч власне золотом --gold. */
+.base { background: var(--panel, #F5EFE1) !important;
+  border-left: 3px solid var(--gold, #7A5210) !important; }
+.base .n, .base .num { color: var(--gold, #7A5210) !important; }
+
+@media (min-width: 861px) {
+  /* Ряди LATEST мали пропорцію 62/34, тобто панель Echo була вужча за ту, що
+     у фіч-блоці (646/456). Зводимо до фіч-блоку: ліва 58, панель 42, проміжок
+     18 px. Картка від того ширша, і два блоки нарешті виглядають однією
+     сімʼєю (Pavlo, 4 Sep). */
+  .v10-latest-row { grid-template-columns: calc(58% - 9px) calc(42% - 9px) !important;
+    column-gap: 18px !important; justify-content: normal !important; }
+}
+
+@media (min-width: 861px) {
+  /* Ліва колонка ряду LATEST починалась на 11 px вище за панель праворуч, бо
+     панель має власний внутрішній відступ 14 px, а колонка ніякого. Плюс
+     підпис панелі був 9 px проти кікера 10. Зрівнюємо: колонка дістає такий
+     самий вертикальний відступ, підписи однакового кегля (Pavlo, 4 Sep). */
+  /* текст лівої колонки впирався в роздільну волосінь: sig закінчувався
+     рівно на краю колонки. Даємо 20 px повітря до лінії (Pavlo, 4 Sep) */
+  .v10-latest-row > div:first-child { padding: 11px 20px 14px 0 !important; }
+  .v10-frame-label { font-size: 10px !important; }
+}
+
+@media (min-width: 861px) {
+  /* Показники Pattern → Market у рядах LATEST стояли вгорі праворуч, а в
+     картках сітки вони внизу праворуч. Зводимо до карток: рядок кікера
+     розкладаємо через display:contents і кидаємо показники в підвал колонки
+     (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { display: flex !important; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents !important; }
+  .v10-latest-row .v10-latest-kicker { order: 0; }
+  .v10-latest-row .v10-latest-h { order: 1; }
+  .v10-latest-row .v10-latest-sum { order: 2; }
+  .v10-latest-row .v10-latest-meta { order: 3; }
+  .v10-latest-row .v9-sig { order: 9; margin-top: auto !important;
+    align-self: flex-end; padding-top: 14px; }
+}
+
+@media (min-width: 861px) {
+  /* Повітря в лівій колонці: після display:contents елементи втратили власні
+     відступи і злиплись у суцільний стовпчик. Ставимо ритм 8 / 10 / 12.
+     І «resolves» пишеться з великої, як усі підписи на сайті (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-kicker { margin-bottom: 8px !important; }
+  .v10-latest-row .v10-latest-h { margin-bottom: 10px !important; }
+  .v10-latest-row .v10-latest-sum { margin-bottom: 12px !important; }
+  .v10-latest-row .v10-latest-meta { text-transform: capitalize; }
+}
+
+@media (min-width: 861px) {
+  /* Показники мають стояти на одній лінії з низом панелі Echo. Вони падали
+     нижче, коли лід у лівій колонці довший за панель і робить колонку вищою.
+     Лід обмежуємо трьома рядками: панель має фіксовані чотири роки, тому
+     колонка тепер завжди не вища за неї, і підвал сідає рівно по низу
+     картки (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-sum { display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+@media (min-width: 861px) {
+  /* Рядок резолюції і показники стоять на ОДНІЙ лінії внизу колонки: дата
+     ліворуч, Pattern → Market праворуч. Показники позиціонуються абсолютно,
+     тому вони більше не залежать від того, наскільки довгий лід, і завжди
+     сідають по низу картки Echo (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { position: relative; }
+  .v10-latest-row .v10-latest-meta { margin-top: auto !important;
+    margin-bottom: 0 !important; }
+  .v10-latest-row .v9-sig { position: absolute !important; right: 20px; bottom: 14px;
+    margin: 0 !important; padding: 0 !important; }
+}
+
+@media (min-width: 861px) {
+  /* Те саме у фіч-блоці: показники йдуть у нижній правий кут і стають на одну
+     лінію з посиланням «Read the full Echo». Кікер лишається сам угорі. Так
+     обидва блоки, фіч і ряди LATEST, читаються однаково (Pavlo, 4 Sep). */
+  .v10-lead-main { position: relative; }
+  .v10-lead-main .v9-meta-lead .v9-sig { position: absolute !important;
+    right: 0; bottom: 2px; margin: 0 !important; padding: 0 !important; }
+}
+
+@media (min-width: 861px) {
+  /* Панель Echo була нижча за ліву колонку, коли роки вкладаються в один
+     рядок, і симетрія ламалась. Тепер панель тягнеться на всю висоту ряду, а
+     зайва висота розходиться повітрям МІЖ рядками років, а не порожнечею
+     внизу (Pavlo, 4 Sep). */
+  /* панель має заповнювати колонку, а не стискатись під найдовший рядок:
+ інакше кожна картка Echo різної ширини (Pavlo, 4 Sep) */
+
+
+  .v10-latest-row .v10-mini-frame { flex: 1 1 auto; display: flex;
+    flex-direction: column; justify-content: space-between; }
+  .v10-latest-row .v10-mini-case { padding-top: 2px; padding-bottom: 2px; }
+}
+
+@media (min-width: 861px) {
+  /* Flex тут давав різну ширину панелей від ряду до ряду, тому обгортку і саму
+     панель тримаємо блоками: блок за замовчуванням займає всю ширину колонки,
+     і всі картки Echo стають однакові (Pavlo, 4 Sep). */
+  .v10-latest-row > details, .v10-latest-row > .v10-pat { display: block !important;
+    width: 100%; min-width: 0; }
+  .v10-latest-row .v10-mini-frame { display: block !important; width: auto !important;
+    box-sizing: border-box; }
+}
+
+
+
+/* ===== ПОРТ ПРАВОК ЛЕНДИНГУ НА ВЕСЬ САЙТ (Pavlo, 4 Sep) ==================
+   Усе, що ми вивіряли на головній: ритм фіч-блоку, сітка рядів LATEST,
+   один рядок дати і показників, пропорції Echo of the week, лінії таблиці
+   і повітря під кікерами. Тепер це живе в каноні, тому діє на категоріях,
+   Echo, ринках, архіві й бібліотеці однаково. */
+@media (min-width: 861px) {
+/* ===== ФІЧ-БЛОК І КОЛОНКА ЯК НА КАТЕГОРІЯХ (Pavlo, 3 Sep) =================
+   Категорії були вирівняні правильно, розходилась головна. Дві причини:
+   тут не було горизонтального падінга 14 px, і фіч-блок навмисно розкладений
+   через display:contents з order, через що питання ринку набиралось серифом
+   17 px, а показники патерну падали в самий низ колонки. Зводимо до категорій. */
+.v10-lead, .v9-sec, .v10-latest { padding-left: 14px !important; padding-right: 14px !important; }
+@media (min-width: 861px) {
+  .v10-lead-main .lead-pat { display: none; }
+  .v10-lead-main .v9-meta-lead { display: flex !important; align-items: flex-start;
+    justify-content: space-between; }
+  .v10-lead-main .v9-meta-line { display: block !important; margin-top: 10px;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    color: var(--mut); }
+  .v10-lead-main .v9-meta-line .q { display: inline !important; order: 0 !important;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    font-weight: 400 !important; color: var(--body) !important; margin: 0 !important; }
+  .v10-lead-main .v9-meta-line .q::after { content: '\00a0\00b7\00a0';
+    color: var(--mut); }
+  .v10-lead-main .v9-meta-line .res { display: inline !important; order: 0 !important;
+    border-bottom: 0 !important; padding-bottom: 0 !important; }
+  .v10-lead-main .v9-foot { margin-top: 16px !important; }
+  /* Показники патерну мали 18 px падінга згори і тягли рядок кікера на 35 px
+     замість 17, через що заголовок починався на 18 px нижче, ніж на
+     категоріях. Прибираємо падінг і садимо обидва на один рядок. */
+  /* Значення взяті з категорії один в один, а не на око: рядок кікера має
+     падінг 17, показники патерну без власного падінга, рядок ринку з
+     міжрядковим 18, посилання з відступом 10. */
+  .v10-lead-main .v9-sig { padding-top: 0 !important; }
+  .v10-lead-main .v9-meta-lead { padding-top: 17px !important; }
+  .v10-lead-main .v9-meta-line { line-height: 18px !important; }
+  .v10-lead-main .v10-readmore { margin-top: 10px !important; }
+
+  /* Те саме у фіч-блоці: показники йдуть у нижній правий кут і стають на одну
+     лінію з посиланням «Read the full Echo». Кікер лишається сам угорі. Так
+     обидва блоки, фіч і ряди LATEST, читаються однаково (Pavlo, 4 Sep). */
+  .v10-lead-main { position: relative; }
+  /* показники не торкаються роздільної: той самий відступ, що і в тексту */
+  .v10-lead-main .v9-meta-lead .v9-sig { position: absolute !important;
+    right: 20px; bottom: 2px; margin: 0 !important; padding: 0 !important; }
+
+
+  /* Ряди LATEST мали пропорцію 62/34, тобто панель Echo була вужча за ту, що
+     у фіч-блоці (646/456). Зводимо до фіч-блоку: ліва 58, панель 42, проміжок
+     18 px. Картка від того ширша, і два блоки нарешті виглядають однією
+     сімʼєю (Pavlo, 4 Sep). */
+
+  /* Ліва колонка ряду LATEST починалась на 11 px вище за панель праворуч, бо
+     панель має власний внутрішній відступ 14 px, а колонка ніякого. Плюс
+     підпис панелі був 9 px проти кікера 10. Зрівнюємо: колонка дістає такий
+     самий вертикальний відступ, підписи однакового кегля (Pavlo, 4 Sep). */
+  /* текст лівої колонки впирався в роздільну волосінь: sig закінчувався
+     рівно на краю колонки. Даємо 20 px повітря до лінії (Pavlo, 4 Sep) */
+  .v10-latest-row > div:first-child { padding: 11px 20px 14px 0 !important; }
+  .v10-frame-label { font-size: 10px !important; }
+
+  /* Показники Pattern → Market у рядах LATEST стояли вгорі праворуч, а в
+     картках сітки вони внизу праворуч. Зводимо до карток: рядок кікера
+     розкладаємо через display:contents і кидаємо показники в підвал колонки
+     (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { display: flex !important; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents !important; }
+  .v10-latest-row .v10-latest-kicker { order: 0; }
+  .v10-latest-row .v10-latest-h { order: 1; }
+  .v10-latest-row .v10-latest-sum { order: 2; }
+  .v10-latest-row .v10-latest-meta { order: 3; }
+  .v10-latest-row .v9-sig { order: 9; margin-top: auto !important;
+    align-self: flex-end; padding-top: 14px; }
+
+  /* Повітря в лівій колонці: після display:contents елементи втратили власні
+     відступи і злиплись у суцільний стовпчик. Ставимо ритм 8 / 10 / 12.
+     І «resolves» пишеться з великої, як усі підписи на сайті (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-kicker { margin-bottom: 8px !important; }
+  .v10-latest-row .v10-latest-h { margin-bottom: 10px !important; }
+  .v10-latest-row .v10-latest-sum { margin-bottom: 12px !important; }
+  .v10-latest-row .v10-latest-meta { text-transform: capitalize; }
+
+  /* Показники мають стояти на одній лінії з низом панелі Echo. Вони падали
+     нижче, коли лід у лівій колонці довший за панель і робить колонку вищою.
+     Лід обмежуємо трьома рядками: панель має фіксовані чотири роки, тому
+     колонка тепер завжди не вища за неї, і підвал сідає рівно по низу
+     картки (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-sum { display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Рядок резолюції і показники стоять на ОДНІЙ лінії внизу колонки: дата
+     ліворуч, Pattern → Market праворуч. Показники позиціонуються абсолютно,
+     тому вони більше не залежать від того, наскільки довгий лід, і завжди
+     сідають по низу картки Echo (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { position: relative; }
+  .v10-latest-row .v10-latest-meta { margin-top: auto !important;
+    margin-bottom: 0 !important; }
+  .v10-latest-row .v9-sig { position: absolute !important; right: 20px; bottom: 14px;
+    margin: 0 !important; padding: 0 !important; }
+
+  /* Панель Echo була нижча за ліву колонку, коли роки вкладаються в один
+     рядок, і симетрія ламалась. Тепер панель тягнеться на всю висоту ряду, а
+     зайва висота розходиться повітрям МІЖ рядками років, а не порожнечею
+     внизу (Pavlo, 4 Sep). */
+  /* панель має заповнювати колонку, а не стискатись під найдовший рядок:
+     інакше кожна картка Echo різної ширини (Pavlo, 4 Sep) */
+
+
+  .v10-latest-row .v10-mini-frame { flex: 1 1 auto; display: flex;
+    flex-direction: column; justify-content: space-between; }
+  .v10-latest-row .v10-mini-case { padding-top: 2px; padding-bottom: 2px; }
+  /* Flex тут давав різну ширину панелей від ряду до ряду, тому обгортку і саму
+     панель тримаємо блоками: блок за замовчуванням займає всю ширину колонки,
+     і всі картки Echo стають однакові (Pavlo, 4 Sep). */
+  .v10-latest-row > details, .v10-latest-row > .v10-pat { display: block !important;
+    width: 100%; min-width: 0; }
+  .v10-latest-row .v10-mini-frame { display: block !important; width: auto !important;
+    box-sizing: border-box; }
+  .v10-latest-row { grid-template-columns: calc(58% - 9px) calc(42% - 9px) !important;
+    column-gap: 18px !important; justify-content: normal !important; }
+
+  /* Питання ринку у фіч-блоці було 12 px і губилось (Pavlo, 4 Sep) */
+  /* Питання ринку це частина тексту, а не підпис: той самий сериф і той самий
+     кегль, що в ліді. Дата резолюції лишається дрібним інтерфейсним підписом
+     (Pavlo, 4 Sep). */
+  /* зазор між лідом і питанням був 22 px і читався як розрив абзацу.
+     Лишаємо 10, як між іншими абзацами тексту (Pavlo, 4 Sep) */
+  .v10-lead-main .v9-meta-line { font-family: 'Source Serif 4', serif !important;
+    font-size: 17px !important; line-height: 26.35px !important;
+    margin-top: 0 !important; }
+  .v10-lead-main .v9-meta-line .q { font-family: 'Source Serif 4', serif !important;
+    font-size: 17px !important; font-weight: 400 !important;
+    color: var(--body) !important; }
+  .v10-lead-main .v9-meta-line .res { font-family: 'Inter', sans-serif !important;
+    font-size: 12.5px !important; color: var(--mut) !important; }
+  
+}
+/* Повернення геометрії Echo of the week після мого невдалого відкату:
+   текст ліворуч на всю ширину колонки, панель зі статистикою 200 px праворуч
+   (Pavlo, 4 Sep). */
+.v10-eow-row { display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px; }
+.v10-eow-row > div:first-child { flex: 1 1 auto; min-width: 0; }
+.v10-eow-row > .v9-stat { flex: 0 0 200px; width: 200px; }
+/* Під таблицею стояли дві лінії поспіль: межа останнього рядка і межа
+   самої таблиці. Лишаємо одну (Pavlo, 4 Sep). */
+/* Під останнім рядком таблиці лінії не треба. Селектор на останній елемент
+   не спрацьовував, тому міняємо логіку: межу малює не низ рядка, а верх
+   наступного. Тоді після останнього її просто нема (Pavlo, 4 Sep). */
+.v9-omb-row { border-bottom: 0 !important; }
+.v9-omb-row + .v9-omb-row { border-top: 1px solid var(--line) !important; }
+.v9-omb { border-bottom: 0 !important; }
+/* ===== ECHO OF THE WEEK ПО СІТЦІ РОЗДІЛУ ВИЩЕ (Pavlo, 4 Sep) =============
+   Блок жив у власній пропорції: текст 66..966, панель 1014..1214. Розділ
+   LATEST над ним іде 80..721 і 739..1200. Ставимо ту саму сітку і той самий
+   відступ, тому обидва розділи читаються як один потік. */
+.v10-week { padding-left: 14px !important; padding-right: 14px !important; }
+/* Пропорції блоку лишаються власними: панель зі статистикою вузька, 200 px,
+   притиснута до правого краю колонки. Вирівнювання стосується тільки країв
+   розділу, не ширини панелі (Pavlo, 4 Sep). */
+.v10-eow-row { display: flex !important; justify-content: space-between !important;
+  align-items: flex-start !important; gap: 48px !important;
+  padding-left: 0 !important; padding-right: 0 !important; }
+.v10-eow-row > div:first-child { flex: 1 1 auto; min-width: 0; }
+.v10-eow-row > .v9-stat { flex: 0 0 200px !important; width: 200px !important;
+  margin: 0 !important; }
+/* Таблиця Open markets на тій самій колонці, що LATEST і Echo of the week:
+   вміст 80..1200 (Pavlo, 4 Sep). */
+.v9-omb { padding-left: 14px !important; padding-right: 14px !important; }
+/* Підвал на тій самій колонці, що решта розділів: вміст 80..1200
+   (Pavlo, 4 Sep). */
+.footer-full { padding-left: 14px !important; padding-right: 14px !important; }
+/* Зазор між лідом і питанням ринку ще на два пункти менший: 12 читалось як
+   розрив, лишаємо 6 (Pavlo, 4 Sep). */
+.v10-lead-main .v10-lead-lede { margin-bottom: 6px !important; }
+/* Між блоком Echo of the week і таблицею стояли дві межі в одній точці:
+   низ одного блоку і верх іншого. Лишаємо одну (Pavlo, 4 Sep). */
+.v9-omb { border-top: 0 !important; }
+/* Кікер ECHO OF THE WEEK стояв упритул до заголовка, нуль пікселів. Даємо той
+   самий ритм, що в рядах LATEST: 10 під кікером (Pavlo, 4 Sep). */
+.v10-week .v9-eow-head { margin-bottom: 10px !important; }
+}
+
+/* У бібліотеці межа рядка чисел і межа самої шапки розділу малювались на
+   одній висоті і давали подвійну лінію. Лишаємо ту, що належить шапці
+   (Pavlo, 4 Sep). */
+.v9-cat-meta { border-bottom: 0 !important; }
+/* Без !important: на ринках у телефоні шапка свідомо без межі, лінію малює
+   рядок фільтра. З !important тут виходило дві лінії (Pavlo, 4 Sep). */
+.v9-cat { border-bottom: 1px solid var(--line); }
+
+/* ===== ОДИН СТИЛЬ ТЕКСТУ У ФІЧ-БЛОЦІ НА ТЕЛЕФОНІ (Pavlo, 4 Sep) ==========
+   Було три різні набори: лід 16.5 звичайним і приглушеним, речення патерну
+   16.5 чорнилом, питання ринку 17 напівжирним. Три ваги на трьох сусідніх
+   абзацах. Зводимо все до ліду. Дріб «4 of 4» не чіпаємо, це показник. */
+@media (max-width: 560px) {
+  .lead-pat .s,
+  .v10-lead-main .v9-meta-line .q {
+    font-family: 'Source Serif 4', serif !important;
+    font-size: 16.5px !important; font-weight: 400 !important;
+    line-height: 23.76px !important; color: var(--body) !important; }
+}
+
+/* ===== ЗАГОЛОВОК ФІЧ-БЛОКУ = ЗАГОЛОВОК ECHO НА ТЕЛЕФОНІ (Pavlo, 4 Sep) ====
+   Зміряно: до 560 px обидва дають 32/505, а в діапазоні 561..860 лендинг
+   падав до 23-28 px, тоді як Echo тримає 38. Через це на планшеті головна
+   виглядала дрібнішою за статтю. Тримаємо мобільний розмір Echo до 860. */
+@media (max-width: 860px) {
+  .v10-lead-h, .v10-lead-h a { font-size: 32px !important; font-weight: 505 !important;
+    line-height: 36.16px !important; letter-spacing: -0.384px !important; }
+}
+
+/* ===== МОБІЛЬНА КОЛОНКА 16..377 НА ГОЛОВНІЙ (Pavlo, 4 Sep) ================
+   Зміряно: на телефоні лендинг давав колонку 30..363, а канон і сторінка Echo
+   дають 16..377. Через це заголовок на головній ламався на рядок раніше і
+   виглядав більшим. Прибираємо подвійний відступ: сторінка 16, секції 0. */
+@media (max-width: 560px) {
+  .page { padding-left: 16px !important; padding-right: 16px !important; }
+  .v10-lead, .v10-latest, .v10-week, .v9-sec, .v9-omb, .v10-eow-row,
+  .v10-latest-row, .v9-sec-inner, .v9-omb-head, .v9-omb-cols, .v9-omb-row,
+  .footer-full { padding-left: 0 !important; padding-right: 0 !important; }
+}
+
+/* ===== МОБІЛЬНИЙ ПРОХІД (Pavlo, 4 Sep, вечір) ============================
+   1. Echo of the week на телефоні: панель 200 px стояла праворуч і тиснула
+      заголовок з лідом у колонку на 40%. На телефоні панель іде під текст,
+      обоє на всю колонку 16..377. Веб не зачеплений.
+   2. Базова ставка на сторінці Echo: бежеве тло і золота смуга 3 px блоку
+      малювались поверх мобільного макета, де риску вже дає текст. Виходила
+      подвійна золота лінія і коробка на всю ширину. На телефоні лишається
+      тільки дріб, одна риска 1.5 px і текст, як у фіч-блоці.
+   3. Дріб і золота риска патерну не сходились із текстом: риска починалась
+      вище першого рядка, дріб сидів на іншій висоті. Падінг знято, висота
+      рядка дробу дорівнює висоті рядка тексту, тому риска починається з
+      першого рядка і базові лінії збігаються. Речення патерну в категоріях
+      отримує той самий стиль, що на головній (16.5/400/23.76), бо це один
+      фіч-блок. */
+@media (max-width: 560px) {
+  .v10-eow-row { display: block !important; }
+  .v10-eow-row > div:first-child { width: 100%; }
+  .v10-eow-row > .v9-stat { width: 100% !important; flex: none !important;
+    margin: 14px 0 0 !important; box-sizing: border-box; }
+
+  .base { background: none !important; border-left: 0 !important; }
+
+  .lead-pat, .mb-pat, .base { align-items: flex-start !important; }
+  .lead-pat .s, .mb-pat .s { padding-top: 0 !important; padding-bottom: 0 !important;
+    font-family: 'Source Serif 4', serif !important;
+    font-size: 16.5px !important; font-weight: 400 !important;
+    line-height: 23.76px !important; color: var(--body) !important; }
+  .lead-pat .n, .mb-pat .n { line-height: 23.76px !important; }
+  .base .btxt { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .base .stat { line-height: 24.75px !important; }
+}
+
+/* ===== OPEN MARKETS У КАТЕГОРІЯХ = ЯК НА ГОЛОВНІЙ (Pavlo, 4 Sep, вечір) ====
+   Головна має мобільний рядок таблиці: категорія і «Resolves дата» одним
+   рядком, питання 17/600, речення Echo прямим накресленням без стрілки,
+   показники дрібно внизу. Категорії тягнуть канон, а в каноні цих правил не
+   було, тому там лишався старий стовпчик: курсив, гола дата, великі числа.
+   Переносимо рядок один в один. Плюс низ таблиці: межа останнього рядка і
+   межа самої таблиці давали дві лінії перед підвалом, лишається одна. */
+@media (max-width: 560px) {
+  .v9-omb-row { grid-template-columns: 1fr auto !important; column-gap: 12px;
+    row-gap: 7px; align-items: baseline; padding: 15px 0; }
+  .v9-omb-cat { grid-column: 1; grid-row: 1; }
+  .v9-omb-date { grid-column: 2; grid-row: 1; text-align: right; font-size: 10px;
+    font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; }
+  .v9-omb-date::before { content: "Resolves "; }
+  .v9-omb-q { grid-column: 1 / -1; grid-row: 2; font-size: 17px; font-weight: 600;
+    line-height: 1.3; }
+  .v9-omb-echo { font-style: normal; font-weight: 400; font-size: 13.5px;
+    line-height: 1.44; margin-top: 7px; }
+  .v9-omb-echo .ec { display: none; }
+  .v9-omb-sig { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start;
+    font-size: 11px; }
+  .v9-omb-sig b { font-size: 11.5px !important; }
+  .v9-omb-row { border-bottom: 0 !important; }
+  .v9-omb-row + .v9-omb-row { border-top: 1px solid var(--line) !important; }
+  .v9-omb { border-bottom: 0 !important; }
+}
+@media (hover: none) {
+  .v9-omb-row:hover .v9-omb-q { text-decoration: none; }
+}

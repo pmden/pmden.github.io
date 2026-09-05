@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunch — This week (Dark)</title>
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-light.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hunch-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hunch-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HUNCH v9 clean — 24 Aug 2026
+   One green (#216945) · one gold (#7A5210) · one page background
+   Serif = all editorial text · Inter = micro-labels only
+   One spacing unit: --s
+   ============================================================ */
+:root{
+  --bg:#0E0F11;      /* the only page background */
+  --panel:#1B1D21;   /* approved Echo pattern panel */
+    /* approved Echo-of-the-week stat panel */
+  --ink:#F2F2EF;
+  --body:#DEDED9;
+  --mut:#7C7E7A;
+  --line:#2A2C30;    /* the only hairline */
+  --acc:#5E9C7B;     /* the only green */
+  --gold:#D4A03A;    /* kickers + year numbers only */
+  --s:24px;          /* the only vertical rhythm unit */
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html,body{ overflow-x:clip; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--bg); color: var(--ink); }
+.page { max-width: 1188px; margin: 0 auto; padding: 0 20px; }
+
+/* BUTTONS */
+.btn-primary { background: var(--acc); border: 1px solid var(--acc); color:#F2F2EF; text-decoration: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; transition: background 0.15s; display: inline-block; white-space: nowrap; }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+.menu-btn { width: 34px; height: 34px; border-radius: 6px; background: transparent; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--body); transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.menu-btn:hover { color: var(--ink); border-color: var(--ink); }
+.search-btn { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; display: inline-flex; align-items: center; justify-content: center; color: var(--mut); cursor: pointer; transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.search-btn:hover { color: var(--ink); }
+
+/* MASTHEAD — row1 = search+date | brand centre | sign in+menu; row2 = topics */
+.row1 { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 14px; border-bottom: 1px solid var(--line); gap: 16px; position: sticky; top: 0; z-index: 30; background: var(--bg); }
+.row1 .left { display: flex; align-items: center; gap: 10px; }
+.row1 .date { font-size: 11px; color: var(--mut); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+.row1 .brand { font-family: 'Source Serif 4', serif; font-size: 38px; font-weight: 347; color: var(--ink); line-height: 1; letter-spacing: -0.025em; text-align: center; }
+.row1 .right { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+
+.row2 { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; position: sticky; top: var(--row1h,75px); z-index: 29; background: var(--bg); flex-wrap: wrap; gap: 10px; }
+.row2 .topics { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding-left: 14px; }
+.row2 .topics .sep { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+.row2 a { text-decoration: none; color: var(--mut); padding: 4px 0; transition: color 0.15s; white-space: nowrap; }
+.row2 a:hover { color: var(--ink); }
+.row2 a.premium { color: var(--gold); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 4px; transition: all 0.15s; }
+.row2 a.premium:hover { background: rgba(122,82,16,0.12); }
+.premium-mark { vertical-align: middle; border-radius: 3px; }
+.row2 .topics a.on, .row2 .topics a.active { color: var(--acc); font-weight: 500; padding-bottom: 4px; position: relative; }
+.row2 .topics a.on::after, .row2 .topics a.active::after { content:''; position:absolute; left:0; right:0; bottom:0; height:3px; background: var(--acc); border-radius:2px 2px 0 0; }
+@media (min-width:861px) { .row2 .topics a.on::after, .row2 .topics a.active::after { bottom:-15px; } }
+@media (max-width:560px) { .row1, .row2 { position: static; } }
+
+/* Search overlay */
+.row2 .search-overlay { position: absolute; inset: 6px 0; display: none; align-items: center; gap: 10px; background: var(--bg); padding: 0 4px; }
+.row2.search-mode .topics, .row2.search-mode .views { visibility: hidden; }
+.row2.search-mode .search-overlay { display: flex; }
+.nav-search-input { flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); outline: none; transition: border-color 0.15s; }
+.nav-search-input:focus { border-color: var(--acc); }
+.nav-search-close { width: 32px; height: 32px; border-radius: 50%; background: transparent; border: none; cursor: pointer; color: var(--mut); font-size: 20px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: all 0.15s; }
+.nav-search-close:hover { color: var(--ink); }
+
+/* MEGA MENU */
+.nav-mm { margin-left: auto; position: static; padding-right: 14px; }
+.nav-mm > a { display:inline-flex; align-items:center; gap:6px; font-weight:500; white-space:nowrap; }
+.nav-mm .chev { width:9px; height:9px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg) translateY(-2px); }
+.mm-panel { display:none; position:absolute; left:0; right:0; top:calc(100% + 1px); width:auto; background: var(--bg); border:1px solid var(--line); border-radius:0; padding:26px 30px; z-index:60; box-shadow:0 18px 44px rgba(31,36,31,0.14); grid-template-columns:repeat(4, 1fr); gap:26px; }
+.mm-panel.open { display:grid; }
+.mm-h { font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color: var(--gold); font-weight:600; margin-bottom:10px; }
+.mm-col a { display:block; font-size:13.5px; color: var(--body); text-decoration:none; padding:5px 0; }
+.mm-col a:hover { color: var(--ink); }
+.mm-foot { grid-column:1/-1; border-top:1px solid var(--line); padding-top:14px; margin-top:4px; font-size:12.5px; color: var(--body); }
+.mm-foot a { color: var(--body); text-decoration:none; padding:3px 10px; border:1px solid var(--line); border-radius:0; margin-left:6px; }
+.mm-foot a.on { color: var(--ink); border-color: var(--gold); font-weight:600; }
+@media (min-width: 861px) { .nav-mm { display:none !important; } }
+@media (max-width: 860px) { .nav-mm { display:none; } }
+
+/* HAMBURGER PANEL (off-canvas right) */
+.menu-backdrop { position: fixed; inset: 0; background: rgba(17,17,17,0.4); backdrop-filter: blur(3px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.menu-backdrop.open { opacity: 1; pointer-events: auto; }
+.menu-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: var(--bg); border-left: 1px solid var(--line); box-shadow: -16px 0 40px rgba(0,0,0,0.1); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px; }
+.menu-backdrop.open + .menu-panel, .menu-panel.open { transform: translateX(0); }
+.menu-panel-hdr { display: flex; justify-content: flex-start; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 18px; position: relative; }
+.menu-brand { font-family:'Source Serif 4',serif; font-size:24px; font-weight:360; color: var(--ink); line-height:1; letter-spacing:-0.025em; text-decoration:none; }
+.menu-panel-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--mut); line-height: 1; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.15s; position: absolute; right: 0; top: 12px; transform: translateY(-50%); }
+.menu-panel-close:hover { color: var(--ink); }
+.menu-section { margin-bottom: 22px; }
+.menu-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: 8px; }
+.menu-section ul { list-style: none; padding: 0; }
+.menu-section li { margin-bottom: 2px; }
+.menu-section a { display: block; padding: 8px 0; text-decoration: none; color: var(--ink); font-size: 14px; transition: color 0.15s; }
+.menu-section a:hover { color: var(--acc); }
+.menu-section a.premium { color: var(--gold); font-weight: 500; }
+.menu-section a.premium::before { content: '◆'; font-size: 9px; margin-right: 6px; }
+.menu-foot { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11px; color: var(--mut); }
+.theme-toggle { display: flex; gap: 0; margin-top: 20px; padding: 3px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; width: fit-content; }
+.theme-toggle .opt { font-size: 10px; padding: 6px 14px; border-radius: 999px; text-decoration: none; color: var(--mut); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: all 0.15s; }
+.theme-toggle .opt:hover { color: var(--ink); }
+.theme-toggle .opt.active { background: var(--line); color: var(--ink); }
+
+/* ============================================================
+   EDITORIAL BODY — serif by default
+   ============================================================ */
+.v10 { font-family: 'Source Serif 4', serif; }
+.v10 a { color: inherit; text-decoration: none; }
+.v10-lead-h a:hover, .v9-ch a:hover, .v10-latest-h a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+/* --- the ONLY Inter inside the editorial body: micro-labels --- */
+.v10-kicker, .v9-sig, .v9-sh, .v9-rail-k, .v9-meta-line,
+.v10-latest-kicker, .v10-latest-meta, .v10-frame-label,
+.v10-latest-head .more, .v9-eow-head .more, .v9-stat-cap, details.v10-pat summary { font-family: 'Inter', sans-serif; }
+
+.v10-kicker { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.v9-sig { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; color: var(--acc); }
+.v9-meta { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.v9-meta-line { font-size: 11px; color: var(--mut); letter-spacing: 0.02em; }
+.v9-sh { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: var(--s); }
+
+/* 1 · FEATURED — hairlines only, no fill */
+.v10-lead { display: flex; align-items: stretch; gap: calc(var(--s)*1.5); padding: var(--s) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); }
+.v10-lead-main { width: 58%; padding-right: 0; display: flex; flex-direction: column; }
+.v10-lead-side { width: 42%; padding: 18px 20px; margin-top: 0; background: var(--panel); border-left: 0; border-radius: 0; }
+.v10-lead-h { font-family: 'Source Serif 4', serif; font-size: 38px; font-weight: 630; line-height: 1.2; color: var(--ink); margin: 8px 0 12px; }
+.v10-lead-lede { font-family: 'Source Serif 4', serif; font-size: 17px; color: var(--body); line-height: 1.55; margin-bottom: 12px; }
+.v10-readmore { display: inline-block; margin-top: 6px; font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+.v10-readmore:hover { color: var(--acc); border-bottom-color: var(--acc); }
+
+.v9-rail-k { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: 10px; }
+.v9-rail-sum { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--gold); margin-bottom: 14px; }
+.v9-yr { display: flex; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); font-family: 'Source Serif 4', serif; font-size: 14px; line-height: 1.45; }
+.v9-yr .y { color: var(--gold); font-weight: 600; flex: 0 0 44px; }
+.v9-yr .t { color: var(--body); }
+
+/* 2 · GRID OF 9 — one card pattern, no boxes */
+.v9-sec { padding: calc(var(--s)*1.5) 14px 0; }
+.v9-sec + .v9-sec { padding-top: calc(var(--s)*1.5); }
+.v9-sec-inner { border-top: 1px solid var(--line); padding-top: 14px; }
+.v9-sec:first-of-type .v9-sec-inner { border-top: none; padding-top: 0; }
+.v9-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--s)*1.25); }
+.v9-ch { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 630; line-height: 1.25; color: var(--ink); margin-bottom: 7px; }
+.v9-ce { font-family: 'Source Serif 4', serif; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+
+/* 3 · LATEST — signature two-column rows with the Echo pattern frame */
+.v10-latest { padding: calc(var(--s)*1.5) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); margin-top: calc(var(--s)*1.5); }
+.v10-latest-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.v10-latest-head .more, .v9-eow-head .more { font-size: 12px; font-weight: 400; color: var(--mut); text-decoration: none; }
+.v10-latest-head .more:hover, .v9-eow-head .more:hover { color: var(--acc); }
+.v10-latest-row { display: grid; grid-template-columns: 62% 34%; justify-content: space-between; padding: var(--s) 0; }
+.v10-latest-row + .v10-latest-row { border-top: 1px solid var(--line); }
+.v10-latest-kicker { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.v10-latest-h { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 630; line-height: 1.25; color: var(--ink); margin-bottom: 6px; }
+.v10-latest-sum { font-family: 'Source Serif 4', serif; font-size: 14.5px; font-weight: 400; color: var(--body); line-height: 1.5; margin-bottom: 8px; }
+.v10-latest-meta { font-size: 11px; color: var(--mut); }
+
+/* the approved Echo pattern mini-frame — keeps its tinted panel */
+.v10-mini-frame { background: var(--panel); border: 0; border-radius: 0; padding: 14px 16px; align-self: start; }
+.v10-frame-label { font-size: 9px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.v10-mini-case { display: flex; gap: 12px; position: relative; padding-left: 18px; }
+.v10-mini-case::before { content:''; position:absolute; left:0; top:6px; width:5px; height:5px; border-radius:50%; background:transparent; border:1.5px solid var(--acc); z-index:1; }
+.v10-tl .v10-mini-case:first-of-type::before { background: var(--acc); }
+.v10-tl { position: relative; }
+.v10-tl::before { content:''; position:absolute; left:2px; top:11px; bottom:9px; width:1px; background: var(--line); }
+.v10-mini-frame.v10-tl::before { left:18px; top:52px; bottom:14px; }
+.v10-mini-case + .v10-mini-case { margin-top: 7px; }
+.v10-mini-case .yr { font-family:'Source Serif 4',serif; font-size:12px; font-weight:600; color: var(--gold); line-height:1.5; flex-shrink:0; width:34px; }
+.v10-mini-case .tx { font-family:'Source Serif 4',serif; font-size:12px; font-weight:400; color: var(--ink); line-height:1.5; }
+
+/* 4 · ECHO OF THE WEEK — keeps its stat panel */
+.v10-week { padding: calc(var(--s)*1.5) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); }
+.v10-week .v10-kicker { display: block; }
+.v9-eow-head { display: flex; justify-content: space-between; align-items: baseline; }
+.v9-eow-h { font-family:'Source Serif 4',serif; font-size: 26px; font-weight: 630; line-height: 1.25; margin-bottom: 10px; color: var(--ink); }
+.v9-eow-p { font-family:'Source Serif 4',serif; font-size: 15px; color: var(--body); line-height: 1.55; max-width: 560px; margin-bottom: 14px; }
+/* панель числа тримає той самий фон, що й решта панелей сторінки:--panel.
+   Токен --panel2 (#141619) жив тут одним-єдиним вживанням на весь лендінг і
+   світився світлішою плямою за тло. Рамку зняв, бо заливка вже відділяє блок,
+   так само як у .v10-mini-frame і .v10-lead-side (Pavlo, 29 Aug). */
+.v9-stat { flex-shrink: 0; width: 200px; border: 0; border-radius:0; background: var(--panel); text-align: center; padding: 26px 16px; }
+.v9-stat-n { font-family:'Source Serif 4',serif; font-size: 52px; font-weight: 300; color: var(--acc); line-height: 1; }
+.v9-stat-cap { font-size: 12px; color: var(--mut); margin-top: 8px; }
+
+/* COMPREHENSIVE FOOTER */
+.footer-full { padding: calc(var(--s)*2) 0 var(--s); border-top: 1px solid var(--line); margin-top: calc(var(--s)*1.5); }
+.footer-brand-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: calc(var(--s)*1.5); }
+.footer-brand .name { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 440; color: var(--ink); }
+.footer-brand .tagline { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 12px; color: var(--mut); margin-top: 4px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--ink); transition: all 0.15s; }
+.footer-social a:hover { border-color: var(--ink); color: var(--ink); }
+.footer-social a[aria-disabled="true"] { opacity: .45; cursor: default; }
+.footer-social a[aria-disabled="true"]:hover { border-color: var(--line); color: var(--mut); }
+.footer-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s); margin-bottom: calc(var(--s)*1.5); }
+.footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 8px; font-size: 13px; }
+.footer-col ul li a { color: var(--mut); text-decoration: none; transition: color 0.15s; }
+.footer-col ul li a:hover { color: var(--acc); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); font-size: 11px; color: var(--mut); flex-wrap: wrap; gap: 12px; }
+.footer-bottom .small-links { display: flex; gap: 16px; }
+.footer-bottom .small-links a { color: var(--mut); text-decoration: none; }
+.footer-bottom .small-links a:hover { color: var(--ink); }
+.footer-region { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; color: var(--body); }
+.footer-license { font-size: 10px; color: var(--mut); max-width: 580px; margin: 16px 0 0; line-height: 1.5; }
+
+/* mobile-only DOM additions stay invisible on desktop */
+.m-tabbar, .menu-msearch, .menu-msub { display: none; }
+@media (min-width:561px) {
+  details.v10-pat { display: block; align-self: start; }
+  details.v10-pat summary { display: none; }
+}
+
+/* ---------- 860px: three columns become two ---------- */
+@media (max-width:860px) {
+  
+  .v10-lead { flex-direction: column; gap: var(--s); }
+  .v10-lead-main { width: 100%; padding: 0; }
+  .v10-lead-side { width: 100%; border-left: none; }
+  .v10-lead-side { margin-top: 0; padding: 18px 20px; border-top: 0; }
+  .v9-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Ліва колонка ряду LATEST починалась на 11 px вище за панель праворуч, бо
+     панель має власний внутрішній відступ 14 px, а колонка ніякого. Плюс
+     підпис панелі був 9 px проти кікера 10. Зрівнюємо: колонка дістає такий
+     самий вертикальний відступ, підписи однакового кегля (Pavlo, 4 Sep). */
+  /* текст лівої колонки впирався в роздільну волосінь: sig закінчувався
+     рівно на краю колонки. Даємо 20 px повітря до лінії (Pavlo, 4 Sep) */
+  .v10-latest-row > div:first-child { padding: 11px 20px 14px 0 !important; }
+  .v10-frame-label { font-size: 10px !important; }
+
+  /* Показники Pattern → Market у рядах LATEST стояли вгорі праворуч, а в
+     картках сітки вони внизу праворуч. Зводимо до карток: рядок кікера
+     розкладаємо через display:contents і кидаємо показники в підвал колонки
+     (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { display: flex !important; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents !important; }
+  .v10-latest-row .v10-latest-kicker { order: 0; }
+  .v10-latest-row .v10-latest-h { order: 1; }
+  .v10-latest-row .v10-latest-sum { order: 2; }
+  .v10-latest-row .v10-latest-meta { order: 3; }
+  .v10-latest-row .v9-sig { order: 9; margin-top: auto !important;
+    align-self: flex-end; padding-top: 14px; }
+
+  /* Повітря в лівій колонці: після display:contents елементи втратили власні
+     відступи і злиплись у суцільний стовпчик. Ставимо ритм 8 / 10 / 12.
+     І «resolves» пишеться з великої, як усі підписи на сайті (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-kicker { margin-bottom: 8px !important; }
+  .v10-latest-row .v10-latest-h { margin-bottom: 10px !important; }
+  .v10-latest-row .v10-latest-sum { margin-bottom: 12px !important; }
+  .v10-latest-row .v10-latest-meta { text-transform: capitalize; }
+
+  /* Показники мають стояти на одній лінії з низом панелі Echo. Вони падали
+     нижче, коли лід у лівій колонці довший за панель і робить колонку вищою.
+     Лід обмежуємо трьома рядками: панель має фіксовані чотири роки, тому
+     колонка тепер завжди не вища за неї, і підвал сідає рівно по низу
+     картки (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-sum { display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Рядок резолюції і показники стоять на ОДНІЙ лінії внизу колонки: дата
+     ліворуч, Pattern → Market праворуч. Показники позиціонуються абсолютно,
+     тому вони більше не залежать від того, наскільки довгий лід, і завжди
+     сідають по низу картки Echo (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { position: relative; }
+  .v10-latest-row .v10-latest-meta { margin-top: auto !important;
+    margin-bottom: 0 !important; }
+  .v10-latest-row .v9-sig { position: absolute !important; right: 20px; bottom: 14px;
+    margin: 0 !important; padding: 0 !important; }
+
+  /* Панель Echo була нижча за ліву колонку, коли роки вкладаються в один
+     рядок, і симетрія ламалась. Тепер панель тягнеться на всю висоту ряду, а
+     зайва висота розходиться повітрям МІЖ рядками років, а не порожнечею
+     внизу (Pavlo, 4 Sep). */
+  /* панель має заповнювати колонку, а не стискатись під найдовший рядок:
+     інакше кожна картка Echo різної ширини (Pavlo, 4 Sep) */
+
+
+  .v10-latest-row .v10-mini-frame { flex: 1 1 auto; display: flex;
+    flex-direction: column; justify-content: space-between; }
+  .v10-latest-row .v10-mini-case { padding-top: 2px; padding-bottom: 2px; }
+  /* Flex тут давав різну ширину панелей від ряду до ряду, тому обгортку і саму
+     панель тримаємо блоками: блок за замовчуванням займає всю ширину колонки,
+     і всі картки Echo стають однакові (Pavlo, 4 Sep). */
+  .v10-latest-row > details, .v10-latest-row > .v10-pat { display: block !important;
+    width: 100%; min-width: 0; }
+  .v10-latest-row .v10-mini-frame { display: block !important; width: auto !important;
+    box-sizing: border-box; }
+
+  
+    .v10-latest-row { grid-template-columns: 1fr; gap: 16px; }
+  .v9-stat { width: 100%; margin-top: 16px; }
+}
+
+/* ---------- 560px: one column ---------- */
+@media (max-width:560px) {
+  .page { padding: 0 16px !important; }
+  body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
+  :root { --s: 20px; }
+
+  /* header: burger left · wordmark centre · sign in right */
+  .row1 { display:flex !important; align-items:center !important; padding:10px 0 !important; gap:12px !important; position:relative !important; }
+  .row1 .left { display:none !important; }
+  .row1 .right { display:contents !important; gap:14px !important; }
+  .row1 .menu-btn { order:-1 !important; margin-right:auto !important; width:28px !important; height:28px !important; border:none !important; background:transparent !important; }
+  .row1 .menu-btn svg { width:20px; height:20px; }
+  .row1 .brand { order:0 !important; margin:0 !important; position:absolute; left:50%; transform:translateX(-50%); font-size:24px !important; font-weight:347 !important; }
+  .row1 .btn-primary { order:1 !important; margin-left:auto !important; background:transparent !important; border:none !important; color: var(--ink) !important; padding:0 !important; border-radius:0 !important; font-size:15px !important; font-weight:400 !important; }
+
+  /* topics: one scrollable line */
+  .row2 { padding:12px 0 !important; font-size:15px !important; flex-wrap:nowrap !important; }
+  .row2 .topics { flex-wrap:nowrap !important; overflow-x:auto !important; padding-left:0 !important; gap:16px !important; white-space:nowrap; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .row2 .topics::-webkit-scrollbar { display:none; }
+  .row2 a { font-size:15px !important; }
+  .row2 .topics a.premium { display:none !important; }
+  .nav-mm { display:none !important; }
+
+  /* burger drawer extras */
+  .menu-msearch { display:block; margin:0 0 12px; }
+  .menu-msearch input { width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid var(--line); background: var(--bg); color: var(--ink); outline:none; }
+  .menu-msub { display:block; font-size:13px; font-weight:500; color: var(--gold); text-decoration:none; padding:6px 0 12px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+
+  /* bottom tab bar */
+  .m-tabbar { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:900; height:calc(52px + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom); background: var(--bg); border-top:1px solid var(--line); }
+  .m-tabbar a { flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color: var(--mut); font-weight:400; }
+  .m-tabbar a span { border-top:2px solid transparent; padding-top:4px; }
+  .m-tabbar a.active { color: var(--ink); font-weight:500; }
+  .m-tabbar a.active span { border-top-color: var(--acc); }
+
+  /* sections: 16px edge from .page only */
+  .v10-lead, .v10-latest, .v10-week, .v9-sec { padding-left:0 !important; padding-right:0 !important; }
+  .v10-lead { padding-top: var(--s) !important; padding-bottom: calc(var(--s)*1.25) !important; }
+  .v10-lead-side { margin-top: var(--s) !important; padding-top: var(--s) !important; }
+  .v9-grid { grid-template-columns: 1fr; gap: var(--s); }
+
+  /* type scale */
+  .v10-kicker, .v10-latest-kicker, .v9-sig { font-size:11px !important; }
+  .v10-lead-h { font-size:30px !important; line-height:1.18 !important; margin:10px 0 12px !important; }
+  .v10-lead-lede { font-size:17px !important; line-height:1.55 !important; }
+  .v9-ch { font-size:20px !important; line-height:1.3 !important; }
+  .v9-ce { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-h { font-size:20px !important; line-height:1.3 !important; }
+  .v10-latest-sum { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-meta, .v9-meta-line { font-size:13px !important; }
+  .v10-readmore { font-size:15px !important; }
+  .v10-latest-head .more { font-size:14px !important; }
+  .v9-rail-sum { font-size:16px !important; }
+  .v9-yr { font-size:15px !important; }
+  .v9-eow-h { font-size:22px !important; }
+  .v9-eow-p { font-size:15px !important; }
+
+  /* pattern frames collapse into <details> on phones */
+
+  /* Ліва колонка ряду LATEST починалась на 11 px вище за панель праворуч, бо
+     панель має власний внутрішній відступ 14 px, а колонка ніякого. Плюс
+     підпис панелі був 9 px проти кікера 10. Зрівнюємо: колонка дістає такий
+     самий вертикальний відступ, підписи однакового кегля (Pavlo, 4 Sep). */
+  /* текст лівої колонки впирався в роздільну волосінь: sig закінчувався
+     рівно на краю колонки. Даємо 20 px повітря до лінії (Pavlo, 4 Sep) */
+  .v10-latest-row > div:first-child { padding: 11px 20px 14px 0 !important; }
+  .v10-frame-label { font-size: 10px !important; }
+
+  /* Показники Pattern → Market у рядах LATEST стояли вгорі праворуч, а в
+     картках сітки вони внизу праворуч. Зводимо до карток: рядок кікера
+     розкладаємо через display:contents і кидаємо показники в підвал колонки
+     (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { display: flex !important; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents !important; }
+  .v10-latest-row .v10-latest-kicker { order: 0; }
+  .v10-latest-row .v10-latest-h { order: 1; }
+  .v10-latest-row .v10-latest-sum { order: 2; }
+  .v10-latest-row .v10-latest-meta { order: 3; }
+  .v10-latest-row .v9-sig { order: 9; margin-top: auto !important;
+    align-self: flex-end; padding-top: 14px; }
+
+  /* Повітря в лівій колонці: після display:contents елементи втратили власні
+     відступи і злиплись у суцільний стовпчик. Ставимо ритм 8 / 10 / 12.
+     І «resolves» пишеться з великої, як усі підписи на сайті (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-kicker { margin-bottom: 8px !important; }
+  .v10-latest-row .v10-latest-h { margin-bottom: 10px !important; }
+  .v10-latest-row .v10-latest-sum { margin-bottom: 12px !important; }
+  .v10-latest-row .v10-latest-meta { text-transform: capitalize; }
+
+  /* Показники мають стояти на одній лінії з низом панелі Echo. Вони падали
+     нижче, коли лід у лівій колонці довший за панель і робить колонку вищою.
+     Лід обмежуємо трьома рядками: панель має фіксовані чотири роки, тому
+     колонка тепер завжди не вища за неї, і підвал сідає рівно по низу
+     картки (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-sum { display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Рядок резолюції і показники стоять на ОДНІЙ лінії внизу колонки: дата
+     ліворуч, Pattern → Market праворуч. Показники позиціонуються абсолютно,
+     тому вони більше не залежать від того, наскільки довгий лід, і завжди
+     сідають по низу картки Echo (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { position: relative; }
+  .v10-latest-row .v10-latest-meta { margin-top: auto !important;
+    margin-bottom: 0 !important; }
+  .v10-latest-row .v9-sig { position: absolute !important; right: 20px; bottom: 14px;
+    margin: 0 !important; padding: 0 !important; }
+
+  /* Панель Echo була нижча за ліву колонку, коли роки вкладаються в один
+     рядок, і симетрія ламалась. Тепер панель тягнеться на всю висоту ряду, а
+     зайва висота розходиться повітрям МІЖ рядками років, а не порожнечею
+     внизу (Pavlo, 4 Sep). */
+  /* панель має заповнювати колонку, а не стискатись під найдовший рядок:
+     інакше кожна картка Echo різної ширини (Pavlo, 4 Sep) */
+
+
+  .v10-latest-row .v10-mini-frame { flex: 1 1 auto; display: flex;
+    flex-direction: column; justify-content: space-between; }
+  .v10-latest-row .v10-mini-case { padding-top: 2px; padding-bottom: 2px; }
+  /* Flex тут давав різну ширину панелей від ряду до ряду, тому обгортку і саму
+     панель тримаємо блоками: блок за замовчуванням займає всю ширину колонки,
+     і всі картки Echo стають однакові (Pavlo, 4 Sep). */
+  .v10-latest-row > details, .v10-latest-row > .v10-pat { display: block !important;
+    width: 100%; min-width: 0; }
+  .v10-latest-row .v10-mini-frame { display: block !important; width: auto !important;
+    box-sizing: border-box; }
+  .v10-latest-row { grid-template-columns:1fr !important; gap:10px !important; padding: var(--s) 0 !important; }
+  details.v10-pat { margin-top:8px; }
+  details.v10-pat summary { list-style:none; cursor:pointer; font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color: var(--gold); }
+  details.v10-pat summary::-webkit-details-marker { display:none; }
+  details.v10-pat summary::after { content:'\25BE'; display:inline-block; margin-left:6px; font-size:9px; transition:transform .15s; }
+  details.v10-pat[open] summary::after { transform:rotate(180deg); }
+  details.v10-pat .v10-mini-frame { margin-top:10px; }
+  .v10-mini-case .yr, .v10-mini-case .tx { font-size:15px !important; line-height:1.5 !important; }
+  .v10-mini-case .tx { display:block; }
+
+  /* footer */
+  .footer-full { padding: var(--s) 0 16px !important; margin-top: var(--s) !important; }
+  .footer-brand-row { margin-bottom: var(--s) !important; }
+  .footer-brand .name { font-size:22px !important; }
+  .footer-cols { grid-template-columns:1fr 1fr !important; gap: var(--s) !important; margin-bottom: var(--s) !important; }
+  .footer-col h4 { font-size:10px !important; }
+  .footer-col ul li { font-size:13px !important; }
+  .footer-bottom { font-size:12px !important; }
+  .footer-license { font-size:12px !important; }
+}
+.v10-kicker a,.v10-latest-kicker a{color:inherit;text-decoration:none}.v10-kicker a:hover,.v10-latest-kicker a:hover{text-decoration:underline;text-underline-offset:3px}
+</style>
+<style>
+/* v8 chrome restore — masthead, drawer, footer (point 5) */
+.btn-primary:hover{background:#A8D0B8;}
+.menu-btn{width: 34px; height: 34px; border-radius: 6px; background: transparent; border:1px solid #2A2C30; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color:#DEDED9; transition: all 0.15s; padding: 0; flex-shrink: 0;}
+.menu-btn:hover{background:#141619; color:#F2F2EF; border-color:#F2F2EF;}
+.search-btn:hover{background:#141619; color:#F2F2EF;}
+.row2{display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom:1px solid #2A2C30; font-size: 15px; position: relative; flex-wrap: wrap; gap: 10px;}
+.row2 .topics .sep{width: 1px; height: 18px; background:#2A2C30; margin: 0 4px;}
+.row2 a.premium:hover{color:#D4A03A; background: rgba(176,126,30,0.15);}
+.row2 a.premium:hover .premium-mark rect{fill: rgba(176,126,30,0.35);}
+.nav-search-input{flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit; border:1px solid #2A2C30; border-radius: 5px; background:#141619; outline: none; transition: border-color 0.15s;}
+.nav-search-input:focus{border-color:#5E9C7B; box-shadow: 0 0 0 3px rgba(26,92,58,0.08);}
+.menu-panel{position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background:#141619; box-shadow: -16px 0 40px rgba(0,0,0,0.1); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px;}
+.menu-panel-hdr{display: flex; justify-content: flex-end; align-items: center; padding-bottom: 14px; border-bottom:1px solid #2A2C30; margin-bottom: 18px;}
+.menu-panel-title{font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 400;}
+.menu-panel-close:hover{background:#141619; color:#F2F2EF;}
+.menu-foot{margin-top: auto; padding-top: 18px; border-top:1px solid #2A2C30; font-size: 11px; color:#7C7E7A;}
+.theme-toggle{display: flex; gap: 0; margin-top: 20px; padding: 3px; background:#0E0F11; border:1px solid #2A2C30; border-radius: 999px; width: fit-content;}
+.footer-brand-row{display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px;}
+.footer-social a{width: 32px; height: 32px; border-radius: 50%; border:1px solid #2A2C30; display: flex; align-items: center; justify-content: center; color:#7C7E7A; transition: all 0.15s;}
+.footer-cols{display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; margin-bottom: 36px;}
+.footer-bottom{display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top:1px solid #2A2C30; font-size: 11px; color:#7C7E7A; flex-wrap: wrap; gap: 12px;}
+.footer-region{display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background:#141619; border-radius: 4px; font-size: 11px; color:#DEDED9;}
+.footer-social a{color:#F2F2EF !important;}
+.menu-msub{display:none;}
+@media(min-width: 861px){.row2{position:sticky; top:var(--row1h,75px); z-index:29; background:#0E0F11;}
+.row1, .row2{position:static;}
+.menu-panel-hdr{position:relative; justify-content:flex-start;}
+.menu-brand{font-family:'Source Serif 4',serif; font-size:24px; font-weight:360; color:#F2F2EF;
+  line-height:1; letter-spacing:-0.025em; text-decoration:none;}}
+@media(max-width:560px){.row1{position:relative !important;}
+.menu-msearch input{width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid #2A2C30; background:#0E0F11; color:#F2F2EF; outline:none;}
+.menu-msub{display:block; font-size:13px; font-weight:500; color:#D4A03A; text-decoration:none; padding:6px 0 12px; border-bottom:1px solid #2A2C30; margin-bottom:12px;}
+.m-tabbar a{flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#7C7E7A; font-weight:400;}
+.footer-brand-row{margin-bottom:20px !important;}
+.footer-cols{grid-template-columns:1fr 1fr !important; gap:20px !important; margin-bottom:20px !important;}
+.footer-bottom{font-size:12px !important;}}
+</style>
+<style>
+/* v8 chrome parity — measured overrides (audit 3) */
+.row1{border-bottom-color:#2A2C30 !important;}
+.footer-full{border-top-color:#2A2C30 !important;}
+.menu-panel{border-left:0 !important;}
+.footer-region{border:0 !important;}
+.btn-primary{border-color:#4A7D62 !important;}
+.btn-primary:hover{border-color:#4A7D62 !important;}
+@media (min-width:561px){ .footer-full{margin-top:40px !important;} }
+@media (min-width:861px){
+  .row1{position:sticky !important;top:0 !important;z-index:30 !important;background:#0E0F11 !important;}
+  .row2{position:sticky !important;top:var(--row1h,75px) !important;z-index:29 !important;background:#0E0F11 !important;}
+}
+@media (max-width:860px){
+  .row1{position:static !important;background:transparent !important;z-index:auto !important;top:auto !important;}
+  .row2{position:relative !important;background:transparent !important;z-index:auto !important;top:0 !important;}
+  .menu-panel-hdr{position:static !important;}
+  .menu-panel-close{position:static !important;top:auto !important;right:auto !important;transform:none !important;}
+}
+@media (max-width:560px){
+  .row1{position:relative !important;}
+  .m-tabbar{border-top-color:#2A2C30 !important;}
+}
+</style>
+<style>.v10-lead-main .v10-readmore{margin-top:auto;align-self:flex-start;}</style>
+<style>
+/* signal sits top-right of its card, not beside the kicker */
+.v9-meta{display:flex;align-items:baseline;justify-content:space-between;gap:14px;}
+.v9-meta .v9-sig{margin-left:auto;white-space:nowrap;}</style>
+<style>
+@media (max-width:1199px) and (min-width:901px){.v10-lead-h{font-size:27px !important;}}
+@media (max-width:900px) and (min-width:701px){.v10-lead-h{font-size:24px !important;}}
+</style>
+<style>
+/* featured headline: never more than two lines */
+@media (min-width:1201px){.v10-lead-h{font-size:31px !important;line-height:1.16 !important;}}
+@media (max-width:1200px) and (min-width:901px){.v10-lead-h{font-size:26px !important;line-height:1.16 !important;}}
+@media (max-width:900px) and (min-width:861px){.v10-lead-h{font-size:22px !important;line-height:1.18 !important;}}
+@media (max-width:860px) and (min-width:701px){.v10-lead-h{font-size:28px !important;line-height:1.16 !important;}}
+@media (max-width:700px) and (min-width:561px){.v10-lead-h{font-size:23px !important;line-height:1.18 !important;}}
+@media (max-width:560px) and (min-width:441px){.v10-lead-h{font-size:21px !important;line-height:1.2 !important;}}
+@media (max-width:440px){.v10-lead-h{font-size:18px !important;line-height:1.22 !important;}}
+</style>
+<style>.v9-meta-lead{padding-top:17px;}.v9-meta-lead .v9-rail-k{margin-bottom:0;}</style>
+<style>
+/* lead block, 28 Aug: hairline in the gutter between the story and the pattern card;
+   the card itself is unchanged. Signal sits with the kicker, not flushed right. */
+.v10-lead { gap: calc(var(--s)*0.75); }
+.v10-lead-main { width: auto; flex: 1 1 auto; border-right: 1px solid var(--line); padding-right: calc(var(--s)*1.65); }
+.v10-lead-side { width: 40.7%; flex: 0 0 40.7%; }
+.v9-meta-lead { justify-content: space-between; }
+.v9-meta-lead .v9-sig { margin-left: auto; }
+@media (max-width: 860px) { .v10-lead { gap: var(--s); } .v10-lead-main { width: 100%; flex: 1 1 auto; border-right: 0; padding-right: 0; }
+  .v10-lead-side { width: 100%; flex: 1 1 auto; } }
+</style>
+<style>
+/* signal: what history did, next to what the crowd says (Pavlo, 28 Aug) */
+.v9-sig.sig-two { display: inline-flex; align-items: baseline; gap: 6px; font-family: 'Inter', sans-serif;
+  font-size: 10.5px; font-weight: 500; letter-spacing: 0.02em; color: var(--mut); white-space: nowrap; }
+.v9-sig.sig-two b { font-family: 'Source Serif 4', serif; font-size: 13px; font-weight: 400; }
+.v9-sig.sig-two .t1 b { color: var(--gold); }
+.v9-sig.sig-two .t2 b { color: var(--acc); }
+.v9-sig.sig-two .arw { color: var(--line); }
+</style>
+<style>
+/* open-markets band — ledger rows, signal is history against the crowd */
+.v9-omb { padding: calc(var(--s)*1.3) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.v9-omb-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: calc(var(--s)*0.6); }
+.v9-omb-head .more { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--mut); text-decoration: none; }
+.v9-omb-head .more:hover { color: var(--acc); }
+.v9-omb-cols, .v9-omb-row { display: grid; grid-template-columns: 84px 1fr 78px 190px; gap: 18px; align-items: center; }
+.v9-omb-cols { font-family: 'Inter', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mut); padding-bottom: 9px; border-bottom: 1px solid var(--ink); }
+.v9-omb-row { padding: 13px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.v9-omb-row:hover .v9-omb-q { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.v9-omb-cat { font-family: 'Inter', sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.v9-omb-q { font-family: 'Source Serif 4', serif; font-size: 16px; line-height: 1.3; color: var(--ink); }
+.v9-omb-echo { display: block; font-family: 'Source Serif 4', serif; font-style: italic; font-size: 12px; color: var(--mut); margin-top: 3px; }
+.v9-omb-date { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--mut); }
+.v9-omb-sig { display: inline-flex; align-items: baseline; gap: 6px; font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 500; color: var(--mut); white-space: nowrap; justify-content: flex-end; }
+.v9-omb-sig b { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 400; }
+.v9-omb-sig .t1 b { color: var(--gold); }
+.v9-omb-sig .t2 b { color: var(--acc); }
+.v9-omb-sig .arw { color: var(--line); }
+@media (max-width: 860px) {
+  .v9-omb-cols { display: none; }
+  .v9-omb-row { grid-template-columns: 1fr; gap: 6px; }
+  .v9-omb-sig { justify-content: flex-start; }
+}
+</style>
+<style>
+/* column hairlines: painted in the gutter, boxes keep their size (28 Aug) */
+.v9-grid > article { position: relative; }
+.v9-grid > article + article::before { content: ''; position: absolute; top: 0; bottom: 0;
+  left: calc(var(--s) * -0.625); width: 1px; background: var(--line); }
+@media (max-width: 860px) { .v9-grid > article + article::before { display: none; } }
+</style>
+<style>
+/* signal sits in the bottom-right corner of the card (Pavlo, 28 Aug) */
+.v9-grid > article { display: flex; flex-direction: column; }
+.v9-foot { display: flex; justify-content: flex-end; margin-top: auto; padding-top: 12px; }
+</style>
+<style>
+/* hairline in the gutter of the Latest rows, same as the lead block */
+.v10-latest-row > details.v10-pat { position: relative; }
+.v10-latest-row > details.v10-pat::before { content: ''; position: absolute; top: 0; bottom: 0;
+  left: -22px; width: 1px; background: var(--line); }
+@media (max-width: 860px) { .v10-latest-row > details.v10-pat::before { display: none; } }
+</style>
+<style>
+/* pattern-timeline dots take the year colour, not the market green (28 Aug) */
+.v10-mini-case::before { border-color: var(--gold) !important; }
+.v10-tl .v10-mini-case:first-of-type::before { background: var(--gold) !important; }
+</style>
+<style>
+/* ================= NO SIDEWAYS SCROLL ON MOBILE (Pavlo, 28 Aug) =================
+   Rule: at phone width nothing scrolls sideways. Everything either fits, or is
+   hidden behind a control the reader can see. A strip that slides off the edge
+   with no affordance is neither.
+   The category strip used to hide 159px of itself, 31% of the nav, behind a
+   swipe. At 560px and below it now carries the six categories only: the
+   wordmark already goes home, and Subscribe lives in the drawer.
+   overflow-x:clip on the root stops the closed drawer, parked off-screen to the
+   right, from widening the document. */
+html, body { overflow-x: clip; }
+@media (max-width: 560px) {
+  .row2 .topics { overflow-x: visible !important; flex-wrap: nowrap !important;
+    gap: 10px !important; font-size: 13.5px !important; padding-left: 0 !important; }
+  .row2 .topics .sep { display: none !important; }
+  .row2 .topics a.premium { display: none !important; }
+  .row2 .topics a[href*="layout-v9-clean"] { display: none !important; }
+  .row2 .topics a { padding: 4px 0 !important; }
+}
+</style>
+<style>
+/* ===== phone: a live number strip above the masthead, and a count on the
+   MARKETS tab. Both borrowed straight from the references: FT puts its ticker
+   as the topmost row of the page, Bloomberg puts a row of number cards under
+   the masthead, Kalshi carries a live counter inside the tab bar. On a phone
+   these are the cheapest signals that the thing is alive. (28 Aug) ===== */
+@media (max-width: 560px) {
+  .m-tabbar a .cnt { font-family: 'Source Serif 4', serif; font-size: 11px; color: var(--acc); margin-left: 4px; }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var mk = document.querySelector('.m-tabbar a[href*="markets"]');
+  if (mk && !mk.querySelector('.cnt')) {
+    var c = document.createElement('span'); c.className = 'cnt'; c.textContent = '51';
+    mk.appendChild(c);
+  }
+});
+</script>
+<style>
+/* ===== phone: masthead + category row travel together (Pavlo, 29 Aug) =====
+   Forbes and Fortune both pin the masthead to the top of the phone; Forbes pins
+   the category row under it. The v8-parity audit had switched ours to static at
+   860px and below, so on a phone the brand scrolled away and the reader lost
+   both the way home and the way sideways. Rows now stick again: row1 at 0,
+   row2 directly under it via --row1h, which the loader measures. Backgrounds
+   are opaque so the story does not read through them. Z-order keeps the pair
+   under the bet widget (40/50) and above the page. ===== */
+@media (max-width: 860px) {
+  .row1 { position: sticky !important; top: 0 !important; z-index: 30 !important;
+    background: var(--bg) !important; }
+  .row2 { position: sticky !important; top: var(--row1h, 49px) !important; z-index: 29 !important;
+    background: var(--bg) !important; }
+}
+</style>
+<style>
+/* ================= ФОЛД ФІЧ-ECHO НА ТЕЛЕФОНІ — варіант C (Pavlo, 29 Aug) =========
+   Затверджено на борді `hunch-mobile-fold-board-20260829.html` і допрацьовано в чаті.
+   Порядок першого екрана: рубрика і вік матеріалу в один рядок, заголовок, підтема,
+   золота плашка патерну з дробом і реченням, питання маркету 17px, під ним дрібна
+   пара Pattern | Market, і тільки потім дата резолюції.
+   Механіка: .v9-meta-lead і .v9-meta-line стають display:contents, тож кікер, смуга
+   чисел, питання і резолюція виходять прямими дітьми колонки .v10-lead-main і
+   слухаються order. Тільки телефон, десктоп і планшет не чіпаються. ============= */
+@media (max-width: 560px) {
+  .v10-lead-main { display: flex; flex-direction: column; }
+  .v10-lead-main .v9-meta-lead,
+  .v10-lead-main .v9-meta-line { display: contents; }
+
+  .v10-lead-main .v9-rail-k { order: 1; display: flex; align-items: baseline;
+    justify-content: space-between; gap: 12px; margin-bottom: 9px !important; }
+  .v10-lead-main .v9-rail-k .lead-age { color: var(--mut); font-weight: 600;
+    letter-spacing: 0.11em; }
+
+  .v10-lead-main .v10-lead-h { order: 2; font-size: 32px !important;
+    line-height: 1.13 !important; font-weight: 505 !important;
+    letter-spacing: -0.012em; margin: 0 0 13px !important; }
+
+  .v10-lead-main .v10-lead-lede { order: 3; font-size: 16.5px !important;
+    line-height: 1.44 !important; margin-bottom: 15px !important; }
+
+  /* патерн: дріб зліва, золота вертикальна риска, речення справа. Заливки нема
+     (Pavlo, 29 Aug) */
+  .lead-pat { order: 4; display: flex; align-items: center; gap: 14px;
+    background: none; border: 0; padding: 0; margin-bottom: 16px; }
+  .lead-pat .n { flex: 0 0 auto; font-family: 'Source Serif 4', serif; font-size: 16px;
+    font-weight: 600; color: var(--gold); line-height: 1.2; white-space: nowrap; }
+  .lead-pat .s { flex: 1; font-family: 'Source Serif 4', serif; font-size: 16.5px;
+    line-height: 1.44; color: var(--ink); border-left: 1.5px solid var(--gold);
+    padding: 3px 0 3px 14px; }
+
+  /* питання маркету */
+  .v10-lead-main .v9-meta-line .q { order: 5; display: block;
+    font-family: 'Source Serif 4', serif; font-size: 17px; line-height: 1.3;
+    font-weight: 600; color: var(--ink); margin-bottom: 7px; }
+
+  /* дрібна пара Pattern | Market між питанням і резолюцією */
+  .v10-lead-main .v9-sig, .v10-lead-main .v9-sig.sig-two {
+    order: 6; display: flex !important; align-items: baseline; gap: 6px;
+    width: auto; margin: 0 0 5px !important; white-space: nowrap;
+    font-size: 11px !important; }
+  /* цифри були 13px серифом проти 11px лейблів: на одному рядку це читалось
+     як два різні шрифти. Тепер один оптичний кегль (Pavlo, 29 Aug) */
+  .v9-sig.sig-two b { font-size: 11.5px !important; }
+
+  .v10-lead-main .v9-meta-line .res { order: 7; display: block; font-size: 11px;
+    color: var(--mut); letter-spacing: 0.02em; padding-bottom: 13px;
+    border-bottom: 1px solid var(--line); }
+
+  /* окреме посилання зняте, веде заголовок */
+  .v10-lead-main .v10-readmore { display: none; }
+
+  /* картка THE ECHO знята з телефона: патерн тепер стоїть плашкою у фолді */
+  .v10-lead-side { display: none; }
+
+  /* вік матеріалу у правому верхньому куті картки, пара чисел у лівому нижньому
+     (Pavlo, 29 Aug) */
+  .v9-grid .v9-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  /* межа між статтями в стовпчику: на десктопі колонки розділяє вертикальна
+     лінійка, на телефоні вони стають одна під одною і зливаються (Pavlo, 29 Aug) */
+  .v9-grid > article + article { border-top: 1px solid var(--line); padding-top: var(--s); }
+  .v9-foot { justify-content: flex-start !important; align-items: baseline; }
+  .card-age { font-size: 10px; font-weight: 600; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--mut); white-space: nowrap; }
+}
+/* ================= ЛІД НА ВЕБІ (Pavlo, 29 Aug) ==============================
+   Питання маркету було 11px сірим і зливалося з датою в один рядок через крапку.
+   Тепер воно читається як питання: 17px серифом, напівжирне, кольору тексту, а
+   дата резолюції стоїть окремим рядком під ним. Пара Pattern | Market пішла з
+   правого верхнього кута в лівий нижній: її притискає margin-top:auto, посилання
+   йде одразу під нею. Той самий приймач display:contents, що й на телефоні. === */
+@media (min-width: 561px) {
+  .lead-pat { display: none; }
+  .card-age { display: none; }
+  .v10-lead-main .v9-rail-k .lead-age { display: none; }
+
+  .v10-lead-main .v9-meta-lead { display: contents; }
+  .v10-lead-main .v9-rail-k { order: 1; }
+  .v10-lead-main .v10-lead-h { order: 2; }
+  .v10-lead-main .v10-lead-lede { order: 3; }
+
+  .v10-lead-main .v9-meta-line { order: 4; }
+  .v10-lead-main .v9-meta-line .q { display: block; font-family: 'Source Serif 4', serif;
+    font-size: 17px; line-height: 1.35; font-weight: 600; color: var(--ink);
+    margin-bottom: 6px; }
+  .v10-lead-main .v9-meta-line .res { display: block; font-size: 11.5px;
+    color: var(--mut); letter-spacing: 0.02em; }
+
+  .v10-lead-main .v9-sig, .v10-lead-main .v9-sig.sig-two {
+    order: 5; margin-left: 0 !important; margin-top: auto !important;
+    padding-top: 18px; align-self: flex-start; }
+
+  .v10-lead-main .v10-readmore { order: 6; margin-top: 12px !important; }
+}
+</style>
+<style>
+/* вордмарк у мастхеді на 15% жирніший (Pavlo, 29 Aug): 347 -> 399.
+   Однаково на десктопі і на телефоні, щоб лого лишалось одним знаком. */
+.row1 .brand { font-weight: 399 !important; }
+</style>
+<style>
+/* ========= OPEN MARKETS НА ТЕЛЕФОНІ (Pavlo, 29 Aug) ==========================
+   Блок був десктопною таблицею на чотири колонки, яка на телефоні просто падала
+   в один стовпчик: категорія, питання, курсивний рядок Echo, гола дата і пара
+   чисел — пʼять рядків без ієрархії. Тепер це рядок новини: категорія і дата
+   резолюції одним рядком угорі, питання 17px, рядок Echo прямим накресленням,
+   числа внизу. Курсив і глиф-стрілка зняті, дата підписана словом Resolves,
+   бо гола «22 Aug» читалась як час публікації. Таймстемпи маркетам не даємо. */
+@media (max-width: 560px) {
+  .v9-omb-row { grid-template-columns: 1fr auto !important; column-gap: 12px;
+    row-gap: 7px; align-items: baseline; padding: 15px 0; }
+  .v9-omb-cat { grid-column: 1; grid-row: 1; }
+  .v9-omb-date { grid-column: 2; grid-row: 1; text-align: right; font-size: 10px;
+    font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; }
+  .v9-omb-date::before { content: "Resolves "; }
+  .v9-omb-q { grid-column: 1 / -1; grid-row: 2; font-size: 17px; font-weight: 600;
+    line-height: 1.3; }
+  .v9-omb-echo { font-style: normal; font-weight: 400; font-size: 13.5px;
+    line-height: 1.44; margin-top: 7px; }
+  .v9-omb-echo .ec { display: none; }
+  .v9-omb-sig { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start;
+    font-size: 11px; }
+  .v9-omb-sig b { font-size: 11.5px !important; }
+}
+/* на тачі ховер залипає і підкреслює випадковий рядок */
+@media (hover: none) {
+  .v9-omb-row:hover .v9-omb-q { text-decoration: none; }
+}
+</style>
+<style>
+/* ========= ECHO OF THE WEEK: панель числа на телефоні (Pavlo, 29 Aug) ========
+   На десктопі це вузька колонка 200px праворуч від тексту. На телефоні вона
+   ставала на всю ширину і перетворювалась на порожній квадрат заввишки під 150px
+   з одним числом посередині. Тепер це смуга: число зліва, підпис праворуч,
+   висота втричі менша, рамка лишається. ===================================== */
+@media (max-width: 560px) {
+  .v9-stat { display: flex; align-items: center; gap: 16px; text-align: left;
+    padding: 14px 16px !important; margin-top: 14px !important; }
+  .v9-stat-n { font-size: 40px !important; flex: 0 0 auto; }
+  .v9-stat-cap { margin-top: 0 !important; line-height: 1.4; }
+}
+</style>
+<style>
+/* ========= РЯДКИ LATEST НА ТЕЛЕФОНІ: той самий канон, що й у картках сітки
+   (Pavlo, 29 Aug). Було: рубрика і пара чисел в одному верхньому рядку, а дата
+   внизу в іншому форматі, «24 Aug 2026 · resolves 11 Sep». Стало: рубрика зліва
+   і дата справа вгорі, пара чисел у лівому нижньому куті, внизу лишається сама
+   резолюція. Механіка та сама, що в ліді: .v9-meta стає display:contents, а
+   рубрика перетворюється на власний рядок із двох кінців. ================= */
+@media (max-width: 560px) {
+  .v10-latest-row > div { display: flex; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents; }
+  .v10-latest-row .v10-latest-kicker { order: 1; display: flex; align-items: baseline;
+    justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .v10-latest-row .v10-latest-kicker .card-age { display: inline !important;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase;
+    color: var(--mut); white-space: nowrap; }
+  .v10-latest-row .v10-latest-h { order: 2; }
+  .v10-latest-row .v10-latest-sum { order: 3; }
+  .v10-latest-row .v10-latest-meta { order: 4; margin-bottom: 8px; }
+  .v10-latest-row .v9-sig { order: 5; margin-left: 0 !important; align-self: flex-start; }
+}
+</style>
+<style>
+/* «Show the Echo» на лендингу телефона не потрібен (Pavlo, 29 Aug): на головній
+   ми даємо заголовок, підтему і числа, а розгортання прецедентів живе на
+   сторінці Echo. Розкривач знято разом із його вмістом. */
+@media (max-width: 560px) {
+  .v10-latest-row details.v10-pat { display: none !important; }
+}
+</style>
+<style>
+/* липка шапка на телефоні і планшеті — так само, як на лендингу і Echo.
+   Аудит паритету з v8 вимикав це на всьому, вужчому за 860px (31 Aug) */
+@media (max-width: 860px) {
+  .row1 { position: sticky !important; top: 0 !important; z-index: 30 !important;
+    background:#0E0F11 !important; }
+  .row2 { position: sticky !important; top: var(--row1h, 49px) !important;
+    z-index: 29 !important; background:#0E0F11 !important; }
+}
+:root { --row1h: 75px; }
+@media (max-width: 860px) { :root { --row1h: 49px; } }
+</style>
+<style>
+/* Вирівнювання по двох краях. Заміряно на 1440: шапка, навігація і футер
+   стоять 146..1294, а лід і сітка починались із 160 через горизонтальний
+   padding 14px у блоках .v10. Виходив уступ на 14px між хромом і текстом.
+   Прибираємо padding, колонка тексту тепер точно під лінійкою мастхеда.
+   На телефоні ці блоки вже мали padding 0 (2 Sep). */
+@media (min-width: 561px) {
+  .v10-lead, .v10-latest, .v10-week, .v9-sec, .v9-omb {
+    padding-left: 0 !important; padding-right: 0 !important; }
+}
+</style>
+<style>
+/* ===== ФІЧ-БЛОК І КОЛОНКА ЯК НА КАТЕГОРІЯХ (Pavlo, 3 Sep) =================
+   Категорії були вирівняні правильно, розходилась головна. Дві причини:
+   тут не було горизонтального падінга 14 px, і фіч-блок навмисно розкладений
+   через display:contents з order, через що питання ринку набиралось серифом
+   17 px, а показники патерну падали в самий низ колонки. Зводимо до категорій. */
+.v10-lead, .v9-sec, .v10-latest { padding-left: 14px !important; padding-right: 14px !important; }
+@media (min-width: 861px) {
+  .v10-lead-main .lead-pat { display: none; }
+  .v10-lead-main .v9-meta-lead { display: flex !important; align-items: flex-start;
+    justify-content: space-between; }
+  .v10-lead-main .v9-meta-line { display: block !important; margin-top: 10px;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    color: var(--mut); }
+  .v10-lead-main .v9-meta-line .q { display: inline !important; order: 0 !important;
+    font-family: 'Inter', sans-serif !important; font-size: 12px !important;
+    font-weight: 400 !important; color: var(--body) !important; margin: 0 !important; }
+  .v10-lead-main .v9-meta-line .q::after { content: '\00a0\00b7\00a0';
+    color: var(--mut); }
+  .v10-lead-main .v9-meta-line .res { display: inline !important; order: 0 !important;
+    border-bottom: 0 !important; padding-bottom: 0 !important; }
+  .v10-lead-main .v9-foot { margin-top: 16px !important; }
+  /* Показники патерну мали 18 px падінга згори і тягли рядок кікера на 35 px
+     замість 17, через що заголовок починався на 18 px нижче, ніж на
+     категоріях. Прибираємо падінг і садимо обидва на один рядок. */
+  /* Значення взяті з категорії один в один, а не на око: рядок кікера має
+     падінг 17, показники патерну без власного падінга, рядок ринку з
+     міжрядковим 18, посилання з відступом 10. */
+  .v10-lead-main .v9-sig { padding-top: 0 !important; }
+  .v10-lead-main .v9-meta-lead { padding-top: 17px !important; }
+  .v10-lead-main .v9-meta-line { line-height: 18px !important; }
+  .v10-lead-main .v10-readmore { margin-top: 10px !important; }
+
+  /* Те саме у фіч-блоці: показники йдуть у нижній правий кут і стають на одну
+     лінію з посиланням «Read the full Echo». Кікер лишається сам угорі. Так
+     обидва блоки, фіч і ряди LATEST, читаються однаково (Pavlo, 4 Sep). */
+  .v10-lead-main { position: relative; }
+  /* показники не торкаються роздільної: той самий відступ, що і в тексту */
+  .v10-lead-main .v9-meta-lead .v9-sig { position: absolute !important;
+    right: 20px; bottom: 2px; margin: 0 !important; padding: 0 !important; }
+
+
+  /* Ряди LATEST мали пропорцію 62/34, тобто панель Echo була вужча за ту, що
+     у фіч-блоці (646/456). Зводимо до фіч-блоку: ліва 58, панель 42, проміжок
+     18 px. Картка від того ширша, і два блоки нарешті виглядають однією
+     сімʼєю (Pavlo, 4 Sep). */
+
+  /* Ліва колонка ряду LATEST починалась на 11 px вище за панель праворуч, бо
+     панель має власний внутрішній відступ 14 px, а колонка ніякого. Плюс
+     підпис панелі був 9 px проти кікера 10. Зрівнюємо: колонка дістає такий
+     самий вертикальний відступ, підписи однакового кегля (Pavlo, 4 Sep). */
+  /* текст лівої колонки впирався в роздільну волосінь: sig закінчувався
+     рівно на краю колонки. Даємо 20 px повітря до лінії (Pavlo, 4 Sep) */
+  .v10-latest-row > div:first-child { padding: 11px 20px 14px 0 !important; }
+  .v10-frame-label { font-size: 10px !important; }
+
+  /* Показники Pattern → Market у рядах LATEST стояли вгорі праворуч, а в
+     картках сітки вони внизу праворуч. Зводимо до карток: рядок кікера
+     розкладаємо через display:contents і кидаємо показники в підвал колонки
+     (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { display: flex !important; flex-direction: column; }
+  .v10-latest-row .v9-meta { display: contents !important; }
+  .v10-latest-row .v10-latest-kicker { order: 0; }
+  .v10-latest-row .v10-latest-h { order: 1; }
+  .v10-latest-row .v10-latest-sum { order: 2; }
+  .v10-latest-row .v10-latest-meta { order: 3; }
+  .v10-latest-row .v9-sig { order: 9; margin-top: auto !important;
+    align-self: flex-end; padding-top: 14px; }
+
+  /* Повітря в лівій колонці: після display:contents елементи втратили власні
+     відступи і злиплись у суцільний стовпчик. Ставимо ритм 8 / 10 / 12.
+     І «resolves» пишеться з великої, як усі підписи на сайті (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-kicker { margin-bottom: 8px !important; }
+  .v10-latest-row .v10-latest-h { margin-bottom: 10px !important; }
+  .v10-latest-row .v10-latest-sum { margin-bottom: 12px !important; }
+  .v10-latest-row .v10-latest-meta { text-transform: capitalize; }
+
+  /* Показники мають стояти на одній лінії з низом панелі Echo. Вони падали
+     нижче, коли лід у лівій колонці довший за панель і робить колонку вищою.
+     Лід обмежуємо трьома рядками: панель має фіксовані чотири роки, тому
+     колонка тепер завжди не вища за неї, і підвал сідає рівно по низу
+     картки (Pavlo, 4 Sep). */
+  .v10-latest-row .v10-latest-sum { display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Рядок резолюції і показники стоять на ОДНІЙ лінії внизу колонки: дата
+     ліворуч, Pattern → Market праворуч. Показники позиціонуються абсолютно,
+     тому вони більше не залежать від того, наскільки довгий лід, і завжди
+     сідають по низу картки Echo (Pavlo, 4 Sep). */
+  .v10-latest-row > div:first-child { position: relative; }
+  .v10-latest-row .v10-latest-meta { margin-top: auto !important;
+    margin-bottom: 0 !important; }
+  .v10-latest-row .v9-sig { position: absolute !important; right: 20px; bottom: 14px;
+    margin: 0 !important; padding: 0 !important; }
+
+  /* Панель Echo була нижча за ліву колонку, коли роки вкладаються в один
+     рядок, і симетрія ламалась. Тепер панель тягнеться на всю висоту ряду, а
+     зайва висота розходиться повітрям МІЖ рядками років, а не порожнечею
+     внизу (Pavlo, 4 Sep). */
+  /* панель має заповнювати колонку, а не стискатись під найдовший рядок:
+     інакше кожна картка Echo різної ширини (Pavlo, 4 Sep) */
+
+
+  .v10-latest-row .v10-mini-frame { flex: 1 1 auto; display: flex;
+    flex-direction: column; justify-content: space-between; }
+  .v10-latest-row .v10-mini-case { padding-top: 2px; padding-bottom: 2px; }
+  /* Flex тут давав різну ширину панелей від ряду до ряду, тому обгортку і саму
+     панель тримаємо блоками: блок за замовчуванням займає всю ширину колонки,
+     і всі картки Echo стають однакові (Pavlo, 4 Sep). */
+  .v10-latest-row > details, .v10-latest-row > .v10-pat { display: block !important;
+    width: 100%; min-width: 0; }
+  .v10-latest-row .v10-mini-frame { display: block !important; width: auto !important;
+    box-sizing: border-box; }
+  .v10-latest-row { grid-template-columns: calc(58% - 9px) calc(42% - 9px) !important;
+    column-gap: 18px !important; justify-content: normal !important; }
+
+  /* Питання ринку у фіч-блоці було 12 px і губилось (Pavlo, 4 Sep) */
+  /* Питання ринку це частина тексту, а не підпис: той самий сериф і той самий
+     кегль, що в ліді. Дата резолюції лишається дрібним інтерфейсним підписом
+     (Pavlo, 4 Sep). */
+  /* зазор між лідом і питанням був 22 px і читався як розрив абзацу.
+     Лишаємо 10, як між іншими абзацами тексту (Pavlo, 4 Sep) */
+  .v10-lead-main .v9-meta-line { font-family: 'Source Serif 4', serif !important;
+    font-size: 17px !important; line-height: 26.35px !important;
+    margin-top: 0 !important; }
+  .v10-lead-main .v9-meta-line .q { font-family: 'Source Serif 4', serif !important;
+    font-size: 17px !important; font-weight: 400 !important;
+    color: var(--body) !important; }
+  .v10-lead-main .v9-meta-line .res { font-family: 'Inter', sans-serif !important;
+    font-size: 12.5px !important; color: var(--mut) !important; }
+  
+}
+</style>
+<style>
+/* Повернення геометрії Echo of the week після мого невдалого відкату:
+   текст ліворуч на всю ширину колонки, панель зі статистикою 200 px праворуч
+   (Pavlo, 4 Sep). */
+.v10-eow-row { display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 48px; }
+.v10-eow-row > div:first-child { flex: 1 1 auto; min-width: 0; }
+.v10-eow-row > .v9-stat { flex: 0 0 200px; width: 200px; }
+</style>
+<style>
+/* Під таблицею стояли дві лінії поспіль: межа останнього рядка і межа
+   самої таблиці. Лишаємо одну (Pavlo, 4 Sep). */
+/* Під останнім рядком таблиці лінії не треба. Селектор на останній елемент
+   не спрацьовував, тому міняємо логіку: межу малює не низ рядка, а верх
+   наступного. Тоді після останнього її просто нема (Pavlo, 4 Sep). */
+.v9-omb-row { border-bottom: 0 !important; }
+.v9-omb-row + .v9-omb-row { border-top: 1px solid var(--line) !important; }
+.v9-omb { border-bottom: 0 !important; }
+</style>
+<style>
+/* ===== ECHO OF THE WEEK ПО СІТЦІ РОЗДІЛУ ВИЩЕ (Pavlo, 4 Sep) =============
+   Блок жив у власній пропорції: текст 66..966, панель 1014..1214. Розділ
+   LATEST над ним іде 80..721 і 739..1200. Ставимо ту саму сітку і той самий
+   відступ, тому обидва розділи читаються як один потік. */
+.v10-week { padding-left: 14px !important; padding-right: 14px !important; }
+/* Пропорції блоку лишаються власними: панель зі статистикою вузька, 200 px,
+   притиснута до правого краю колонки. Вирівнювання стосується тільки країв
+   розділу, не ширини панелі (Pavlo, 4 Sep). */
+.v10-eow-row { display: flex !important; justify-content: space-between !important;
+  align-items: flex-start !important; gap: 48px !important;
+  padding-left: 0 !important; padding-right: 0 !important; }
+.v10-eow-row > div:first-child { flex: 1 1 auto; min-width: 0; }
+.v10-eow-row > .v9-stat { flex: 0 0 200px !important; width: 200px !important;
+  margin: 0 !important; }
+</style>
+<style>
+/* Таблиця Open markets на тій самій колонці, що LATEST і Echo of the week:
+   вміст 80..1200 (Pavlo, 4 Sep). */
+.v9-omb { padding-left: 14px !important; padding-right: 14px !important; }
+</style>
+<style>
+/* Підвал на тій самій колонці, що решта розділів: вміст 80..1200
+   (Pavlo, 4 Sep). */
+.footer-full { padding-left: 14px !important; padding-right: 14px !important; }
+</style>
+<style>
+/* Зазор між лідом і питанням ринку ще на два пункти менший: 12 читалось як
+   розрив, лишаємо 6 (Pavlo, 4 Sep). */
+.v10-lead-main .v10-lead-lede { margin-bottom: 6px !important; }
+</style>
+<style>
+/* Між блоком Echo of the week і таблицею стояли дві межі в одній точці:
+   низ одного блоку і верх іншого. Лишаємо одну (Pavlo, 4 Sep). */
+.v9-omb { border-top: 0 !important; }
+</style>
+<style>
+/* Кікер ECHO OF THE WEEK стояв упритул до заголовка, нуль пікселів. Даємо той
+   самий ритм, що в рядах LATEST: 10 під кікером (Pavlo, 4 Sep). */
+.v10-week .v9-eow-head { margin-bottom: 10px !important; }
+</style>
+<style>
+/* Один стиль тексту у фіч-блоці на телефоні: лід, речення патерну і питання
+   ринку однакові. Дріб «4 of 4» лишається як є (Pavlo, 4 Sep). */
+@media (max-width: 560px) {
+  .lead-pat .s, .v10-lead-main .v9-meta-line .q {
+    font-family: 'Source Serif 4', serif !important;
+    font-size: 16.5px !important; font-weight: 400 !important;
+    line-height: 23.76px !important; color: var(--body) !important; }
+}
+</style>
+<style>
+/* ===== ЗАГОЛОВОК ФІЧ-БЛОКУ = ЗАГОЛОВОК ECHO НА ТЕЛЕФОНІ (Pavlo, 4 Sep) ====
+   Зміряно: до 560 px обидва дають 32/505, а в діапазоні 561..860 лендинг
+   падав до 23-28 px, тоді як Echo тримає 38. Через це на планшеті головна
+   виглядала дрібнішою за статтю. Тримаємо мобільний розмір Echo до 860. */
+@media (max-width: 860px) {
+  .v10-lead-h, .v10-lead-h a { font-size: 32px !important; font-weight: 505 !important;
+    line-height: 36.16px !important; letter-spacing: -0.384px !important; }
+}
+</style>
+<style>
+/* ===== МОБІЛЬНА КОЛОНКА 16..377 НА ГОЛОВНІЙ (Pavlo, 4 Sep) ================
+   Зміряно: на телефоні лендинг давав колонку 30..363, а канон і сторінка Echo
+   дають 16..377. Через це заголовок на головній ламався на рядок раніше і
+   виглядав більшим. Прибираємо подвійний відступ: сторінка 16, секції 0. */
+@media (max-width: 560px) {
+  .page { padding-left: 16px !important; padding-right: 16px !important; }
+  .v10-lead, .v10-latest, .v10-week, .v9-sec, .v9-omb, .v10-eow-row,
+  .v10-latest-row, .v9-sec-inner, .v9-omb-head, .v9-omb-cols, .v9-omb-row,
+  .footer-full { padding-left: 0 !important; padding-right: 0 !important; }
+}
+</style>
+<style>
+/* ===== МОБІЛЬНИЙ ПРОХІД (Pavlo, 4 Sep, вечір). Головна не тягне канон,
+   тому ті самі правила стоять тут. ==========================================
+   1. Echo of the week: панель 200 px стояла праворуч і тиснула заголовок з
+      лідом у колонку на 40%. На телефоні панель іде під текст, обоє на всю
+      колонку 16..377.
+   2. Дріб і золота риска патерну не сходились із текстом: риска починалась
+      вище першого рядка, дріб сидів нижче. Падінг знято, висота рядка дробу
+      дорівнює висоті рядка тексту, обоє від верху. */
+@media (max-width: 560px) {
+  .v10-eow-row { display: block !important; }
+  .v10-eow-row > div:first-child { width: 100%; }
+  .v10-eow-row > .v9-stat { width: 100% !important; flex: none !important;
+    margin: 14px 0 0 !important; box-sizing: border-box; }
+  .lead-pat { align-items: flex-start !important; }
+  .lead-pat .s { padding-top: 0 !important; padding-bottom: 0 !important; }
+  .lead-pat .n { line-height: 23.76px !important; }
+}
+</style>
+
+<link rel="canonical" href="https://byhunch.com/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/">
+<meta property="og:title" content="Hunch — This week (Dark)">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ 1 · MASTHEAD + NAV ============ -->
+  <div class="row1">
+    <div class="left">
+      <button class="search-btn" data-search-open title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <span class="date" id="navDate">Mon, 24 Aug 2026</span>
+    </div>
+    <a class="brand" href="/dark/" style="text-decoration:none; color:inherit;">Hunch</a>
+    <div class="right">
+      <a href="/signin/" class="btn-primary">Sign in</a>
+      <button class="menu-btn" data-menu-open title="Menu" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="row2" id="navSub">
+    <div class="topics">
+      <a href="/dark/" class="on">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#FFFDF7" stroke="#7A5210" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#7A5210" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div><div class="nav-mm"><a href="#" id="mmBtn">Menu <span class="chev"></span></a><div class="mm-panel" id="mmPanel"><div class="mm-col"><div class="mm-h">Browse</div><a href="/markets/dark/">All markets</a><a href="/archive/dark/">Archive</a><a href="/echo/library/dark/">Echo Library</a><a href="/leaderboard/dark/">Leaderboard</a><a href="/methodology/dark/">How it works</a></div><div class="mm-col"><div class="mm-h">Hunch</div><a href="/about/dark/">About</a><a href="/editorial-code/dark/">Editorial Code</a><a href="/partners/dark/">Partners</a><a href="/contact/dark/">Help &amp; Contact</a></div><div class="mm-col"><div class="mm-h">Account</div><a href="/account/dark/">Dashboard</a><a href="/membership/">Membership</a><a href="/account/dark/">My predictions</a><a href="/account/dark/">Settings</a></div><div class="mm-col"><div class="mm-h">Topics</div><a href="/politics/dark/">Politics</a><a href="/sports/dark/">Sports</a><a href="/finance/dark/">Finance</a><a href="/culture/dark/">Culture</a></div><div class="mm-foot">Theme:<a href="#" class="on" onclick="return false;">Light</a><a href="/dark/">Dark</a></div></div></div>
+    <div class="search-overlay">
+      <button class="nav-search-close" data-search-close aria-label="Close search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search markets, topics, predictors...">
+      <button class="nav-search-close" data-search-close aria-label="Close search">×</button>
+    </div>
+  </div>
+
+  <!-- OFF-CANVAS MENU -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/dark/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <div class="v10">
+
+  <!-- ============ 2 · FEATURED ============ -->
+  <article class="v10-lead">
+    <div class="v10-lead-main">
+      <div class="v9-meta v9-meta-lead"><span class="v9-rail-k">Featured<!-- PLACEHOLDER: вік матеріалу. Треба підвʼязати до реального часу публікації Echo у збірці, зараз статичний рядок. --><span class="lead-age">Aug 21</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>100%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>66%</b></span></span></div>
+      <h1 class="v10-lead-h"><a href="/politics/zelenskyy-office-purge/dark/">Four purges since 2022, no election. Now the bureau is inside Zelenskyy&rsquo;s office.</a></h1>
+      <p class="v10-lead-lede">Zelenskyy dismissed his deputy chief of staff hours after investigators searched her home. Every previous wave cost officials their jobs within days.</p>
+      <div class="lead-pat"><span class="n">4 of 4</span><span class="s">Since 2022, every purge ended careers within days. None moved the election clock.</span></div>
+      <div class="v9-meta-line"><span class="q">Does another minister or deputy head of the president&rsquo;s office leave by 15 September?</span><span class="res">Resolves 15 Sep 2026</span></div>
+      <a class="v10-readmore" href="/politics/zelenskyy-office-purge/dark/">Read the full Echo &rarr;</a>
+    </div>
+    <aside class="v10-lead-side">
+      <div class="v9-rail-k">The Echo</div>
+      <div class="v9-rail-sum">4 of 4 ended careers within days &mdash; none moved the election clock.</div>
+      <div class="v9-yr"><span class="y">2025</span><span class="t">Energoatom kickbacks &mdash; two ministers out, then chief of staff Yermak.</span></div>
+      <div class="v9-yr"><span class="y">2025</span><span class="t">Law curbing the bureau &mdash; reversed within nine days after protests.</span></div>
+      <div class="v9-yr"><span class="y">2023</span><span class="t">Reznikov out at defence after months of supply scandals.</span></div>
+      <div class="v9-yr"><span class="y">2023</span><span class="t">Procurement scandal &mdash; a dozen senior officials gone within days.</span></div>
+    </aside>
+  </article>
+
+  <!-- ============ 3 · GRID OF 9 ============ -->
+  <section class="v9-sec">
+    <div class="v9-sec-inner">
+      <h2 class="v9-sh">Politics</h2>
+      <div class="v9-grid">
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/politics/dark/">Hong Kong</a></span><span class="card-age">Aug 21</span></div>
+          <h3 class="v9-ch"><a href="/politics/hong-kong-vigil-verdict/dark/">Convicted over a slogan. Now the only number that matters is the years.</a></h3>
+          <p class="v9-ce">Every completed national security prosecution has ended in conviction; the open variable was always the clock.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>67%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>48%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/politics/dark/">Energy</a></span><span class="card-age">Jul 31</span></div>
+          <h3 class="v9-ch"><a href="/politics/burnham-first-revolt-north-sea/dark/">Four early Labour revolts since 1997. Four government wins. This one has no vote.</a></h3>
+          <p class="v9-ce">Every early revolt against a first-term Labour government failed on the day, and three of four won concessions later.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>100%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>72%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/politics/dark/">Reform UK</a></span><span class="card-age">Jul 2</span></div>
+          <h3 class="v9-ch"><a href="/politics/farage-standards-probe/dark/">Farage claimed the Bank blinked. Now the watchdog reads his diary.</a></h3>
+          <p class="v9-ce">A Labour MP has referred Farage to the standards commissioner over private lobbying of the Bank of England.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>80%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>41%</b></span></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="v9-sec">
+    <div class="v9-sec-inner">
+      <h2 class="v9-sh">Finance</h2>
+      <div class="v9-grid">
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/finance/dark/">Banks</a></span><span class="card-age">Aug 4</span></div>
+          <h3 class="v9-ch"><a href="/finance/bank-windfall-budget/dark/">The banks made &pound;29bn in six months. The Chancellor writes his first Budget in twelve weeks.</a></h3>
+          <p class="v9-ce">Three of five windfall episodes since 1981 ended in a levy on the banks that made the profit.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>60%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/finance/dark/">Pharma</a></span><span class="card-age">Aug 3</span></div>
+          <h3 class="v9-ch"><a href="/finance/astrazeneca-400bn-talks/dark/">A $400bn merger leaked overnight. By the close, AstraZeneca was Britain&rsquo;s third-largest company.</a></h3>
+          <p class="v9-ce">All five comparable megamerger leaks resolved one way or the other inside six weeks.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>40%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>45%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/finance/dark/">Rates</a></span><span class="card-age">Aug 21</span></div>
+          <h3 class="v9-ch"><a href="/finance/vacancies-low-mpc-hike/dark/">Vacancies at a twelve-year low. Markets still price one more hike.</a></h3>
+          <p class="v9-ce">In three of four cooling-jobs episodes since 2008, the Bank&rsquo;s next move was a cut or nothing at all.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>14%</b></span></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="v9-sec">
+    <div class="v9-sec-inner">
+      <h2 class="v9-sh">Sport &amp; Culture</h2>
+      <div class="v9-grid">
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/sports/dark/">Football</a></span><span class="card-age">Aug 2</span></div>
+          <h3 class="v9-ch"><a href="/sports/infantino-first-challenger/dark/">The rebellion has the numbers game. By 18 November it needs a name.</a></h3>
+          <p class="v9-ce">Four organised blocs since 1974 produced four nominated challengers to a sitting FIFA president.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>100%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>78%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/sports/dark/">Cricket</a></span><span class="card-age">Aug 4</span></div>
+          <h3 class="v9-ch"><a href="/sports/stokes-never-say-never/dark/">Stokes says never again. English cricket has heard that before.</a></h3>
+          <p class="v9-ce">Three of five departed talismans came back, and every return was club-initiated rather than player-led.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>14%</b></span></span></div>
+        </article>
+        <article>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/culture/dark/">Box office</a></span><span class="card-age">Aug 21</span></div>
+          <h3 class="v9-ch"><a href="/culture/spider-man-two-billion-pace/dark/">Spider-Man hit $2bn in 17 days. The speed has always named the ceiling.</a></h3>
+          <p class="v9-ce">Of four first-run $2bn crossers since 2015, the slow ones stalled at the line and the fast ones added hundreds of millions.</p>
+          <div class="v9-foot"><span class="v9-sig sig-two"><span class="t1">Pattern <b>50%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>72%</b></span></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · LATEST — six rows ============ -->
+  <div class="v10-latest">
+    <div class="v10-latest-head">
+      <span class="v9-sh" style="margin-bottom:0;">Latest</span>
+      <a class="more" href="/echo/library/dark/">More echoes &rarr;</a>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/politics/dark/">Politics &middot; Sweden</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>40%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>40%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/politics/sweden-election-bloc-margin/dark/">Sweden&#x27;s gap is down to three points. In five elections the government has survived twice.</a></div>
+        <div class="v10-latest-sum">Since 2006 Swedish governments have kept power at two of five elections, and both survivals came down to a handful of seats.</div>
+        <div class="v10-latest-meta">resolves 14 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 2 of 5</div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">Andersson concedes to the right bloc</span></div>
+        <div class="v10-mini-case"><span class="yr">2018</span><span class="tx">Lofven holds after a four-month deadlock</span></div>
+        <div class="v10-mini-case"><span class="yr">2014</span><span class="tx">Reinfeldt loses and resigns</span></div>
+        <div class="v10-mini-case"><span class="yr">2010</span><span class="tx">Reinfeldt&#x27;s Alliance re-elected</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; ECB</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>82%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/finance/ecb-hike-into-energy-shock/dark/">The ECB has raised rates into an energy shock four times. Three were reversed within a year.</a></div>
+        <div class="v10-latest-sum">The ECB has tightened into energy-led inflation four times since 1999; in three of them the first cut came within seven months.</div>
+        <div class="v10-latest-meta">resolves 10 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">July 2022 hike, cut 23 months later</span></div>
+        <div class="v10-mini-case"><span class="yr">2011</span><span class="tx">July 2011 hike, cut in four months</span></div>
+        <div class="v10-mini-case"><span class="yr">2008</span><span class="tx">July 2008 hike, cut in three months</span></div>
+        <div class="v10-mini-case"><span class="yr">2000</span><span class="tx">October 2000 hike, cut in seven months</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/tech/dark/">Tech &middot; Apple</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>86%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>86%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/tech/apple-foldable-keynote-clock/dark/">Apple&#x27;s keynote is on 9 September. Six of the last seven September iPhones were in stores within eleven days.</a></div>
+        <div class="v10-latest-sum">Six of the last seven September iPhones reached stores within eleven days of the keynote; the new Plus size took a month.</div>
+        <div class="v10-latest-meta">resolves 9 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 6 of 7</div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">iPhone 17: 10 days</span></div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">iPhone 16: 11 days</span></div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">iPhone 15: 10 days</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">iPhone 14: 9 days, Plus a month</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/politics/dark/">Politics &middot; Iran</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>100%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>42%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/politics/iran-gulf-bases-after-memorandum/dark/">The memorandum ran out on 17 August. Two weeks later the Gulf bases are targets again.</a></div>
+        <div class="v10-latest-sum">Four earlier US-Iran confrontations in the Gulf ended with both sides standing down within weeks; the 2026 war broke it.</div>
+        <div class="v10-latest-meta">resolves 18 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 4 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">Red Sea: strikes, no war</span></div>
+        <div class="v10-mini-case"><span class="yr">2020</span><span class="tx">Al-Asad: stand-down in a week</span></div>
+        <div class="v10-mini-case"><span class="yr">2019</span><span class="tx">Global Hawk: strikes called off</span></div>
+        <div class="v10-mini-case"><span class="yr">1988</span><span class="tx">Praying Mantis: one day</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/culture/dark/">Culture &middot; Emmys</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>64%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>58%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/culture/emmys-pitt-defends-drama/dark/">The Pitt returns with 25 nominations. Defending drama champions have repeated seven times in eleven.</a></div>
+        <div class="v10-latest-sum">Since 2009 reigning drama winners nominated again the next year have kept the Emmy in seven of eleven cases.</div>
+        <div class="v10-latest-meta">resolves 14 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 7 of 11</div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">Succession repeats</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">The Crown fails to repeat</span></div>
+        <div class="v10-mini-case"><span class="yr">2019</span><span class="tx">Game of Thrones repeats</span></div>
+        <div class="v10-mini-case"><span class="yr">2018</span><span class="tx">The Handmaid&#x27;s Tale fails to repeat</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/sports/dark/">Sports &middot; US Open</a><span class="card-age">Sep 4</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>80%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>50%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/sports/alcaraz-us-open-no-sinner/dark/">Sinner is out and Djokovic went in round one. Alcaraz has won four of his last five majors.</a></div>
+        <div class="v10-latest-sum">Alcaraz has won four of the last five majors he entered and reached the final of the fifth; both rivals are gone.</div>
+        <div class="v10-latest-meta">resolves 13 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 4 of 5</div>
+        <div class="v10-mini-case"><span class="yr">2026</span><span class="tx">Australian Open: champion</span></div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">US Open: champion</span></div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">Wimbledon: runner-up</span></div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">Roland Garros: champion</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/politics/dark/">Politics &middot; Commons</a><span class="card-age">Aug 31</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>71%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/politics/assisted-dying-second-reading/dark/">Assisted dying returns. The Prime Minister stands aside.</a></div>
+        <div class="v10-latest-sum">3 of the 4 qualifying free-vote second readings since 1964 carried; the single defeat, in 2015, was on assisted dying itself.</div>
+        <div class="v10-latest-meta">resolves 11 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">Kim Leadbeater&#x27;s Terminally Ill Adults (End of Life) Bill carried.</span></div>
+        <div class="v10-mini-case"><span class="yr">2015</span><span class="tx">Rob Marris&#x27;s Assisted Dying (No. 2) Bill was defeated 118 to 330.</span></div>
+        <div class="v10-mini-case"><span class="yr">1966</span><span class="tx">David Steel&#x27;s Medical Termination of Pregnancy Bill carried.</span></div>
+        <div class="v10-mini-case"><span class="yr">1964</span><span class="tx">Sydney Silverman&#x27;s Murder (Abolition of Death Penalty) Bill carried.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/sports/dark/">Sports &middot; Premier League</a><span class="card-age">Aug 31</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>50%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>38%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/sports/gakpo-etihad-late-call/dark/">City call about Gakpo. Liverpool have a day to answer.</a></div>
+        <div class="v10-latest-sum">2 of the 4 approaches ended in a sale. In both sales the player&#x27;s wish to leave was already in the public domain and the selling club had a replacement in hand; in both refusals it was neither.</div>
+        <div class="v10-latest-meta">resolves 1 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 2 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">Newcastle rejected £110m from Liverpool in August, then sold.</span></div>
+        <div class="v10-mini-case"><span class="yr">2021</span><span class="tx">Manchester City offered £100m guaranteed for Harry Kane. Tottenham.</span></div>
+        <div class="v10-mini-case"><span class="yr">2015</span><span class="tx">Manchester City paid an initial £44m rising to £49m for Raheem.</span></div>
+        <div class="v10-mini-case"><span class="yr">2013</span><span class="tx">Arsenal bid £40,000,001 for Luis Suárez to test a reported release.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; Public debt</a><span class="card-age">Aug 31</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>40%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>44%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/finance/debt-three-trillion-test/dark/">Net debt stalls £15bn below £3 trillion. August rarely holds the line.</a></div>
+        <div class="v10-latest-sum">In 4 of the last 10 Augusts the debt stock rose by £15.1bn or more. Three of those four are the three most recent.</div>
+        <div class="v10-latest-meta">resolves 22 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 4 of 10</div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">£2,889.0bn to £2,906.8bn. A rise of £17.8bn. Above the line.</span></div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">£2,736.3bn to £2,758.7bn. A rise of £22.4bn. Above the line.</span></div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">£2,592.0bn to £2,607.2bn. A rise of £15.2bn. Above the line.</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">£2,421.0bn to £2,430.6bn. A rise of £9.6bn. Below the line.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/tech/dark/">Tech &middot; CMA</a><span class="card-age">Aug 31</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>66%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/tech/cma-apple-steering-decision/dark/">The CMA closes the Apple file. A steering notice comes next.</a></div>
+        <div class="v10-latest-sum">3 of the 4 conduct requirements the CMA has consulted on were imposed, all within five months of the consultation opening. The fourth was consulted on and then left on the shelf.</div>
+        <div class="v10-latest-meta">resolves 30 Nov</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2026</span><span class="tx">Publisher requirement, Google search. Consulted on 28 January.</span></div>
+        <div class="v10-mini-case"><span class="yr">2026</span><span class="tx">Fair ranking requirement, Google search. Consulted on 28 January.</span></div>
+        <div class="v10-mini-case"><span class="yr">2026</span><span class="tx">Data portability requirement, Google search. Consulted on 28 January.</span></div>
+        <div class="v10-mini-case"><span class="yr">2026</span><span class="tx">User choice requirement, Google search. Consulted on 28 January.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/culture/dark/">Culture &middot; London</a><span class="card-age">Aug 31</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>64%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/culture/carnival-sixty-arrest-count/dark/">Carnival turns sixty on one-off money. Tuesday brings the count.</a></div>
+        <div class="v10-latest-sum">3 of the 4 Carnivals held since 2022 recorded a higher arrest total than the edition before. The exception is 2022 itself, the return year, measured against a pre-pandemic Carnival.</div>
+        <div class="v10-latest-meta">resolves 8 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">528 arrests across the weekend, the highest in the current run.</span></div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">334 arrests over the two main days. The total rose again.</span></div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">275 arrests, an increase of 66 on the previous year, alongside.</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">Carnival returned after two cancelled years. The Met recorded 209.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/politics/dark/">Politics &middot; Korea</a><span class="card-age">Aug 21</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>35%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/politics/trump-halts-korea-drills/dark/">Four presidents have traded the war games since 1992. Kim has never paid in full.</a></div>
+        <div class="v10-latest-sum">In three of four exercise-restraint episodes since 1992, North Korea escalated within twelve months; only the 1994 freeze held.</div>
+        <div class="v10-latest-meta">resolves 11 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2019</span><span class="tx">Drills shrunk, 13 missile rounds follow.</span></div>
+        <div class="v10-mini-case"><span class="yr">2018</span><span class="tx">Post-Singapore pause, Hanoi collapses.</span></div>
+        <div class="v10-mini-case"><span class="yr">1994</span><span class="tx">Agreed Framework freeze holds eight years.</span></div>
+        <div class="v10-mini-case"><span class="yr">1992</span><span class="tx">Team Spirit off; NPT exit when it returns.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; Fiscal</a><span class="card-age">Jun 19</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>75%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>78%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/politics/borrowing-overshoot/dark/">Borrowing overshoots again. The Budget arithmetic hardens.</a></div>
+        <div class="v10-latest-sum">In three of four mid-year overshoots since 2012, the next fiscal event answered with net tax rises.</div>
+        <div class="v10-latest-meta">resolves 22 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 4</div>
+        <div class="v10-mini-case"><span class="yr">2025</span><span class="tx">Overshoot through spring, &pound;26bn of tax rises in November.</span></div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">&pound;22bn shortfall declared, &pound;40bn Budget in October.</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">Mini-Budget damage, &pound;55bn consolidation in November.</span></div>
+        <div class="v10-mini-case"><span class="yr">2012</span><span class="tx">Overshoot absorbed, austerity extended instead.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; Bonds</a><span class="card-age">Aug 21</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>30%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/finance/us-bond-rout-buyback-test/dark/">The bond rout went global. Washington&rsquo;s fix lasted a day.</a></div>
+        <div class="v10-latest-sum">In three of five major bond routs since 1994, official action marked the yield peak; every fix that worked changed real supply or demand.</div>
+        <div class="v10-latest-meta">resolves 11 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 5</div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">Issuance slowed, peak within days.</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">BoE&rsquo;s &pound;65bn gilt rescue, peak that week.</span></div>
+        <div class="v10-mini-case"><span class="yr">2013</span><span class="tx">Taper delay buys weeks, not a turn.</span></div>
+        <div class="v10-mini-case"><span class="yr">1994</span><span class="tx">Reassurance fails, nine-month rout.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; M&amp;A</a><span class="card-age">Aug 21</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>56%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/finance/frasers-hugo-boss-48/dark/">Ashley reaches nearly 48% of Hugo Boss. German law prices the rest.</a></div>
+        <div class="v10-latest-sum">Three of five Frasers stake campaigns since 2019 ended in control; both failures hit a shareholder bloc it could not out-vote.</div>
+        <div class="v10-latest-meta">resolves 30 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 3 of 5</div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">boohoo votes down the board seat.</span></div>
+        <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">Mulberry blocked by a 56% holder.</span></div>
+        <div class="v10-mini-case"><span class="yr">2022</span><span class="tx">Studio Retail and MySale both taken.</span></div>
+        <div class="v10-mini-case"><span class="yr">2019</span><span class="tx">Game Digital, forced bid, full control.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/finance/dark/">Finance &middot; Federal Reserve</a><span class="card-age">Jun 17</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>80%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>30%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/finance/fed-warsh-first-hold/dark/">Every new Fed chair gets tested. Warsh&rsquo;s test is live.</a></div>
+        <div class="v10-latest-sum">Four incoming Fed chairs since 1979 met an early market test; all four tightened or stood firm, and none eased.</div>
+        <div class="v10-latest-meta">resolves 16 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 4 of 5</div>
+        <div class="v10-mini-case"><span class="yr">2018</span><span class="tx">Powell raised at his very first meeting.</span></div>
+        <div class="v10-mini-case"><span class="yr">2014</span><span class="tx">Yellen waited 22 months &mdash; the exception.</span></div>
+        <div class="v10-mini-case"><span class="yr">2006</span><span class="tx">Bernanke hiked at his first meeting.</span></div>
+        <div class="v10-mini-case"><span class="yr">1987</span><span class="tx">Greenspan raised the discount rate in four weeks.</span></div>
+      </div>
+      </details>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/sports/dark/">Sports &middot; Cycling</a><span class="card-age">Aug 21</span></span><span class="v9-sig sig-two"><span class="t1">Pattern <b>33%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>68%</b></span></span></div>
+        <div class="v10-latest-h"><a href="/sports/pogacar-vuelta-double-monaco/dark/">Three riders own the Tour&ndash;Vuelta double. Pogacar starts at his front door.</a></div>
+        <div class="v10-latest-sum">Three reigning Tour champions have chased the autumn double since 1995; one converted it, and all three finished on the podium.</div>
+        <div class="v10-latest-meta">resolves 13 Sep</div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo &middot; 1 of 3</div>
+        <div class="v10-mini-case"><span class="yr">2023</span><span class="tx">Vingegaard second, behind his own team-mate.</span></div>
+        <div class="v10-mini-case"><span class="yr">2017</span><span class="tx">Froome converts &mdash; first double since 1978.</span></div>
+        <div class="v10-mini-case"><span class="yr">2016</span><span class="tx">Froome chases it, finishes second.</span></div>
+        <div class="v10-mini-case"><span class="yr">1978</span><span class="tx">Hinault, the last double with a spring Vuelta.</span></div>
+      </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ============ 5 · ECHO OF THE WEEK ============ -->
+  <div class="v10-week">
+    <div class="v9-eow-head"><span class="v9-sh" style="margin-bottom:0;">Echo of the week</span><a class="more" href="/echo/library/dark/">More echoes &rarr;</a></div>
+    <div class="v10-eow-row">
+      <div style="flex:1; min-width:0;">
+        <div class="v9-eow-h"><a href="/politics/borrowing-overshoot/dark/" style="color:inherit;text-decoration:none;">When Chancellors say &ldquo;all options&rdquo; &mdash; history says taxes rise</a></div>
+        <div class="v9-eow-p">In three of four cases since 1993, when a Chancellor used the phrase &ldquo;all options are on the table&rdquo; within six months of a budget, a tax increase followed. The current Chancellor used the phrase on Monday.</div>
+        <div class="v10-tl">
+          <div class="v10-mini-case"><span class="yr">2024</span><span class="tx">Reeves: &ldquo;all options&rdquo; &rarr; CGT increased in October budget.</span></div>
+          <div class="v10-mini-case"><span class="yr">2017</span><span class="tx">Hammond: &ldquo;all options&rdquo; &rarr; NI rise announced, then reversed.</span></div>
+          <div class="v10-mini-case"><span class="yr">2010</span><span class="tx">Osborne: &ldquo;all options&rdquo; &rarr; VAT increased to 20%.</span></div>
+          <div class="v10-mini-case"><span class="yr">1993</span><span class="tx">Lamont: &ldquo;all options&rdquo; &rarr; fuel duty rise in budget.</span></div>
+        </div>
+      </div>
+      <div class="v9-stat">
+        <div class="v9-stat-n">75%</div>
+        <div class="v9-stat-cap">historical rate<br>4 cases since 1993</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+<div class="v9-omb">
+    <div class="v9-omb-head"><span class="v9-sh" style="margin-bottom:0;">Open markets</span><a class="more" href="/markets/dark/">All markets &rarr;</a></div>
+    <div class="v9-omb-cols"><span>Category</span><span>Market</span><span>Resolves</span><span style="text-align:right;">Pattern &rarr; Market</span></div>
+    <a class="v9-omb-row" href="/sports/pogacar-vuelta-double-monaco/dark/"><span class="v9-omb-cat">Sports</span><span class="v9-omb-q">Does Pogacar win the opening time trial in Monaco on 22 August?<span class="v9-omb-echo"><i class="ec">&#8617;</i> Autumn-era attempts at the double by a reigning Tour champion: 3. Doubles completed: 1. Podium…</span></span><span class="v9-omb-date">22 Aug</span><span class="v9-omb-sig"><span class="t1">Pattern <b>33%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>42%</b></span></span></a>
+    <a class="v9-omb-row" href="/culture/spider-man-two-billion-pace/dark/"><span class="v9-omb-cat">Culture</span><span class="v9-omb-q">Is Brand New Day the No 1 film at the domestic box office over the 28–30 August weekend?<span class="v9-omb-echo"><i class="ec">&#8617;</i> Slow crossers (53 days and mid-run) stalled at the line. Fast crossers (11 and 38 days) added…</span></span><span class="v9-omb-date">31 Aug</span><span class="v9-omb-sig"><span class="t1">Pattern <b>50%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>70%</b></span></span></a>
+    <a class="v9-omb-row" href="/sports/pogacar-vuelta-double-monaco/dark/"><span class="v9-omb-cat">Sports</span><span class="v9-omb-q">Does Pogacar lead the general classification at the first rest day on 31 August?<span class="v9-omb-echo"><i class="ec">&#8617;</i> Autumn-era attempts at the double by a reigning Tour champion: 3. Doubles completed: 1. Podium…</span></span><span class="v9-omb-date">31 Aug</span><span class="v9-omb-sig"><span class="t1">Pattern <b>33%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>55%</b></span></span></a>
+    <a class="v9-omb-row" href="/finance/drought-vegetable-imports/dark/"><span class="v9-omb-cat">Finance</span><span class="v9-omb-q">Does the ONS annual food CPI rate for July 2026 print at 2.0% or higher on 19 August?<span class="v9-omb-echo"><i class="ec">&#8617;</i> In all three drought summers since 1976, the retail food-price surge arrived months after the…</span></span><span class="v9-omb-date">19 Aug</span><span class="v9-omb-sig"><span class="t1">Pattern <b>100%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>28%</b></span></span></a>
+    <a class="v9-omb-row" href="/culture/spider-man-two-billion-pace/dark/"><span class="v9-omb-cat">Culture</span><span class="v9-omb-q">Does Spider-Man: Brand New Day reach $2.2bn worldwide by 11 September 2026?<span class="v9-omb-echo"><i class="ec">&#8617;</i> Slow crossers (53 days and mid-run) stalled at the line. Fast crossers (11 and 38 days) added…</span></span><span class="v9-omb-date">11 Sep</span><span class="v9-omb-sig"><span class="t1">Pattern <b>50%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>72%</b></span></span></a>
+    <a class="v9-omb-row" href="/finance/us-bond-rout-buyback-test/dark/"><span class="v9-omb-cat">Finance</span><span class="v9-omb-q">Does the 30-year US Treasury yield close below 5.00% on any trading day by 11 September 2026?<span class="v9-omb-echo"><i class="ec">&#8617;</i> 3 of 5 routs peaked within days of intervention — every time the intervention changed real…</span></span><span class="v9-omb-date">11 Sep</span><span class="v9-omb-sig"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>30%</b></span></span></a>
+    <a class="v9-omb-row" href="/finance/us-bond-rout-buyback-test/dark/"><span class="v9-omb-cat">Finance</span><span class="v9-omb-q">Does the 30-year US Treasury yield close above 5.50% on any trading day by 11 September 2026?<span class="v9-omb-echo"><i class="ec">&#8617;</i> 3 of 5 routs peaked within days of intervention — every time the intervention changed real…</span></span><span class="v9-omb-date">11 Sep</span><span class="v9-omb-sig"><span class="t1">Pattern <b>60%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>40%</b></span></span></a>
+    <a class="v9-omb-row" href="/politics/hong-kong-vigil-verdict/dark/"><span class="v9-omb-cat">Politics</span><span class="v9-omb-q">Does the UK summon China&#x27;s ambassador or announce measures beyond its statement by 11 September 2026?<span class="v9-omb-echo"><i class="ec">&#8617;</i> Convictions are near-automatic; the live variables are the sentencing band — serious or minor…</span></span><span class="v9-omb-date">11 Sep</span><span class="v9-omb-sig"><span class="t1">Pattern <b>67%</b></span><span class="arw">&rarr;</span><span class="t2">Market <b>10%</b></span></span></a>
+  </div>
+
+  <!-- ============ 6 · FOOTER ============ -->
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#216945; margin-left:2px;">™</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/dark/">This week</a></li>
+          <li><a href="/markets/dark/">All markets</a></li>
+          <li><a href="/echo/library/dark/">Echo</a></li>
+          <li><a href="/archive/dark/">Archive</a></li>
+          <li><a href="/leaderboard/dark/">Leaderboard</a></li>
+          <li><a href="/mobile-app/dark/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/dark/">Politics</a></li>
+          <li><a href="/sports/dark/">Sports</a></li>
+          <li><a href="/finance/dark/">Finance</a></li>
+          <li><a href="/tech/dark/">Tech</a></li>
+          <li><a href="/culture/dark/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/dark/">About Hunch</a></li>
+          <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+          <li><a href="/partners/dark/">Partners</a></li>
+          <li><a href="/methodology/dark/">How it works</a></li>
+          <li><a href="/press/dark/">Press</a></li>
+          <li><a href="/careers/dark/">Careers</a></li>
+          <li><a href="/contact/dark/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/dark/">Blog</a></li>
+          <li><a href="/help/dark/">Help centre</a></li>
+          <li><a href="/api/dark/">API documentation</a></li>
+          <li><a href="/status/dark/">Status</a></li>
+          <li><a href="/responsible-play/dark/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/dark/">Terms of service</a></li>
+          <li><a href="/privacy/dark/">Privacy policy</a></li>
+          <li><a href="/cookies/dark/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/dark/">Acceptable use</a></li>
+          <li><a href="/licences/dark/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>© KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#4C463C;">Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">🇬🇧 United Kingdom · EN</span>
+        <div class="small-links">
+          <a href="/sitemap/dark/">Sitemap</a>
+          <a href="/accessibility/dark/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/dark/" class="active"><span>Today</span></a>
+  <a href="/echo/library/dark/"><span>Echoes</span></a>
+  <a href="/markets/dark/"><span>Markets</span></a>
+  <a href="/account/dark/"><span>My record</span></a>
+</nav>
+
+<script>
+// mobile: pattern details start collapsed. Desktop keeps them open.
+(function(){
+  var mq = window.matchMedia('(max-width:560px)');
+  function sync(){ document.querySelectorAll('details.v10-pat').forEach(function(d){ if (mq.matches) d.removeAttribute('open'); else d.setAttribute('open',''); }); }
+  sync();
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+})();
+
+// Hamburger menu — slide-out panel
+(function() {
+  const backdrop = document.getElementById('menuBackdrop');
+  const panel = document.getElementById('menuPanel');
+  function open() { backdrop.classList.add('open'); panel.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { backdrop.classList.remove('open'); panel.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-menu-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-menu-close]').forEach(b => b.addEventListener('click', close));
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+})();
+
+// Search expansion (inline overlay in nav-sub)
+(function() {
+  const navSub = document.getElementById('navSub');
+  const input = document.getElementById('navSearchInput');
+  function open() { navSub.classList.add('search-mode'); setTimeout(() => input?.focus(), 50); }
+  function close() { navSub.classList.remove('search-mode'); if (input) input.value = ''; }
+  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-search-close]').forEach(b => b.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navSub.classList.contains('search-mode')) close(); });
+})();
+
+// Date display
+(function() {
+  const el = document.getElementById('navDate');
+  if (!el) return;
+  const d = new Date();
+  el.textContent = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+})();
+
+(function(){var b=document.getElementById('mmBtn'),p=document.getElementById('mmPanel');if(!b||!p)return;
+b.addEventListener('click',function(e){e.preventDefault();p.classList.toggle('open');});
+document.addEventListener('click',function(e){if(!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('open');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')p.classList.remove('open');});})();
+
+(function(){function h(){var r=document.querySelector('.row1');if(r)document.documentElement.style.setProperty('--row1h',r.offsetHeight+'px');}window.addEventListener('load',h);h();})();
+</script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

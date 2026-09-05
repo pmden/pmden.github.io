@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The NHS App wants your blood. The GP queue is the target. — Hunch</title>
+<meta name="description" content="NHS England has opened a market engagement exercise for HomeTest, a national service that would let patients order, take and receive diagnostic tests at home through the NHS App, across seven clinical specialities.">
+<meta property="og:title" content="The NHS App wants your blood. The GP queue is the target. — Hunch">
+<meta property="og:description" content="NHS England has opened a market engagement exercise for HomeTest, a national service that would let patients order, take and receive diagnostic tests at home through the NHS App, across seven clinical specialities.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Hunch">
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-dark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/hunch-shell-dark.css">
+<style>
+.echo-wrap { padding-bottom: 40px; }
+.echo-byline { display:flex; gap:14px; align-items:center; font-size:12px; color:#7C7E7A; border-bottom:1px solid #2A2C30; padding-bottom:18px; margin-bottom:26px; }
+.echo-byline .dot { width:3px; height:3px; border-radius:50%; background:#2E4A37; }
+.echo-section { margin-bottom:38px; }
+.echo-section .kick { font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#D4A03A; margin-bottom:12px; }
+.echo-section h2 { font-family:'Source Serif 4',serif; font-size:24px; color:#F2F2EF; font-weight:600; margin-bottom:14px; line-height:1.25; }
+.echo-section p { font-family:'Source Serif 4',serif; font-size:16px; color:#DEDED9; line-height:1.75; margin-bottom:14px; }
+.echo-section p a { color:#5E9C7B; text-decoration:none; border-bottom:1px solid #3A4A42; }
+/* vertical timeline — newest at top, leading down to the past */
+.timeline { position:relative; margin:24px 0 8px; padding-left:34px; }
+.timeline:before { content:''; position:absolute; left:9px; top:8px; bottom:10px; width:2px; background:#2A2C30; }
+.tl { position:relative; margin-bottom:20px; }
+.tl:last-child { margin-bottom:0; }
+.tl:before { content:''; position:absolute; left:-32px; top:3px; width:13px; height:13px; border-radius:50%; background:#0E0F11; border:2px solid #5E9C7B; }
+.tl.now:before { background:#D4A03A; border-color:#D4A03A; box-shadow:0 0 0 4px rgba(212,160,58,0.15); }
+.tl .yr { font-family:'Source Serif 4',serif; font-size:15px; color:#D4A03A; font-weight:600; margin-bottom:4px; }
+.tl.now .yr { color:#E8C56A; }
+.tl .bd { font-size:13.5px; color:#A9ABA6; line-height:1.65; }
+.tl .bd strong { color:#F2F2EF; font-weight:500; }
+/* base rate — strong accent */
+.base { display:flex; gap:20px; align-items:center; background:#1B1D21; border:1px solid #2A2C30; border-left:4px solid #4A3F22; border-radius:12px; padding:22px 24px; margin-top:22px; }
+.base .stat { font-family:'Source Serif 4',serif; font-weight:600; font-size:52px; line-height:1; color:#D4A03A; flex-shrink:0; }
+.base .stat span { font-size:26px; color:#D4A03A; }
+.base .btxt { font-size:15.5px; color:#DEDED9; line-height:1.65; }
+.base .btxt b { color:#F2F2EF; }
+.base .btxt .bl { display:block; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#D4A03A; margin-bottom:6px; font-weight:600; }
+@media (max-width:560px){ .base{flex-direction:column; align-items:flex-start; gap:12px;} .base .stat{font-size:42px;} }
+/* market */
+.mkt { background:#17181B; border:1px solid #2A2C30; border-radius:10px; padding:18px; margin-bottom:18px; }
+.mkt .mq { font-family:'Source Serif 4',serif; font-size:18px; color:#F2F2EF; font-weight:600; line-height:1.4; margin-bottom:6px; }
+.mkt .meta { font-size:11.5px; color:#7C7E7A; margin-bottom:18px; }
+.mkt .meta span { color:#A9ABA6; }
+.bin { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.opt { border-radius:8px; padding:12px 14px; cursor:pointer; }
+.opt.yes { background:#2E4A37; border:1px solid #3D6B4E; }
+.opt.no  { background:#8B3E3A; border:1px solid #A4524C; }
+.opt .ol { display:flex; justify-content:space-between; align-items:baseline; }
+.opt .nm { font-size:13px; font-weight:600; letter-spacing:0.04em; }
+.opt.yes .nm { color:#F2F2EF; } .opt.no .nm { color:#F2F2EF; }
+.opt .pc { font-family:'Source Serif 4',serif; font-size:20px; color:#F2F2EF; }
+.scal { display:flex; flex-direction:column; gap:11px; }
+.row { }
+.row .rl { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+.row .rn { font-size:13.5px; color:#DEDED9; } .row .rp { font-family:'Source Serif 4',serif; font-size:15px; color:#F2F2EF; }
+.bar { height:6px; border-radius:3px; background:#2A2C30; overflow:hidden; }
+.bar > i { display:block; height:100%; background:#2E4A37; }
+.verify { background:#0E0F11; border:1px solid #2A2C30; border-radius:8px; padding:16px 18px; font-size:13px; color:#A9ABA6; line-height:1.7; }
+.verify h4 { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#D4A03A; margin-bottom:8px; }
+.verify ul { list-style:none; padding:0; margin:6px 0 0; } .verify li { padding-left:16px; position:relative; margin-bottom:5px; } .verify li:before { content:'—'; position:absolute; left:0; color:#5E9C7B; }
+.srcs { font-size:12px; color:#7C7E7A; line-height:1.8; border-top:1px solid #2A2C30; padding-top:16px; }
+.srcs a { color:#5E9C7B; text-decoration:none; }
+.disc { font-size:11.5px; color:#7C7E7A; line-height:1.7; border-top:1px solid #2A2C30; padding-top:18px; margin-top:30px; }
+/* side-by-side event + pattern */
+.echo-duo { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:16px; align-items:start; }
+.echo-duo .echo-section { margin-bottom:0; }
+@media (max-width:860px){ .echo-duo { grid-template-columns:1fr; gap:30px; } }
+.echo-wrap > .base { margin-bottom:42px; }
+/* interactive markets */
+.row { cursor:pointer; }
+.opt.selected { box-shadow:0 0 0 2px #D4A03A inset; }
+.opt.yes.selected { background:#35573F; } .opt.no.selected { background:#9B4844; }
+.row.selected .rn { color:#E8C56A; font-weight:600; }
+.row.selected .bar > i { background:#D4A03A; }
+/* crowd forecast chart */
+.chart { margin-top:16px; border-top:1px solid #2A2C30; padding-top:14px; }
+.chart .ch-hd { display:flex; justify-content:space-between; font-size:11px; color:#7C7E7A; margin-bottom:10px; letter-spacing:0.03em; }
+.chart svg { width:100%; height:90px; display:block; }
+.chart .leg { display:flex; gap:16px; margin-top:10px; font-size:11px; color:#A9ABA6; }
+.chart .leg i { display:inline-block; width:11px; height:2px; vertical-align:middle; margin-right:5px; }
+/* market card: chart left, bet controls right */
+.mkt-body{ display:grid; grid-template-columns:1fr 280px; gap:26px; align-items:center; }
+@media(max-width:760px){ .mkt-body{ grid-template-columns:1fr; gap:18px; } }
+.bets{ display:flex; flex-direction:column; gap:10px; }
+.bins{ display:flex; flex-direction:column; gap:10px; }
+.multi{ display:flex; flex-direction:column; gap:10px; }
+.fcbtn{ cursor:pointer; font-family:inherit; transition:box-shadow .12s, border-color .12s; }
+.fcbtn.selected{ box-shadow:0 0 0 2px #D4A03A; }
+.opt{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding:14px 16px; border-radius:10px; border:none; }
+.opt .on{ font-size:14px; color:#F2F2EF; font-weight:500; } .opt .op{ font-size:13px; color:#DEDED9; }
+.opt.yes{ background:#2E4A37; } .opt.no{ background:#8B3E3A; }
+.mopt{ display:flex; align-items:center; gap:9px; padding:13px 15px; border-radius:10px; background:#1B1D21; border:1px solid #2A2C30; text-align:left; }
+.mopt:hover{ border-color:#2A2C30; }
+.mopt .on{ flex:1; font-size:13px; color:#DEDED9; line-height:1.3; } .mopt .op{ flex-shrink:0; font-size:15px; color:#F2F2EF; font-family:'Source Serif 4',serif; }
+.mopt .bdot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.pm-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:12px; }
+.pm-legend span{ font-size:12px; color:#A9ABA6; display:flex; align-items:center; gap:6px; }
+.pm-legend i{ width:8px; height:8px; border-radius:50%; }
+.pm-legend b{ color:#F2F2EF; font-weight:600; }
+.pm-plot{ display:grid; grid-template-columns:32px 1fr; gap:6px; } .pm-plot .pm-yax{ order:-1; }
+.pm-svg svg{ width:100%; height:190px; display:block; }
+.pm-yax{ display:flex; flex-direction:column; justify-content:space-between; padding:2px 0; font-size:9.5px; color:#7C7E7A; }
+.pm-xax{ position:relative; height:15px; font-size:9.5px; color:#7C7E7A; margin:7px 0 0 38px; }
+.pm-xax span{ position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; }
+.pm-xax span.tk-f{ transform:none; }
+.pm-xax span.tk-l{ transform:translateX(-100%); }
+.pm-foot{ display:flex; justify-content:space-between; align-items:center; margin-top:12px; }
+.pm-vol{ font-size:11px; color:#7C7E7A; }
+.toggles{ display:flex; gap:3px; }
+.toggles a{ font-size:10.5px; color:#7C7E7A; padding:3px 7px; border-radius:5px; text-decoration:none; }
+.toggles a.on{ background:#2A2C30; color:#F2F2EF; font-weight:600; }
+
+.resolved-box{ display:flex; flex-direction:column; gap:10px; }
+.resolved-pill{ align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#F2F2EF; padding:8px 14px; border-radius:8px; }
+.resolved-note{ font-size:13px; color:#A9ABA6; line-height:1.6; margin:0; }
+.mqrow{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:4px; }
+.live-badge{ flex-shrink:0; display:inline-flex; align-items:center; gap:6px; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#E8C56A; border:1px solid #4A3F22; background:#211C11; padding:4px 10px; border-radius:20px; font-weight:600; white-space:nowrap; }
+.live-badge .pulse{ width:7px; height:7px; border-radius:50%; background:#D4A03A; }
+
+/* ---- 31 Jul review pass (3 Aug) ---- */
+/* 16 overridden by Pavlo 3 Aug: every label sits on the left edge, V0 */
+.echo-section .kick { padding-left:0; }
+/* 5+12 · branded Echo frame — the house look wherever a pattern is cited */
+.echo-frame { background:#1B1D21; border:1px solid #2A2C30; border-radius:10px; padding:18px 18px 20px; }
+.echo-frame h2 { margin-bottom:10px; }
+.echo-frame > p { font-size:15px; line-height:1.7; margin-bottom:0; }
+.echo-frame .timeline { margin:0; padding-top:18px; border-top:1px solid #2A2C30; }
+.echo-frame .timeline:before { top:26px; }
+.echo-frame .tl:before { background:#1B1D21; }
+.echo-frame .tl.now:before { background:#D4A03A; }
+/* 19 · one heading weight across the page */
+.echo-section h2, .mkt .mq { font-weight:630; }
+/* 6 · LIVE = white pill, green ring, green dot, black text */
+.live-badge { color:#1F241F; border:1px solid #216945; background:#FFFFFF; }
+.live-badge .pulse { background:#216945; }
+/* 10 · each market carries its own resolution rule, framed, colour by status */
+.mkt-verify { margin-top:14px; border-top:1px solid #2A2C30; padding-top:12px; font-size:12.5px; color:#A9ABA6; line-height:1.65; }
+.mkt-verify h5 { font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#D4A03A; margin:0 0 6px; font-weight:600; }
+.mkt-verify.res h5 { color:#7C7E7A; }
+.mkt-verify p { margin:0 0 4px; }
+
+/* pattern-case source labels (21 Aug 2026): thin grey link from the case's own citation */
+.case-src { font-family:'Inter',sans-serif; font-size:11px; color:#5E9C7B; text-decoration:none; white-space:nowrap; }
+.case-src:hover { color:#9FCDB4; text-decoration:underline; }
+.cmt-field:disabled { cursor:default; opacity:.75; }
+
+/* discussion (Pavlo 3 Aug): comment field at the foot of every echo */
+#comments { margin-top:42px; scroll-margin-top:150px; }
+.cmt-box { background:#17181B; border:1px solid #2A2C30; border-radius:10px; padding:14px; }
+.cmt-field { width:100%; box-sizing:border-box; border:none; background:transparent; resize:vertical;
+  font-family:'Inter',sans-serif; font-size:14px; color:#F2F2EF; line-height:1.6; outline:none; min-height:64px; }
+.cmt-field::placeholder { color:#6B6E6A; }
+.cmt-row { display:flex; justify-content:space-between; align-items:center; gap:14px;
+  border-top:1px solid #2A2C30; padding-top:12px; margin-top:6px; }
+.cmt-hint { font-size:11.5px; color:#7C7E7A; }
+.cmt-post { font-size:13px; font-weight:600; color:#F2F2EF; background:#2E4A37; border:1px solid #3D6B4E;
+  border-radius:8px; padding:9px 22px; cursor:pointer; font-family:inherit; }
+.cmt-post:hover { background:#3D6B4E; }
+.cmt-post:disabled { background:#3A3D42; border-color:#45484E; cursor:default; }
+.cmt-list { margin-top:18px; display:flex; flex-direction:column; gap:14px; }
+.cmt { border-bottom:1px solid #2A2C30; padding-bottom:14px; }
+.cmt-meta { font-size:11.5px; color:#7C7E7A; margin-bottom:5px; }
+.cmt-meta b { color:#F2F2EF; font-weight:600; }
+.cmt-text { font-size:14px; color:#DEDED9; line-height:1.6; }
+
+/* live dot pulses green (Pavlo 3 Aug) */
+@keyframes hunch-pulse { 0% { box-shadow:0 0 0 0 rgba(116,199,154,0.4); } 70% { box-shadow:0 0 0 6px rgba(0,0,0,0); } 100% { box-shadow:0 0 0 0 rgba(0,0,0,0); } }
+.live-badge .pulse { animation: hunch-pulse 1.8s infinite; }
+
+/* multi options (Pavlo 3 Aug): no dots, hover floods with the series colour */
+.mopt .bdot { display:none; }
+.multi .mopt:nth-child(1):hover { background:#1B1D21 !important; border-color:#2A2C30 !important; }
+.multi .mopt:nth-child(2):hover { background:#1B1D21 !important; border-color:#2A2C30 !important; }
+.multi .mopt:nth-child(3):hover { background:#1B1D21 !important; border-color:#2A2C30 !important; }
+.multi .mopt:nth-child(4):hover { background:#1B1D21 !important; border-color:#2A2C30 !important; }
+.multi .mopt:hover .on, .multi .mopt:hover .op { color:#A9ABA6 !important; }
+
+/* share modal (Pavlo 3 Aug): copy link + destinations + house-style preview */
+.share-backdrop { display:none; position:fixed; inset:0; background:rgba(31,36,31,0.35); z-index:1100; }
+.share-modal { display:none; position:fixed; z-index:1101; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:min(480px, calc(100vw - 40px)); background:#17181B; border:1px solid #2A2C30; border-radius:14px;
+  padding:22px 24px; box-shadow:0 24px 60px rgba(31,36,31,0.22); }
+.share-backdrop.open, .share-modal.open { display:block; }
+.sm-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.sm-title { font-family:'Source Serif 4',serif; font-size:19px; font-weight:600; color:#F2F2EF; }
+.sm-close { background:none; border:none; font-size:22px; color:#7C7E7A; cursor:pointer; line-height:1; padding:2px 6px; }
+.sm-close:hover { color:#F2F2EF; }
+.sm-preview { background:#0E0F11; border:1px solid #2A2C30; border-radius:10px; padding:18px 18px 14px; margin-bottom:16px; }
+.smp-kick { font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#D4A03A; font-weight:600; margin-bottom:10px; }
+.smp-scene { padding:22px 0 12px; } .smp-scene svg { display:block; width:86%; margin:0 auto; }
+.smp-head { font-family:'Source Serif 4',serif; font-size:17px; font-weight:630; color:#F2F2EF; line-height:1.35; margin-bottom:28px; }
+.smp-foot { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid #2A2C30; padding-top:10px; }
+.smp-brand { font-family:'Source Serif 4',serif; font-size:15px; font-weight:600; color:#F2F2EF; }
+.smp-domain { font-size:11px; color:#7C7E7A; }
+.sm-linkrow { display:flex; gap:8px; margin-bottom:16px; }
+.sm-link { flex:1; font-size:12.5px; color:#A9ABA6; background:#1B1D21; border:1px solid #2A2C30; border-radius:8px;
+  padding:10px 12px; font-family:ui-monospace,monospace; overflow:hidden; text-overflow:ellipsis; }
+.sm-copy { font-size:13px; font-weight:600; color:#F2F2EF; background:#2E4A37; border:1px solid #3D6B4E;
+  border-radius:8px; padding:10px 16px; cursor:pointer; font-family:inherit; }
+.sm-copy:hover { background:#3D6B4E; }
+.sm-copy.done { background:#D4A03A; border-color:#5E3F0C; }
+.sm-nets { display:flex; gap:10px; }
+.sm-net { width:40px; height:40px; border-radius:50%; border:1px solid #2A2C30; color:#A9ABA6; background:transparent;
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer; }
+.sm-net:hover { color:#F2F2EF; background:#2E4A37; border-color:#3D6B4E; }
+
+/* byline market counter jumps to the markets (Pavlo 3 Aug) */
+html { scroll-behavior:smooth; }
+#markets { scroll-margin-top:150px; } /* sticky masthead 132px + air */
+.by-mkts { color:inherit; text-decoration:none; border-bottom:1px solid #3A4A42; cursor:pointer; }
+.by-mkts:hover { color:#5E9C7B; }
+
+/* lead flows the full column, no 720px cap (Pavlo 3 Aug) */
+.page-lead { max-width: none; }
+
+/* duo columns on shared lines (Pavlo 3 Aug): frame border+padding = 19px,
+   so the left h2 drops to meet the right one; para gap equalised 14px both sides */
+.echo-duo > .echo-section:first-child h2 { margin-top:31px; } /* 12px kick margin collapses in */
+.echo-frame h2 { margin-bottom:14px; }
+
+/* menu drawer wordmark (Pavlo 3 Aug): left-aligned, +20% weight (300 -> 360) */
+.menu-panel-hdr { position:relative; justify-content:flex-start; }
+.menu-brand { font-family:'Source Serif 4',serif; font-size:24px; font-weight:360; color:#F2F2EF;
+  line-height:1; letter-spacing:-0.025em; text-decoration:none; }
+.menu-panel-close { position:absolute; right:0; top:12px; transform:translateY(-50%); } /* on the wordmark axis, not the padded box's */
+
+/* ---- sticky masthead (Pavlo 3 Aug): both rows pinned down to the row2 divider ---- */
+.row1 { position:sticky; top:0; z-index:30; background:#0E0F11; }
+.row2 { position:sticky; top:75px; z-index:29; background:#0E0F11; }
+@media (max-width:560px) { .row1, .row2 { position:static; } }
+
+/* ---- 31 Jul review · pts 2 + 3 + 4 (3 Aug) · rollout target: hunch-shell.css ---- */
+/* 2 · active section = a short 3px line living in the row2 divider itself.
+   Echo/category pages mark the live section with .active, which had no styling
+   anywhere — only .on was ever styled, so the active section rendered dead. */
+.row2 .topics a.on, .row2 .topics a.active { color:#5E9C7B; font-weight:500; border-bottom:none;
+  padding-bottom:4px; position:relative; }
+.row2 .topics a.on::after, .row2 .topics a.active::after { content:''; position:absolute; left:0; right:0;
+  bottom:0; height:3px; background:#2E4A37; border-radius:2px 2px 0 0; }
+/* on desktop the marker drops into the divider itself: row2 padding 14 + border 1 */
+@media (min-width:861px) {
+  .row2 .topics a.on::after, .row2 .topics a.active::after { bottom:-15px; }
+}
+/* Pavlo 3 Aug: page kicker and byline sit on the left edge too */
+.page-kicker { padding-left:0; }
+.echo-byline { padding-left:0; padding-right:0; }
+/* the year line carries a 2-4 word subject so the column scans by case, not by date */
+.tl .yr .ylab { color:#7C7E7A; font-weight:400; }
+/* base rate needs its own surface — #1B1D21 now belongs to the Echo frame */
+.base { background:#17181B; border-color:#2A2C30; }
+/* 4 · byline = two entities: identification on V0, statistics on V0R */
+.echo-byline { justify-content:space-between; }
+.echo-by-id, .echo-by-stat { display:inline-flex; align-items:center; gap:14px; }
+/* byline actions: share, bookmark, comment (Pavlo 3 Aug) */
+.echo-acts { display:inline-flex; align-items:center; gap:6px; margin-left:8px; }
+.echo-act { width:28px; height:28px; border-radius:50%; border:1px solid #2A2C30; background:transparent;
+  color:#7C7E7A; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  padding:0; transition:background .15s, color .15s, border-color .15s; }
+.echo-act:hover { background:#17181B; color:#F2F2EF; border-color:#F2F2EF; }
+.echo-act.on { color:#5E9C7B; border-color:#5E9C7B; }
+.echo-act.on svg { fill:currentColor; }
+.echo-act[data-copied]::after { content:'Link copied'; position:absolute; margin-top:-46px;
+  font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#5E9C7B; white-space:nowrap; }
+
+/* 3 REVERTED (Pavlo 3 Aug): burger is back on desktop, row2 dropdown retired */
+.nav-mm { display:none !important; }
+.nav-mm { margin-left:auto; position:static; padding-right:14px; }
+.nav-mm > a { display:inline-flex; align-items:center; gap:6px; font-weight:500; white-space:nowrap; }
+.nav-mm .chev { width:9px; height:9px; border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor; transform:rotate(45deg) translateY(-2px); }
+.mm-panel { display:none; position:absolute; left:0; right:0; top:calc(100% + 1px); width:auto;
+  background:#17181B; border:1px solid #2A2C30; border-radius:12px; padding:26px 30px; z-index:60;
+  box-shadow:0 18px 44px rgba(31,36,31,0.14); grid-template-columns:repeat(4,1fr); gap:26px; }
+.mm-panel.open { display:grid; }
+.mm-h { font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#D4A03A;
+  font-weight:600; margin-bottom:10px; }
+.mm-col a { display:block; font-size:13.5px; color:#A9ABA6; text-decoration:none; padding:5px 0; }
+.mm-col a:hover { color:#F2F2EF; }
+.mm-foot { grid-column:1/-1; border-top:1px solid #2A2C30; padding-top:14px; margin-top:4px;
+  font-size:12.5px; color:#A9ABA6; }
+.mm-foot a { color:#A9ABA6; text-decoration:none; padding:3px 10px; border:1px solid #2A2C30;
+  border-radius:14px; margin-left:6px; }
+.mm-foot a.on { color:#F2F2EF; border-color:#D4A03A; font-weight:600; }
+@media (max-width:860px) { .nav-mm { display:none; } }
+</style>
+<style>/* bet-button spec v5 — markets live */.poll .p-yes,.mkt-poll .my,.ec-poll .p-yes,.mr-poll .p-yes,.market-row .mr-poll .p-yes,.mc-poll-binary .mc-vote-yes,.market-card .mc-vote-yes,.opt.yes{background:#1C2620 !important;border:1px solid #3A5244 !important;color:#9FCDB4 !important;cursor:pointer;}.poll .p-no,.mkt-poll .mn,.ec-poll .p-no,.mr-poll .p-no,.market-row .mr-poll .p-no,.mc-poll-binary .mc-vote-no,.market-card .mc-vote-no,.opt.no{background:#291B1A !important;border:1px solid #57302E !important;color:#D8A19C !important;cursor:pointer;}.opt.yes .nm,.opt.yes .on,.opt.yes .op,.opt.yes .pc{color:#9FCDB4 !important;}.opt.no .nm,.opt.no .on,.opt.no .op,.opt.no .pc{color:#D8A19C !important;}.poll .p-yes:hover,.mkt-poll .my:hover,.ec-poll .p-yes:hover,.mr-poll .p-yes:hover,.market-row .mr-poll .p-yes:hover,.mc-poll-binary .mc-vote-yes:hover,.market-card .mc-vote-yes:hover,.poll .p-yes.selected,.mkt-poll .my.selected,.ec-poll .p-yes.selected,.mr-poll .p-yes.selected,.market-row .mr-poll .p-yes.selected,.mc-poll-binary .mc-vote-yes.selected,.market-card .mc-vote-yes.selected,.opt.yes:hover,.opt.yes.selected{background:#2E4A37 !important;border-color:#3d6b4e !important;color:#F2F2EF !important;}.poll .p-no:hover,.mkt-poll .mn:hover,.ec-poll .p-no:hover,.mr-poll .p-no:hover,.market-row .mr-poll .p-no:hover,.mc-poll-binary .mc-vote-no:hover,.market-card .mc-vote-no:hover,.poll .p-no.selected,.mkt-poll .mn.selected,.ec-poll .p-no.selected,.mr-poll .p-no.selected,.market-row .mr-poll .p-no.selected,.mc-poll-binary .mc-vote-no.selected,.market-card .mc-vote-no.selected,.opt.no:hover,.opt.no.selected{background:#8B3E3A !important;border-color:#a4524c !important;color:#F2F2EF !important;}.opt.yes:hover .nm,.opt.yes:hover .on,.opt.yes:hover .op,.opt.yes:hover .pc,.opt.yes.selected .nm,.opt.yes.selected .on,.opt.yes.selected .op,.opt.yes.selected .pc,.opt.no:hover .nm,.opt.no:hover .on,.opt.no:hover .op,.opt.no:hover .pc,.opt.no.selected .nm,.opt.no.selected .on,.opt.no.selected .op,.opt.no.selected .pc{color:#F2F2EF !important;}.mc-poll-binary .mc-vote .mc-vote-pct{color:inherit !important;}.market-card:hover .mc-vote-yes{border-color:#3A5244 !important;}.market-card:hover .mc-vote-no{border-color:#57302E !important;}.multi .mopt,.md-vote-opt,.fcbtn{cursor:pointer;}.multi .mopt:hover,.multi .mopt:nth-child(1):hover,.multi .mopt:nth-child(2):hover,.multi .mopt:nth-child(3):hover,.multi .mopt:nth-child(4):hover,.multi .mopt:nth-child(5):hover{background:#222A25 !important;border-color:#5E9C7B !important;}.multi .mopt:hover .on,.multi .mopt:hover .op,.multi .mopt:nth-child(2):hover .on,.multi .mopt:nth-child(2):hover .op,.multi .mopt.selected .on,.multi .mopt.selected .op{color:#F2F2EF !important;}.multi .mopt.selected{background:#2E4A37 !important;border-color:#5E9C7B !important;}.md-vote-opt.selected{border-color:#3d6b4e !important;}.md-vote-opt.selected::before{background:rgba(74,111,92,0.34) !important;}</style>
+<style>
+/* echo pages join the v9 masthead: same wordmark, same nav strip, same rhythm (28 Aug) */
+@media (max-width:560px) {
+  .page { padding: 0 16px !important; }
+  
+  :root { --s: 20px; }
+
+  /* header: burger left · wordmark centre · sign in right */
+  .row1 { display:flex !important; align-items:center !important; padding:10px 0 !important; gap:12px !important; position:relative !important; }
+  .row1 .left { display:none !important; }
+  .row1 .right { display:contents !important; gap:14px !important; }
+  .row1 .menu-btn { order:-1 !important; margin-right:auto !important; width:28px !important; height:28px !important; border:none !important; background:transparent !important; }
+  .row1 .menu-btn svg { width:20px; height:20px; }
+  .row1 .brand { order:0 !important; margin:0 !important; position:absolute; left:50%; transform:translateX(-50%); font-size:24px !important; font-weight:347 !important; }
+  .row1 .btn-primary { order:1 !important; margin-left:auto !important; background:transparent !important; border:none !important; color: var(--ink) !important; padding:0 !important; border-radius:0 !important; font-size:15px !important; font-weight:400 !important; }
+
+  /* topics: one scrollable line */
+  .row2 { padding:12px 0 !important; font-size:15px !important; flex-wrap:nowrap !important; }
+  .row2 .topics { flex-wrap:nowrap !important; overflow-x:auto !important; padding-left:0 !important; gap:16px !important; white-space:nowrap; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .row2 .topics::-webkit-scrollbar { display:none; }
+  .row2 a { font-size:15px !important; }
+  .row2 .topics a.premium { display:none !important; }
+  .nav-mm { display:none !important; }
+
+  /* burger drawer extras */
+  .menu-msearch { display:block; margin:0 0 12px; }
+  .menu-msearch input { width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid var(--line); background: var(--bg); color: var(--ink); outline:none; }
+  .menu-msub { display:block; font-size:13px; font-weight:500; color: var(--gold); text-decoration:none; padding:6px 0 12px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+
+  /* bottom tab bar */
+  .m-tabbar { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:900; height:calc(52px + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom); background: var(--bg); border-top:1px solid var(--line); }
+  .m-tabbar a { flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color: var(--mut); font-weight:400; }
+  .m-tabbar a span { border-top:2px solid transparent; padding-top:4px; }
+  .m-tabbar a.active { color: var(--ink); font-weight:500; }
+  .m-tabbar a.active span { border-top-color: var(--acc); }
+
+  /* sections: 16px edge from .page only */
+  .v10-lead, .v10-latest, .v10-week, .v9-sec { padding-left:0 !important; padding-right:0 !important; }
+  .v10-lead { padding-top: var(--s) !important; padding-bottom: calc(var(--s)*1.25) !important; }
+  .v10-lead-side { margin-top: var(--s) !important; padding-top: var(--s) !important; }
+  .v9-grid { grid-template-columns: 1fr; gap: var(--s); }
+
+  /* type scale */
+  .v10-kicker, .v10-latest-kicker, .v9-sig { font-size:11px !important; }
+  .v10-lead-h { font-size:30px !important; line-height:1.18 !important; margin:10px 0 12px !important; }
+  .v10-lead-lede { font-size:17px !important; line-height:1.55 !important; }
+  .v9-ch { font-size:20px !important; line-height:1.3 !important; }
+  .v9-ce { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-h { font-size:20px !important; line-height:1.3 !important; }
+  .v10-latest-sum { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-meta, .v9-meta-line { font-size:13px !important; }
+  .v10-readmore { font-size:15px !important; }
+  .v10-latest-head .more { font-size:14px !important; }
+  .v9-rail-sum { font-size:16px !important; }
+  .v9-yr { font-size:15px !important; }
+  .v9-eow-h { font-size:22px !important; }
+  .v9-eow-p { font-size:15px !important; }
+
+  /* pattern frames collapse into <details> on phones */
+  .v10-latest-row { grid-template-columns:1fr !important; gap:10px !important; padding: var(--s) 0 !important; }
+  details.v10-pat { margin-top:8px; }
+  details.v10-pat summary { list-style:none; cursor:pointer; font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color: var(--gold); }
+  details.v10-pat summary::-webkit-details-marker { display:none; }
+  details.v10-pat summary::after { content:'\25BE'; display:inline-block; margin-left:6px; font-size:9px; transition:transform .15s; }
+  details.v10-pat[open] summary::after { transform:rotate(180deg); }
+  details.v10-pat .v10-mini-frame { margin-top:10px; }
+  .v10-mini-case .yr, .v10-mini-case .tx { font-size:15px !important; line-height:1.5 !important; }
+  .v10-mini-case .tx { display:block; }
+
+  /* footer */
+  .footer-full { padding: var(--s) 0 16px !important; margin-top: var(--s) !important; }
+  .footer-brand-row { margin-bottom: var(--s) !important; }
+  .footer-brand .name { font-size:22px !important; }
+  .footer-cols { grid-template-columns:1fr 1fr !important; gap: var(--s) !important; margin-bottom: var(--s) !important; }
+  .footer-col h4 { font-size:10px !important; }
+  .footer-col ul li { font-size:13px !important; }
+  .footer-bottom { font-size:12px !important; }
+  .footer-license { font-size:12px !important; }
+}
+@media(max-width:560px){.row1{position:relative !important;}
+.menu-msearch input{width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid #E4DCC8; background:#FAF7EF; color:#1F241F; outline:none;}
+.menu-msub{display:block; font-size:13px; font-weight:500; color:#7A5210; text-decoration:none; padding:6px 0 12px; border-bottom:1px solid #E4DCC8; margin-bottom:12px;}
+.m-tabbar a{flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#8A8474; font-weight:400;}
+.footer-brand-row{margin-bottom:20px !important;}
+.footer-cols{grid-template-columns:1fr 1fr !important; gap:20px !important; margin-bottom:20px !important;}
+.footer-bottom{font-size:12px !important;}}
+.page-title { font-weight: 565 !important; }
+</style>
+<script>
+/* masthead date follows the day instead of the build */
+document.addEventListener('DOMContentLoaded', function(){
+  var d = document.querySelector('.row1 .date'); if (!d) return;
+  var n = new Date();
+  var wd = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][n.getDay()];
+  var mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][n.getMonth()];
+  d.textContent = wd + ', ' + n.getDate() + ' ' + mo + ' ' + n.getFullYear();
+});
+</script>
+<style>
+/* ================= NO SIDEWAYS SCROLL ON MOBILE (Pavlo, 28 Aug) =================
+   Rule: at phone width nothing scrolls sideways. Everything either fits, or is
+   hidden behind a control the reader can see. A strip that slides off the edge
+   with no affordance is neither.
+   The category strip used to hide 159px of itself, 31% of the nav, behind a
+   swipe. At 560px and below it now carries the six categories only: the
+   wordmark already goes home, and Subscribe lives in the drawer.
+   overflow-x:clip on the root stops the closed drawer, parked off-screen to the
+   right, from widening the document. */
+html, body { overflow-x: clip; }
+@media (max-width: 560px) {
+  .row2 .topics { overflow-x: visible !important; flex-wrap: nowrap !important;
+    gap: 10px !important; font-size: 13.5px !important; padding-left: 0 !important; }
+  .row2 .topics .sep { display: none !important; }
+  .row2 .topics a.premium { display: none !important; }
+  .row2 .topics a[href*="layout-v9-clean"] { display: none !important; }
+  .row2 .topics a { padding: 4px 0 !important; }
+}
+</style>
+<style>
+/* ===== phone: a live number strip above the masthead, and a count on the
+   MARKETS tab. Both borrowed straight from the references: FT puts its ticker
+   as the topmost row of the page, Bloomberg puts a row of number cards under
+   the masthead, Kalshi carries a live counter inside the tab bar. On a phone
+   these are the cheapest signals that the thing is alive. (28 Aug) ===== */
+@media (max-width: 560px) {
+  .m-tabbar a .cnt { font-family: 'Source Serif 4', serif; font-size: 11px; color: var(--acc); margin-left: 4px; }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var mk = document.querySelector('.m-tabbar a[href*="markets"]');
+  if (mk && !mk.querySelector('.cnt')) {
+    var c = document.createElement('span'); c.className = 'cnt'; c.textContent = '51';
+    mk.appendChild(c);
+  }
+});
+</script>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon-dark.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/tech/nhs-app-home-testing/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/tech/nhs-app-home-testing/">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="page">
+  <div class="row1">
+    <div class="left">
+      <button class="search-btn" title="Search" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <span class="date">Fri, 21 Aug 2026</span>
+    </div>
+    <a class="brand" href="/dark/">Hunch</a>
+    <div class="right">
+      <a href="/signin/dark/" class="btn-primary">Sign in</a>
+      <button class="menu-btn" data-menu-open title="Menu" aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="row2"><div class="topics"><a href="/dark/">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/" class="active">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/dark/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#17181B" stroke="#D4A03A" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#D4A03A" text-anchor="middle">H</text></svg>Subscribe</a></div><div class="nav-mm"><a href="#" id="mmBtn">Menu <span class="chev"></span></a><div class="mm-panel" id="mmPanel"><div class="mm-col"><div class="mm-h">Browse</div><a href="/markets/dark/">All markets</a><a href="/archive/dark/">Archive</a><a href="/echo/library/dark/">Echo Library</a><a href="/leaderboard/dark/">Leaderboard</a><a href="/methodology/dark/">How it works</a></div><div class="mm-col"><div class="mm-h">Hunch</div><a href="/about/dark/">About</a><a href="/editorial-code/dark/">Editorial Code</a><a href="/partners/dark/">Partners</a><a href="/contact/dark/">Help &amp; Contact</a></div><div class="mm-col"><div class="mm-h">Account</div><a href="/account/dark/">Dashboard</a><a href="/membership/dark/">Membership</a><a href="/account/dark/">My predictions</a><a href="/account/dark/">Settings</a></div><div class="mm-col"><div class="mm-h">Topics</div><a href="/politics/dark/">Politics</a><a href="/sports/dark/">Sports</a><a href="/finance/dark/">Finance</a><a href="/culture/dark/">Culture</a></div><div class="mm-foot">Theme:<a href="/tech/nhs-app-home-testing/">Light</a><a href="#" class="on" onclick="return false;">Dark</a></div></div></div></div>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="/dark/">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/dark/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/dark/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/dark/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/tech/nhs-app-home-testing/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <div class="page-hdr">
+    <div class="echo-topdate"><span class="echo-topnum">Echo #005</span><span class="echo-topd">Apr 20</span></div><h1 class="page-title">The NHS App wants your blood. The GP queue is the target.</h1>
+    <p class="page-lead">NHS England has opened a market engagement exercise for HomeTest, a national service that would let patients order, take and receive diagnostic tests at home through the NHS App, across seven clinical specialities.</p>
+  </div>
+
+  <div class="echo-wrap">
+    <div class="echo-byline">
+      <span class="echo-by-id"><span class="echo-acts"><button type="button" class="echo-act" id="ecShare" title="Share" aria-label="Share this Echo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button><button type="button" class="echo-act" id="ecMark" title="Save" aria-label="Save this Echo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button><button type="button" class="echo-act" id="ecTalk" title="Comments" aria-label="Comments"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg></button></span></span>
+      <span class="echo-by-stat"><span>4 min read</span></span>
+    </div>
+    <div class="echo-duo">
+    <div class="echo-section">
+      <div class="kick">1 &middot; The event</div>
+      <h2>What happened</h2>
+      <p>NHS England opened a market engagement exercise on 20 April 2026 for HomeTest, a proposed national service letting patients order diagnostic tests, complete them at home and receive results through the NHS App. Supplier responses closed on 5 May. The initial scope covers seven specialities: sexual health, gastroenterology, urology, gynaecology, orthopaedics, rheumatology and primary care tests including cholesterol <a href="https://www.telegraph.co.uk/news/2026/04/21/nhs-could-offer-key-health-tests-at-home/">The Daily Telegraph, 21 April 2026</a>.</p><p>The ambition is explicit in the numbers NHS England cites: users already view GP records through the app more than 30 million times a month, including 10 million views of test results. HomeTest would push the app from displaying diagnostics to initiating them, with an operational target of 2027/28, contingent on feasibility work and ministerial approval <a href="https://www.telegraph.co.uk/news/2026/04/21/nhs-could-offer-key-health-tests-at-home/">The Daily Telegraph, 21 April 2026</a>.</p><p>The move sits inside the 10 Year Health Plan's promise to make the NHS App a "doctor in your pocket". GP leaders have already set conditions, warning that expansion must be evidence-based and clinically validated, with concerns that unclear results could drive anxiety and extra GP demand rather than relieve it. No operating model, national or locally commissioned, has been fixed.</p>
+    </div>
+    <div class="echo-section">
+      <div class="kick">2 &middot; The Echo</div>
+      <div class="echo-frame">
+      <h2>The Echo</h2>
+      <p>NHS digital programmes have one of the most polarised delivery records in British public services. The same organisation that ran the largest civilian IT failure in UK history also shipped one of its fastest-adopted digital products. The split is consistent: incremental features on the NHS App deliver; grand centrally-procured programmes struggle.</p>
+      <div class="timeline"><div class="tl now"><div class="yr">Today</div><div class="bd">NHS England is exploring at-home health tests ordered through the NHS App, opening a market engagement exercise for suppliers — the first step towards home testing at scale.</div></div><div class="tl"><div class="yr">2025</div><div class="bd">The 10 Year Health Plan (July 2025) commits to the NHS App as the service's front door, pledging to shift <strong>two-thirds</strong> of outpatient appointments to digital-first pathways.</div></div><div class="tl"><div class="yr">2021</div><div class="bd">The Covid Pass turns the NHS App from a niche tool into national infrastructure, driving registrations past <strong>16 million</strong> in a single year.</div></div><div class="tl"><div class="yr">2019</div><div class="bd">The NHS App launches in January 2019 to slow uptake; pre-pandemic adoption stays in the low single-digit millions.</div></div><div class="tl"><div class="yr">2011</div><div class="bd">The National Programme for IT is dismantled after nine years and roughly <strong>£12.7bn</strong>, the benchmark failure for centralised NHS technology procurement.</div></div></div>
+      </div>
+    </div>
+    </div>
+
+    <div class="echo-section">
+      <div class="kick">3 &middot; What it means</div><div class="base">
+      <div class="stat">2 of 4</div>
+      <div class="btxt"><span class="bl">Base rate</span>Of four flagship NHS digital initiatives since 2002, two delivered at national scale (the NHS App and the Covid Pass) and two either failed outright (NPfIT) or remain unproven pledges (the 10 Year Plan's outpatient shift). The split is honest: HomeTest's app-first design puts it on the better side of the pattern, but its national procurement puts it on the worse one.</div>
+    </div>
+      <h2>How to read it</h2>
+      <p>The weighted case for caution on the short horizon: market engagement exercises are the earliest rung of public procurement, and the stated pathway, feasibility recommendations then ministerial approval then a 2027/28 launch, leaves little reason for a formal next-stage notice within weeks. NHS England's own language is exploratory, with no commitment to national rollout or specific conditions. The anniversary market is different: governments rarely let a flagship plan's first birthday pass silently, and the App is the plan's most photogenic asset, so some announcement is the likelier branch.</p><p>The honest counter-case: the political wind is unusually strong behind this programme. The Health Secretary has personally championed home testing as faster diagnosis, the 10 Year Plan needs visible progress before its anniversary, and departments have a habit of accelerating announceable items into exactly this kind of window. A HomeTest pilot confirmed as part of a July anniversary package would resolve both live markets at once, and precedent exists: the Covid Pass went from concept to national deployment in months when ministers wanted it to.</p>
+    </div>
+    
+    <div class="echo-section" id="markets">
+      <div class="kick">4 &middot; Predict it</div>
+      <h2>Make your call</h2>
+      <div class="mkt" data-market data-status="resolved">
+  <div class="mqrow"><div class="mq">Will NHS England publish a HomeTest next-stage notice, procurement or pilot, by 10 Aug 2026?</div><span class="live-badge" style="color:#7C7E7A;border-color:#2A2C30;background:#17181B;"><span class="pulse" style="background:#7C7E7A;"></span>Resolved</span></div>
+  <div class="meta"><span>Resolved 10 Aug 2026</span></div>
+  <div class="mkt-body">
+    <div class="mktchart">
+      <div class="pm-plot"><div class="pm-svg"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
+<line x1="0" y1="0" x2="100" y2="0" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="25" x2="100" y2="25" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="50" x2="100" y2="50" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="75" x2="100" y2="75" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="100" x2="100" y2="100" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="18.8" y1="0" x2="18.8" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="37.5" y1="0" x2="37.5" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="56.2" y1="0" x2="56.2" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="75.0" y1="0" x2="75.0" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/>
+<polyline fill="none" stroke="#C4584B" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 11.1,42.8 22.2,36.8 33.3,31.9 44.4,27.5 55.6,22.3 66.7,19.9 77.8,18.2 88.9,16.4 100.0,8.0"/>
+<polyline fill="none" stroke="#74C79A" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 11.1,57.2 22.2,63.2 33.3,68.1 44.4,72.5 55.6,77.7 66.7,80.1 77.8,81.8 88.9,83.6 100.0,92.0"/>
+<line x1="100" y1="4" x2="100" y2="96" stroke="#D4A03A" stroke-width="0.8" stroke-dasharray="2,2"/></svg></div><div class="pm-yax"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div></div>
+      <div class="pm-xax"><span class="tk-f" style="left:0;">20 Apr</span><span style="left:18.8%;">11 May</span><span style="left:37.5%;">1 Jun</span><span style="left:56.2%;">22 Jun</span><span style="left:75.0%;">13 Jul</span><span class="tk-l" style="left:100%;">10 Aug</span></div>
+      <div class="pm-foot"><div class="pm-vol">1,480 points signed</div></div>
+    </div>
+    <div class="resolved-box"><div class="resolved-pill" style="background:#8B3E3A;">Resolved: NO</div><p class="resolved-note">No Find a Tender notice or NHS England funded-pilot announcement for HomeTest appeared by 10 August; the programme had not progressed publicly beyond April’s market engagement (gov.uk; Find a Tender).</p></div>
+  </div>
+  <div class="mkt-verify res"><h5>How this resolves</h5><p>The next-stage market resolves YES only on a formal notice: a contract or procurement notice on the UK Find a Tender service naming HomeTest or home diagnostic testing via the NHS App, or an NHS England announcement of a funded pilot, by 10 August 2026.</p></div>
+</div>
+<div class="mkt" data-market data-status="resolved">
+  <div class="mqrow"><div class="mq">What will DHSC announce for the NHS App around the 10 Year Plan&#x27;s first anniversary, by 31 Jul 2026?</div><span class="live-badge" style="color:#7C7E7A;border-color:#2A2C30;background:#17181B;"><span class="pulse" style="background:#7C7E7A;"></span>Resolved</span></div>
+  <div class="meta">Multiple choice &middot; <span>Resolved 31 Jul 2026</span></div>
+  <div class="mkt-body">
+    <div class="mktchart">
+      <div class="pm-plot"><div class="pm-svg"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="0" y1="0" x2="100" y2="0" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="25" x2="100" y2="25" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="50" x2="100" y2="50" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="75" x2="100" y2="75" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="100" x2="100" y2="100" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="20.6" y1="0" x2="20.6" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="41.2" y1="0" x2="41.2" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="61.8" y1="0" x2="61.8" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><polyline fill="none" stroke="#5FA98A" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 14.3,44.9 28.6,38.4 42.9,32.5 57.1,28.3 71.4,24.5 85.7,21.9 100.0,12.0"/><polyline fill="none" stroke="#D4A03A" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 14.3,55.1 28.6,61.6 42.9,67.5 57.1,71.7 71.4,75.5 85.7,78.1 100.0,88.0"/><polyline fill="none" stroke="#7E8893" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,13 14.3,16 28.6,18 42.9,22 57.1,19 71.4,23 85.7,17.0 100.0,12"/><line x1="100" y1="4" x2="100" y2="96" stroke="#D4A03A" stroke-width="0.8" stroke-dasharray="2,2"/></svg></div><div class="pm-yax"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div></div>
+      <div class="pm-xax"><span class="tk-f" style="left:0;">20 Apr</span><span style="left:20.6%;">11 May</span><span style="left:41.2%;">1 Jun</span><span style="left:61.8%;">22 Jun</span><span class="tk-l" style="left:100%;">31 Jul</span></div>
+      <div class="pm-foot"><div class="pm-vol">2,670 points signed</div></div>
+    </div>
+    <div class="resolved-box"><div class="resolved-pill" style="background:#2E4A37;">Resolved: Nothing substantive</div><p class="resolved-note">DHSC’s anniversary-period communications, including the 8 July 10 Year Capital Plan, pledged only to “improve the NHS App” without naming new capabilities or citing usage milestones (gov.uk, 8 Jul 2026).</p></div>
+  </div>
+  <div class="mkt-verify res"><h5>How this resolves</h5><p>The anniversary market resolves on official DHSC or NHS England communications between 1 and 31 July 2026: 'New features announced' requires at least one named new NHS App capability; 'Usage milestone only' requires statistics without new capabilities; otherwise 'Nothing substantive'.</p></div>
+</div>
+<div class="mkt" data-market data-status="resolved">
+  <div class="mqrow"><div class="mq">Will the HomeTest market engagement close on 5 May 2026 as scheduled?</div><span class="live-badge" style="color:#7C7E7A;border-color:#2A2C30;background:#17181B;"><span class="pulse" style="background:#7C7E7A;"></span>Resolved</span></div>
+  <div class="meta"><span>Resolved 5 May 2026</span></div>
+  <div class="mkt-body">
+    <div class="mktchart">
+      <div class="pm-plot"><div class="pm-svg"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
+<line x1="0" y1="0" x2="100" y2="0" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="25" x2="100" y2="25" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="50" x2="100" y2="50" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="75" x2="100" y2="75" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="0" y1="100" x2="100" y2="100" stroke="#1F2124" stroke-width="0.5" opacity="0.6"/><line x1="20.0" y1="0" x2="20.0" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="40.0" y1="0" x2="40.0" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="60.0" y1="0" x2="60.0" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/><line x1="80.0" y1="0" x2="80.0" y2="100" stroke="#1F2124" stroke-width="0.4" stroke-dasharray="2,3"/>
+<polyline fill="none" stroke="#C4584B" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 11.1,57.3 22.2,64.1 33.3,70.2 44.4,75.3 55.6,78.1 66.7,82.2 77.8,85.8 88.9,88.2 100.0,92.0"/>
+<polyline fill="none" stroke="#74C79A" stroke-width="1.6" vector-effect="non-scaling-stroke" points="0.0,50.0 11.1,42.7 22.2,35.9 33.3,29.8 44.4,24.7 55.6,21.9 66.7,17.8 77.8,14.2 88.9,11.8 100.0,8.0"/>
+<line x1="100" y1="4" x2="100" y2="96" stroke="#D4A03A" stroke-width="0.8" stroke-dasharray="2,2"/></svg></div><div class="pm-yax"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div></div>
+      <div class="pm-xax"><span class="tk-f" style="left:0;">20 Apr</span><span style="left:20.0%;">23 Apr</span><span style="left:40.0%;">26 Apr</span><span style="left:60.0%;">29 Apr</span><span style="left:80.0%;">2 May</span><span class="tk-l" style="left:100%;">5 May</span></div>
+      <div class="pm-foot"><div class="pm-vol">Hunch Points market</div></div>
+    </div>
+    <div class="resolved-box"><div class="resolved-pill" style="background:#2E4A37;">Resolved: YES</div><p class="resolved-note">The supplier response window closed on 5 May 2026 as published, with no extension to the deadline.</p></div>
+  </div>
+  
+</div>
+    </div>
+
+    <div class="disc"><b>Disclaimer.</b> Hunch works only from sources that are publicly available, and publishes on the basis of analysis of that material. We do not form an editorial opinion or take sides &mdash; we give a simpler and wider view of news that already exists. If information in a source we used was inaccurate, distorted, or later disputed but had already entered our analysis, Hunch accepts no liability for that. Predictions are not advice. Phase 1 markets use Hunch Points, not money.</div>
+    <div class="echo-section" id="comments">
+      <div class="kick">5 &middot; Discussion</div>
+      <h2>What's your hunch?</h2>
+      <div class="cmt-box">
+        <textarea class="cmt-field" id="cmtField" rows="3" maxlength="600" placeholder="Comments open with accounts &mdash; soon." disabled></textarea>
+        <div class="cmt-row">
+          <span class="cmt-hint">Comments are moderated. Members post under their prediction record.</span>
+          <button class="cmt-post" id="cmtPost" disabled>Post</button>
+        </div>
+      </div>
+      <div class="cmt-list" id="cmtList"></div>
+    </div>
+
+  </div>
+
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#5E9C7B; margin-left:2px;">&trade;</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div>&copy; KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#7C7E7A;">Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">&#127468;&#127463; United Kingdom &middot; EN</span>
+      </div>
+    </div>
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+</div>
+
+<div class="share-backdrop" id="shareBackdrop"></div>
+<div class="share-modal" id="shareModal" role="dialog" aria-label="Share this Echo">
+  <div class="sm-hdr"><span class="sm-title">Share this Echo</span><button class="sm-close" id="shareClose" aria-label="Close">&times;</button></div>
+  <div class="sm-preview">
+    <div class="smp-kick">TECH &middot; ECHO</div>
+        <div class="smp-head">The NHS App wants your blood. The GP queue is the target.</div>
+    <div class="smp-foot"><span class="smp-brand">Hunch</span><span class="smp-domain">byhunch.com</span></div>
+  </div>
+  <div class="sm-linkrow">
+    <input class="sm-link" id="shareLink" type="text" readonly value="">
+    <button class="sm-copy" id="shareCopy">Copy</button>
+  </div>
+  <div class="sm-nets" id="shareNets">
+    <a class="sm-net" data-net="x" title="X" aria-label="Share on X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.2h3.7l-8.1 9.3L24 22.8h-7.5l-5.9-7.7-6.7 7.7H.2l8.7-9.9L0 1.2h7.7l5.3 7 6-7zm-1.3 19.4h2.1L6.6 3.3H4.4l13.2 17.3z"/></svg></a>
+    <a class="sm-net" data-net="linkedin" title="LinkedIn" aria-label="Share on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.2V9h3.4v1.6h.1c.5-.9 1.7-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.2 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zM7 20.4H3.4V9H7v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7c0-.9-.8-1.7-1.8-1.7z"/></svg></a>
+    <a class="sm-net" data-net="facebook" title="Facebook" aria-label="Share on Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.6-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg></a>
+    <a class="sm-net" data-net="whatsapp" title="WhatsApp" aria-label="Share on WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.7-.3zM12 21.8h0c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zM12 0a12 12 0 0 0-10.4 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg></a>
+    <a class="sm-net" data-net="telegram" title="Telegram" aria-label="Share on Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.9 8.2-2 9.3c-.1.7-.5.8-1.1.5l-3-2.2-1.4 1.4c-.2.2-.3.3-.6.3l.2-3 5.4-4.9c.2-.2 0-.3-.3-.1l-6.7 4.2-2.9-.9c-.6-.2-.6-.6.1-.9l11.4-4.4c.5-.2 1 .1.9.7z"/></svg></a>
+    <a class="sm-net" data-net="email" title="Email" aria-label="Share by email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
+  </div>
+</div>
+
+<script src="/assets/hunch-live.js?v=1788512159"></script>
+
+<script>(function(){
+var f=document.getElementById('cmtField'),b=document.getElementById('cmtPost'),
+    l=document.getElementById('cmtList'),t=document.getElementById('ecTalk');
+if(!f)return;
+var KEY='hunch-comments-'+location.pathname;
+function esc(x){var d=document.createElement('div');d.textContent=x;return d.innerHTML;}
+function render(){
+  var items=[]; /* pre-launch: guest comments stay hidden — comments open with accounts */
+  l.innerHTML=items.map(function(c){
+    return '<div class="cmt"><div class="cmt-meta"><b>'+esc(c.who)+'</b> &middot; '+esc(c.when)+'</div>'+
+           '<div class="cmt-text">'+esc(c.text)+'</div></div>';}).join('');
+}
+f.addEventListener('input',function(){b.disabled=!f.value.trim();});
+b.addEventListener('click',function(){
+  var text=f.value.trim();if(!text)return;
+  var items=[];try{items=JSON.parse(localStorage.getItem(KEY))||[];}catch(e){}
+  items.unshift({who:'You',when:'just now',text:text});
+  localStorage.setItem(KEY,JSON.stringify(items));
+  f.value='';b.disabled=true;render();
+});
+if(t){t.addEventListener('click',function(){
+  document.getElementById('comments').scrollIntoView({behavior:'smooth'});
+  setTimeout(function(){f.focus();},600);});}
+render();
+})();</script>
+<script>(function(){var b=document.getElementById('mmBtn'),p=document.getElementById('mmPanel');if(!b||!p)return;b.addEventListener('click',function(e){e.preventDefault();p.classList.toggle('open');});document.addEventListener('click',function(e){if(!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('open');});document.addEventListener('keydown',function(e){if(e.key==='Escape')p.classList.remove('open');});})();</script>
+<script>(function(){
+var s=document.getElementById('ecShare'),m=document.getElementById('ecMark');
+var sb=document.getElementById('shareBackdrop'),sm=document.getElementById('shareModal'),
+    sl=document.getElementById('shareLink'),sc=document.getElementById('shareCopy'),sx=document.getElementById('shareClose');
+function shareUrl(){return location.href;}
+function copyLink(){
+  var u=shareUrl();
+  var done=function(){sc.textContent='Copied';sc.classList.add('done');
+    setTimeout(function(){sc.textContent='Copy';sc.classList.remove('done');},1600);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done,function(){fallback();});}
+  else fallback();
+  function fallback(){sl.focus();sl.select();try{document.execCommand('copy');done();}catch(e){}}
+}
+function openShare(){
+  sl.value=shareUrl();
+  var t=encodeURIComponent(document.title.replace(/ \u2014 Hunch$/,''));
+  var u=encodeURIComponent(shareUrl());
+  var nets={x:'https://twitter.com/intent/tweet?text='+t+'&url='+u,
+    linkedin:'https://www.linkedin.com/sharing/share-offsite/?url='+u,
+    facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,
+    whatsapp:'https://wa.me/?text='+t+'%20'+u,
+    telegram:'https://t.me/share/url?url='+u+'&text='+t,
+    email:'mailto:?subject='+t+'&body='+u};
+  document.querySelectorAll('.sm-net').forEach(function(a){
+    a.href=nets[a.getAttribute('data-net')];
+    if(a.getAttribute('data-net')!=='email'){a.target='_blank';a.rel='noopener';}});
+  sb.classList.add('open');sm.classList.add('open');
+  copyLink();
+}
+function closeShare(){sb.classList.remove('open');sm.classList.remove('open');}
+if(s){s.addEventListener('click',openShare);}
+if(sx){sx.addEventListener('click',closeShare);}
+if(sb){sb.addEventListener('click',closeShare);}
+if(sc){sc.addEventListener('click',copyLink);}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeShare();});
+if(m){var k='hunch-saved-'+location.pathname;
+  if(localStorage.getItem(k))m.classList.add('on');
+  m.addEventListener('click',function(){
+    var on=m.classList.toggle('on');
+    if(on)localStorage.setItem(k,'1');else localStorage.removeItem(k);
+  });}
+})();</script>
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/"><span>Today</span></a>
+  <a href="/echo/library/" class="active"><span>Echoes</span></a>
+  <a href="/markets/"><span>Markets</span></a>
+  <a href="/account/"><span>My record</span></a>
+</nav>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<style>
+/* ===== РИНКИ В ДВІ КОЛОНКИ (Pavlo, 3 Sep) ==================================
+   Раніше кожен ринок займав повну ширину, а всередині ділився навпіл:
+   графік ліворуч, кнопки праворуч. Через це три ринки давали довгий хвіст
+   після статті. Тепер картка вузька і читається згори вниз, як просив Pavlo:
+   заголовок, рядок умов, невелика крива, смуга з відсотками, кнопки, і вже
+   під ними «How this resolves». Дві такі картки стають поруч.
+   Тільки CSS: розмітку сторінок не чіпаємо, бо їх 268. */
+@media (min-width: 861px) {
+  #markets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px; align-items: stretch; }
+  /* кікер, заголовок секції і дисклеймер лишаються на всю ширину */
+  #markets > .kick, #markets > h2, #markets > .disc { grid-column: 1 / -1; }
+  #markets .mkt { margin-bottom: 18px; }
+  /* картка більше не ділиться навпіл */
+  #markets .mkt-body { display: block; }
+  #markets .mktchart { margin-bottom: 14px; }
+  /* крива невелика: у вузькій колонці 190px читались як порожнє поле */
+  #markets .pm-svg svg { height: 118px; }
+  #markets .pm-foot { margin-top: 8px; }
+  /* так і ні стають поруч, як у смузі над ними */
+  #markets .bins { flex-direction: row; gap: 10px; }
+  #markets .bins .opt { flex: 1 1 0; }
+  #markets .mkt .meta { margin-bottom: 14px; }
+}
+</style>
+<link rel="stylesheet" href="/assets/hunch-bet-state.css?v=1788425424">
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

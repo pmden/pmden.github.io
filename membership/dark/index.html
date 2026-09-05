@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membership — Hunch</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23111'/%3E%3Ctext x='50' y='73' font-family='Cormorant Garamond,Garamond,serif' font-size='66' font-weight='500' fill='%23F8F7F4' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/hunch-shell-dark.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: #0E0F11; color: #F2F2EF; line-height: 1.6; }
+
+.page { max-width: 1188px; margin: 0 auto; padding: 0 20px; }
+.wide { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+/* TOP MINIMAL NAV */
+.top { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #2A2C30; }
+.brand-row { display: flex; align-items: baseline; gap: 12px; text-decoration: none; }
+.brand-row .name { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 400; color: #F2F2EF; }
+.brand-row .name .tm { font-size: 0.5em; vertical-align: super; color: #5E9C7B; margin-left: 2px; }
+.brand-row .tag { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 12px; color: #7C7E7A; }
+.top-right { display: flex; align-items: center; gap: 18px; font-size: 13px; }
+.top-right a { color: #A9ABA6; text-decoration: none; transition: color 0.15s; }
+.top-right a:hover { color: #F2F2EF; }
+
+/* HERO — compact, NYT-style, fits above fold */
+.hero { padding: 36px 0 48px; text-align: center; border-bottom: 1px solid #2A2C30; }
+.hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #D4A03A; margin-bottom: 14px; }
+.hero-eyebrow::before { content: '◆'; font-size: 9px; margin-right: 6px; vertical-align: middle; }
+.hero h1 { font-family: 'Source Serif 4', serif; font-size: 58px; font-weight: 300; line-height: 1.02; letter-spacing: -0.025em; margin-bottom: 12px; }
+.hero-sub { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 18px; color: #A9ABA6; max-width: 540px; margin: 0 auto 32px; line-height: 1.5; }
+
+/* Two-tier hero pricing — side by side */
+.hero-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 760px; margin: 0 auto; text-align: left; }
+.hero-tier { background: #17181B; border: 1px solid #2A2C30; border-radius: 10px; padding: 22px 24px; display: flex; flex-direction: column; transition: all 0.2s; }
+.hero-tier.featured { border: 2px solid #5E9C7B; box-shadow: 0 8px 32px rgba(26,92,58,0.10); padding: 21px 23px; }
+.hero-tier-hdr { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid #2A2C30; margin-bottom: 14px; }
+.hero-tier-name { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7C7E7A; }
+.hero-tier.featured .hero-tier-name { color: #5E9C7B; }
+.hero-tier-save { font-size: 9px; font-weight: 600; color: #D4A03A; background: rgba(176,126,30,0.10); padding: 3px 7px; border-radius: 999px; letter-spacing: 0.06em; text-transform: uppercase; }
+.hero-tier-price { font-family: 'Source Serif 4', serif; font-weight: 300; line-height: 1; margin-bottom: 4px; }
+.hero-tier-price .amount { font-size: 36px; color: #F2F2EF; letter-spacing: -0.02em; }
+.hero-tier-price .unit { font-size: 13px; color: #7C7E7A; margin-left: 4px; }
+.hero-tier-bill { font-size: 11px; color: #7C7E7A; margin-bottom: 14px; }
+.hero-tier-list { list-style: none; margin-bottom: 16px; flex: 1; }
+.hero-tier-list li { padding: 3px 0; font-size: 12px; color: #A9ABA6; display: flex; align-items: flex-start; gap: 7px; }
+.hero-tier-list li::before { content: '✓'; color: #5E9C7B; font-weight: 500; flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+.hero-tier-btn { display: block; width: 100%; padding: 10px; background: #2E4A37; border: 1px solid #3d6b4e; color: #F2F2EF; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: 500; transition: background 0.15s; text-align: center; }
+.hero-tier-btn:hover { background: #2A2C30; }
+.hero-tier:not(.featured) .hero-tier-btn { background: transparent; color: #5E9C7B; border: 1px solid #5E9C7B; }
+.hero-tier:not(.featured) .hero-tier-btn:hover { background: #2E4A37; border: 1px solid #3d6b4e; color: #F2F2EF; }
+
+.hero-foot { font-size: 11px; color: #7C7E7A; margin-top: 18px; }
+
+/* Coming-soon (pre-beta) state */
+.hero-tier-btn[aria-disabled="true"], .price-btn[aria-disabled="true"] { background: #2A2C30; color: #7C7E7A; pointer-events: none; cursor: default; }
+.hero-tier:not(.featured) .hero-tier-btn[aria-disabled="true"], .price-card:not(.featured) .price-btn[aria-disabled="true"] { background: transparent; color: #54514A; border: 1px solid #2A2C30; }
+.final-cta .btn[aria-disabled="true"] { background: rgba(255,255,255,0.08); color: #7C7E7A; pointer-events: none; cursor: default; }
+.membership-note { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 15px; color: #A9ABA6; text-align: center; max-width: 560px; margin: 26px auto 0; line-height: 1.5; }
+.final-cta .membership-note { color: #5E9C7B; margin-top: 18px; }
+.hero-foot a { color: #5E9C7B; text-decoration: none; }
+.hero-foot a:hover { text-decoration: underline; }
+
+/* SECTION COMMON */
+section { padding: 80px 0; border-bottom: 1px solid #2A2C30; }
+.sec-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #5E9C7B; margin-bottom: 14px; }
+.sec-title { font-family: 'Source Serif 4', serif; font-size: 48px; font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px; max-width: 720px; }
+.sec-lede { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 19px; color: #A9ABA6; max-width: 680px; line-height: 1.55; margin-bottom: 44px; }
+
+/* BENEFITS GRID */
+.benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.benefit { padding: 28px; background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; }
+.benefit-num { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 300; color: #5E9C7B; margin-bottom: 14px; line-height: 1; }
+.benefit-title { font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 400; margin-bottom: 8px; line-height: 1.3; }
+.benefit-text { font-size: 13px; color: #7C7E7A; line-height: 1.55; }
+
+/* SAMPLE ECHO (preview member content) */
+.sample { background: #17181B; color: #DEDED9; border-radius: 10px; padding: 40px 44px; }
+.sample-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #5E9C7B; margin-bottom: 12px; }
+.sample-title { font-family: 'Source Serif 4', serif; font-size: 28px; font-weight: 400; color: #DEDED9; line-height: 1.25; margin-bottom: 24px; max-width: 720px; }
+.sample-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.sample-col h4 { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 400; color: #5E9C7B; margin-bottom: 12px; }
+.sample-col p { font-size: 14px; color: #A9ABA6; line-height: 1.6; margin-bottom: 10px; }
+.sample-col .small { font-size: 12px; color: #7C7E7A; font-style: italic; }
+.sample-foot { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #7C7E7A; }
+.sample-foot .locked { display: inline-flex; align-items: center; gap: 6px; color: #D4A03A; }
+.sample-foot .locked::before { content: '◆'; font-size: 9px; }
+
+/* PRICING COMPARE */
+.pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 760px; margin: 0 auto; }
+.price-card { display: block; background: #17181B; border: 1px solid #2A2C30; border-radius: 10px; padding: 36px 36px 32px; text-align: center; transition: all 0.2s; } /* display:block overrides shell .price-card flex */
+.price-card.featured { border: 2px solid #5E9C7B; box-shadow: 0 8px 32px rgba(26,92,58,0.12); transform: translateY(-4px); }
+.price-tier { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 10px; }
+.price-card.featured .price-tier { color: #5E9C7B; }
+.price-amt { font-family: 'Source Serif 4', serif; font-size: 56px; font-weight: 300; line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
+.price-period { font-size: 13px; color: #7C7E7A; margin-bottom: 20px; }
+.price-save { display: inline-block; font-size: 11px; font-weight: 600; color: #D4A03A; background: rgba(176,126,30,0.1); padding: 4px 10px; border-radius: 999px; margin-bottom: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
+.price-list { list-style: none; text-align: left; margin-bottom: 28px; }
+.price-list li { padding: 7px 0; font-size: 13px; color: #A9ABA6; display: flex; align-items: flex-start; gap: 10px; }
+.price-list li::before { content: '✓'; color: #5E9C7B; font-weight: 500; flex-shrink: 0; }
+.price-btn { display: inline-block; width: 100%; padding: 12px; background: #2E4A37; border: 1px solid #3d6b4e; color: #F2F2EF; text-decoration: none; border-radius: 5px; font-size: 14px; font-weight: 500; transition: background 0.15s; }
+.price-btn:hover { background: #2A2C30; }
+.price-card:not(.featured) .price-btn { background: transparent; color: #5E9C7B; border: 1px solid #5E9C7B; }
+.price-card:not(.featured) .price-btn:hover { background: #2E4A37; border: 1px solid #3d6b4e; color: #F2F2EF; }
+
+/* WHO IT'S FOR */
+.who-quote { font-family: 'Source Serif 4', serif; font-size: 36px; font-weight: 300; line-height: 1.3; letter-spacing: -0.01em; max-width: 880px; }
+.who-quote em { font-style: italic; color: #5E9C7B; }
+.who-meta { font-size: 13px; color: #7C7E7A; margin-top: 22px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* TESTIMONIALS */
+.testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.testimonial { padding: 32px; background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; }
+.testimonial-quote { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 18px; color: #F2F2EF; line-height: 1.55; margin-bottom: 18px; }
+.testimonial-quote::before { content: '"'; font-size: 28px; color: #5E9C7B; }
+.testimonial-by { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar { width: 36px; height: 36px; border-radius: 50%; background: #2A2C30; display: flex; align-items: center; justify-content: center; font-family: 'Source Serif 4', serif; font-size: 14px; color: #7C7E7A; font-weight: 400; }
+.testimonial-name { font-size: 13px; font-weight: 500; color: #F2F2EF; }
+.testimonial-role { font-size: 12px; color: #7C7E7A; }
+
+/* PRESS LINE */
+.press-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.press-row .item { font-family: 'Source Serif 4', serif; font-size: 17px; color: #54514A; font-style: italic; }
+.press-label { font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 22px; text-align: center; }
+
+/* FAQ */
+.faq { max-width: 880px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid #2A2C30; padding: 22px 0; }
+.faq-q { font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 400; color: #F2F2EF; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.faq-q::after { content: '+'; font-size: 22px; color: #7C7E7A; font-weight: 300; transition: transform 0.2s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { font-size: 14px; color: #A9ABA6; line-height: 1.65; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0; }
+.faq-item.open .faq-a { max-height: 400px; padding: 14px 0 4px; }
+
+/* FINAL CTA */
+.final-cta { text-align: center; padding: 100px 0; background: #17181B; color: #DEDED9; border-bottom: none; }
+.final-cta h2 { font-family: 'Source Serif 4', serif; font-size: 64px; font-weight: 300; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 18px; color: #DEDED9; }
+.final-cta .lede { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 19px; color: #5E9C7B; max-width: 580px; margin: 0 auto 36px; line-height: 1.5; }
+.final-cta .btn { display: inline-block; padding: 14px 36px; background: #5E9C7B; color: #17181B; text-decoration: none; border-radius: 5px; font-size: 15px; font-weight: 500; transition: all 0.15s; }
+.final-cta .btn:hover { background: #DEDED9; }
+.final-cta .small { font-size: 12px; color: #7C7E7A; margin-top: 18px; }
+
+/* FOOTER */
+.foot { padding: 28px 0; font-size: 11px; color: #7C7E7A; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.foot a { color: #7C7E7A; text-decoration: none; margin-left: 14px; }
+.foot a:hover { color: #F2F2EF; }
+
+@media (max-width: 920px) {
+  .hero h1 { font-size: 64px; }
+  .sec-title { font-size: 36px; }
+  .benefits { grid-template-columns: 1fr 1fr; }
+  .sample-grid { grid-template-columns: 1fr; }
+  .pricing { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .final-cta h2 { font-size: 40px; }
+}
+@media (max-width: 620px) {
+  .benefits { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 48px; }
+  .hero-sub { font-size: 17px; }
+  .sub-card { padding: 28px 24px; }
+}
+
+.menu-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.menu-backdrop.open { opacity: 1; pointer-events: auto; }
+.menu-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: #17181B; box-shadow: -16px 0 40px rgba(0,0,0,0.4); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px; }
+.menu-panel.open { transform: translateX(0); }
+.menu-panel-hdr { display: flex; justify-content: flex-end; align-items: center; padding-bottom: 14px; border-bottom: 1px solid #2A2C30; margin-bottom: 18px; }
+.menu-panel-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #7C7E7A; line-height: 1; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.15s; }
+.menu-panel-close:hover { background: #17181B; color: #F2F2EF; }
+.menu-section { margin-bottom: 22px; }
+.menu-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #7C7E7A; margin-bottom: 8px; }
+.menu-section ul { list-style: none; padding: 0; margin: 0; }
+.menu-section li { margin-bottom: 2px; }
+.menu-section a { display: block; padding: 8px 0; text-decoration: none; color: #F2F2EF; font-size: 14px; transition: color 0.15s; }
+.menu-section a:hover { color: #5E9C7B; }
+.menu-section a.premium { color: #D4A03A; font-weight: 500; }
+.menu-section a.premium::before { content: '◆'; font-size: 9px; margin-right: 6px; }
+.menu-foot { margin-top: auto; padding-top: 18px; border-top: 1px solid #2A2C30; font-size: 11px; color: #7C7E7A; }
+
+</style>
+<style>/* bet-button spec v5 — markets live */.poll .p-yes,.mkt-poll .my,.ec-poll .p-yes,.mr-poll .p-yes,.market-row .mr-poll .p-yes,.mc-poll-binary .mc-vote-yes,.market-card .mc-vote-yes,.opt.yes{background:#1C2620 !important;border:1px solid #3A5244 !important;color:#9FCDB4 !important;cursor:pointer;}.poll .p-no,.mkt-poll .mn,.ec-poll .p-no,.mr-poll .p-no,.market-row .mr-poll .p-no,.mc-poll-binary .mc-vote-no,.market-card .mc-vote-no,.opt.no{background:#291B1A !important;border:1px solid #57302E !important;color:#D8A19C !important;cursor:pointer;}.opt.yes .nm,.opt.yes .on,.opt.yes .op,.opt.yes .pc{color:#9FCDB4 !important;}.opt.no .nm,.opt.no .on,.opt.no .op,.opt.no .pc{color:#D8A19C !important;}.poll .p-yes:hover,.mkt-poll .my:hover,.ec-poll .p-yes:hover,.mr-poll .p-yes:hover,.market-row .mr-poll .p-yes:hover,.mc-poll-binary .mc-vote-yes:hover,.market-card .mc-vote-yes:hover,.poll .p-yes.selected,.mkt-poll .my.selected,.ec-poll .p-yes.selected,.mr-poll .p-yes.selected,.market-row .mr-poll .p-yes.selected,.mc-poll-binary .mc-vote-yes.selected,.market-card .mc-vote-yes.selected,.opt.yes:hover,.opt.yes.selected{background:#2E4A37 !important;border-color:#3d6b4e !important;color:#F2F2EF !important;}.poll .p-no:hover,.mkt-poll .mn:hover,.ec-poll .p-no:hover,.mr-poll .p-no:hover,.market-row .mr-poll .p-no:hover,.mc-poll-binary .mc-vote-no:hover,.market-card .mc-vote-no:hover,.poll .p-no.selected,.mkt-poll .mn.selected,.ec-poll .p-no.selected,.mr-poll .p-no.selected,.market-row .mr-poll .p-no.selected,.mc-poll-binary .mc-vote-no.selected,.market-card .mc-vote-no.selected,.opt.no:hover,.opt.no.selected{background:#8B3E3A !important;border-color:#a4524c !important;color:#F2F2EF !important;}.opt.yes:hover .nm,.opt.yes:hover .on,.opt.yes:hover .op,.opt.yes:hover .pc,.opt.yes.selected .nm,.opt.yes.selected .on,.opt.yes.selected .op,.opt.yes.selected .pc,.opt.no:hover .nm,.opt.no:hover .on,.opt.no:hover .op,.opt.no:hover .pc,.opt.no.selected .nm,.opt.no.selected .on,.opt.no.selected .op,.opt.no.selected .pc{color:#F2F2EF !important;}.mc-poll-binary .mc-vote .mc-vote-pct{color:inherit !important;}.market-card:hover .mc-vote-yes{border-color:#3A5244 !important;}.market-card:hover .mc-vote-no{border-color:#57302E !important;}.multi .mopt,.md-vote-opt,.fcbtn{cursor:pointer;}.multi .mopt:hover,.multi .mopt:nth-child(1):hover,.multi .mopt:nth-child(2):hover,.multi .mopt:nth-child(3):hover,.multi .mopt:nth-child(4):hover,.multi .mopt:nth-child(5):hover{background:#222A25 !important;border-color:#5E9C7B !important;}.multi .mopt:hover .on,.multi .mopt:hover .op,.multi .mopt:nth-child(2):hover .on,.multi .mopt:nth-child(2):hover .op,.multi .mopt.selected .on,.multi .mopt.selected .op{color:#F2F2EF !important;}.multi .mopt.selected{background:#2E4A37 !important;border-color:#5E9C7B !important;}.md-vote-opt.selected{border-color:#3d6b4e !important;}.md-vote-opt.selected::before{background:rgba(74,111,92,0.34) !important;}</style>
+<style>/* designer review pass 31Jul */
+.row2 .topics a.active{ color:#F2F2EF !important; font-weight:600; position:relative; }
+.row2 .topics a.active:after{ content:''; position:absolute; left:0; right:0; bottom:-15px; height:3px; background:#5E9C7B; }
+.sec-head{ padding-left:14px; padding-right:14px; }
+.cat-hdr{ padding-left:14px; padding-right:14px; }
+.lead-section{ padding-left:14px; }
+.row2 .topics{ padding-left:14px; }
+.mkt{ position:relative; }
+.mkt .mkt-section{ position:absolute; top:16px; right:16px; margin:0; }
+.mkt .badge{ margin-bottom:12px; }
+.echo-prev{ display:flex; flex-direction:column; height:100%; }
+.echo-prev .pat-label-out{ background:transparent; margin-bottom:6px; padding-left:18px; }
+.echo-prev .pat-card{ margin:0; flex:1; min-height:0; overflow:hidden; box-sizing:border-box; display:flex; flex-direction:column; padding-top:8px; }
+.echo-prev .echo-cases{ flex:1 1 auto; overflow:hidden; display:flex; flex-direction:column; justify-content:space-evenly; }
+.echo-prev .echo-more{ margin-top:auto; padding-top:10px; }
+.echo-prev .pat-h{ font-size:18px !important; line-height:24px !important; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.echo-prev .pat-d{ font-size:14px; min-height:101px; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.lead-title{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.lead-desc{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.echo-prev .echo-text{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+.lead-content .badge{ margin-bottom:8px; }
+@media (min-width:861px){ .lead-split{ height:500px; align-items:stretch; } }
+.lead-sidebar{ display:flex; flex-direction:column; padding-bottom:10px; box-sizing:border-box; }
+.sec-head .sec-title{ font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A; }
+.lb-title{ font-size:11px !important; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A !important; font-weight:600 !important; }
+.lead-slide .sparkline{ height:72px; margin:12px 0 4px; display:block; width:100%; }
+.lead-split{ min-height:500px; }
+.lead-content{ flex:1; }
+.mkts{ display:grid; gap:12px; }
+.lb-row{ padding-left:14px; padding-right:14px; }
+.chart-svg-wrap{ padding-left:46px; }
+.chart-yax{ position:absolute; left:0; top:0; bottom:0; width:40px; pointer-events:none; }
+.chart-yax span{ position:absolute; right:0; font-family:'Inter',sans-serif; font-size:9px; color:#54514A; transform:translateY(-50%); }
+.row1 .btn-primary{ white-space:nowrap; }
+.footer-social a[aria-disabled="true"]{ opacity:.45; cursor:default; }
+.footer-social a[aria-disabled="true"]:hover{ border-color:#2A2C30; color:#54514A; }
+</style>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon-dark.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/membership/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/membership/">
+<meta property="og:title" content="Membership — Hunch">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<div class="page">
+
+  <div class="row1">
+    <div class="left"><button class="search-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button><span class="date">Fri, 21 Aug 2026</span></div>
+    <a class="brand" href="/dark/">Hunch</a>
+    <div class="right"><a href="/signin/dark/" class="btn-primary">Sign in</a><button class="menu-btn" data-menu-open><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div>
+  </div>
+
+  <div class="row2">
+    <div class="topics">
+      <a href="/dark/">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/dark/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#17181B" stroke="#D4A03A" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#D4A03A" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div>
+  </div>
+
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/dark/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/dark/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/dark/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/membership/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <!-- HERO — Compact, NYT-style, fits above fold -->
+  <section class="hero">
+    <div class="hero-eyebrow">Membership</div>
+    <h1>Members read deeper.</h1>
+    <div class="hero-sub">Extended AI analysis, members-only Echoes, and early access to every market.</div>
+
+    <div class="hero-tiers">
+      <div class="hero-tier">
+        <div class="hero-tier-hdr">
+          <span class="hero-tier-name">Monthly</span>
+        </div>
+        <div class="hero-tier-price"><span class="amount">£8</span><span class="unit">/ month</span></div>
+        <div class="hero-tier-bill">Billed monthly · Cancel anytime</div>
+        <ul class="hero-tier-list">
+          <li>Extended AI analysis on every market</li>
+          <li>Members-only Echoes from the archive</li>
+          <li>Early access · 24 hours before public</li>
+          <li>Portfolio &amp; accuracy benchmarking</li>
+        </ul>
+        <a class="hero-tier-btn" role="button" aria-disabled="true" tabindex="-1">Start monthly</a>
+      </div>
+
+      <div class="hero-tier featured">
+        <div class="hero-tier-hdr">
+          <span class="hero-tier-name">Annual</span>
+          <span class="hero-tier-save">Save £16</span>
+        </div>
+        <div class="hero-tier-price"><span class="amount">£80</span><span class="unit">/ year</span></div>
+        <div class="hero-tier-bill">£6.67/mo · 2 months free</div>
+        <ul class="hero-tier-list">
+          <li>Everything in Monthly</li>
+          <li>Year-in-review brief, members only</li>
+          <li>Priority access to live events</li>
+          <li>One guest pass for a friend</li>
+        </ul>
+        <a class="hero-tier-btn" role="button" aria-disabled="true" tabindex="-1">Start annual</a>
+      </div>
+    </div>
+
+    <div class="hero-foot">14-day free trial on both plans when membership opens · No credit card required · <a href="#what">What's included →</a></div>
+  </section>
+
+  <!-- WHAT MEMBERS GET -->
+  <section id="what">
+    <div class="sec-eyebrow">What members get</div>
+    <h2 class="sec-title">Built for those who notice things first — and want the historical record to prove it.</h2>
+    <div class="sec-lede">Free Hunch gives you the markets. Membership gives you the depth: extended analysis, exclusive Echoes, and the tools to track your own conviction over time.</div>
+
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit-num">01</div>
+        <div class="benefit-title">Extended AI analysis</div>
+        <div class="benefit-text">Every market gets a deeper editorial briefing — voting patterns, historical context, contrarian angles. The full Hunch reasoning, not the public preview.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">02</div>
+        <div class="benefit-title">Members-only Echoes</div>
+        <div class="benefit-text">Historical parallels surfaced only for members. Pattern matches across 100 years of UK political archives — the AI's full retrieval, not the headline.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">03</div>
+        <div class="benefit-title">Early access · 24 hours</div>
+        <div class="benefit-text">Every new market opens to members 24 hours before public release. Place your prediction while the field is uncrowded.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">04</div>
+        <div class="benefit-title">Portfolio &amp; benchmarks</div>
+        <div class="benefit-text">Track your accuracy across categories, periods, and against peers. See your strengths in data, not memory.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">05</div>
+        <div class="benefit-title">Weekly briefing</div>
+        <div class="benefit-text">Sunday evening, in your inbox: this week's markets, last week's resolutions, three Echoes worth knowing. Editorial, not algorithmic.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-num">06</div>
+        <div class="benefit-title">Member badge</div>
+        <div class="benefit-text">A quiet mark on your profile and leaderboard. Optional, but a signal to other predictors that you take this seriously.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE ECHO (preview member content) -->
+  <section>
+    <div class="sec-eyebrow">A peek at member content</div>
+    <h2 class="sec-title">A members-only Echo. Just the headline goes public.</h2>
+
+    <div class="sample">
+      <div class="sample-eyebrow">◆ Members-only Echo</div>
+      <div class="sample-title">When Chancellors say "all options" — history says taxes rise within 6 months.</div>
+
+      <div class="sample-grid">
+        <div class="sample-col">
+          <h4>What public users see</h4>
+          <p>In 3 of 4 cases since 1993, the phrase preceded a tax increase. <span class="small">— that's the public summary.</span></p>
+        </div>
+        <div class="sample-col">
+          <h4>What members read</h4>
+          <p>· 1993 Lamont — fuel duty rise 8 weeks later<br>
+          · 2010 Osborne — VAT increased to 20% within 4 months<br>
+          · 2017 Hammond — NI rise announced, reversed under media pressure<br>
+          · 2024 Reeves — CGT increased in October budget</p>
+          <p>Plus: <span class="small">the political conditions that made the pattern hold (and the one case it broke), with the editorial reasoning the AI traced across each instance.</span></p>
+        </div>
+      </div>
+
+      <div class="sample-foot">
+        <div>Echo published 13 May · 4 historical cases analysed</div>
+        <div class="locked">Members read in full</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TIERS -->
+  <section id="tiers">
+    <div class="sec-eyebrow">Two ways in</div>
+    <h2 class="sec-title">Monthly or annual. Same access. Annual saves £16.</h2>
+
+    <div class="pricing">
+      <div class="price-card">
+        <div class="price-tier">Monthly</div>
+        <div class="price-amt">£8</div>
+        <div class="price-period">per month, billed monthly</div>
+        <ul class="price-list">
+          <li>Full member access</li>
+          <li>Extended AI analysis</li>
+          <li>Members-only Echoes</li>
+          <li>Early market access</li>
+          <li>Portfolio &amp; benchmarks</li>
+          <li>Weekly briefing</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a class="price-btn" role="button" aria-disabled="true" tabindex="-1">Start monthly</a>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-tier">Annual · best value</div>
+        <div class="price-amt">£80</div>
+        <div class="price-period">per year (£6.67 / month)</div>
+        <div class="price-save">Save £16</div>
+        <ul class="price-list">
+          <li>Everything in monthly</li>
+          <li>Two months free</li>
+          <li>Exclusive year-in-review brief</li>
+          <li>Priority access to live events</li>
+          <li>Free guest pass for one friend</li>
+        </ul>
+        <a class="price-btn" role="button" aria-disabled="true" tabindex="-1">Start annual</a>
+      </div>
+    </div>
+
+    <div class="membership-note">Membership opens with the public beta. Until then, every Echo is free to read.</div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section>
+    <div class="sec-eyebrow">Who it's for</div>
+    <div class="who-quote">
+      Members tend to be <em>the people who were right about things before others noticed.</em> Broadsheet readers. Operators. Analysts. People who treat current affairs as a craft, not entertainment — and want a place to put their conviction on record.
+    </div>
+    <div class="who-meta">Britain · 45+ · informed · sceptical · usually correct</div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="sec-eyebrow">Questions, mostly answered</div>
+    <h2 class="sec-title">Common questions about membership.</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What's the difference between free and member access?</div>
+        <div class="faq-a">Free users see every market, every public Echo summary, and can place predictions. Members get the full editorial briefing on each market (not the preview), the complete set of historical parallels (not just the headline), early access 24 hours before public, and detailed portfolio analytics. The free tier is genuinely useful — membership is for people who want depth.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is membership required to place real-money predictions?</div>
+        <div class="faq-a">No. Real-money predictions (once Hunch is UKGC-licensed) are open to all verified users, member or not. Membership is about reading depth, not prediction access. Many members never put money in play — they value the analysis and track record.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <div class="faq-a">Yes. Monthly memberships can be cancelled at any point and you'll keep access until the end of your billing period. Annual memberships can be cancelled with a pro-rata refund on the unused months. No questions, no friction.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a free trial?</div>
+        <div class="faq-a">14 days free for both monthly and annual plans. You won't be charged until day 15, and you can cancel any time during the trial without charge.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is this different from a newspaper subscription?</div>
+        <div class="faq-a">Newspapers tell you what happened. Hunch lets you predict what will happen — and tracks how often you were right. Membership adds the depth: the historical context behind each prediction, the editorial reasoning, and the tools to measure your own judgement over time.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are there any group or corporate plans?</div>
+        <div class="faq-a">Yes, for newsrooms, hedge funds, policy teams, and university departments. Group access starts at 5 seats. Get in touch at <a href="mailto:members@byhunch.com" style="color:#5E9C7B;">members@byhunch.com</a> for pricing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When does Hunch launch?</div>
+        <div class="faq-a">The free product opens with the public launch this September. Members get access from launch day. Founding-member rates lock in for as long as you remain subscribed — no price increases for early supporters.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Become a member.</h2>
+    <div class="lede">Where intuition compounds into edge.</div>
+    <a class="btn" role="button" aria-disabled="true" tabindex="-1">Start your 14-day trial →</a>
+    <div class="membership-note">Membership opens with the public beta. Until then, every Echo is free to read.</div>
+  </section>
+
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#5E9C7B; margin-left:2px;">&trade;</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/dark/">This week</a></li>
+          <li><a href="/markets/dark/">All markets</a></li>
+          <li><a href="/echo/library/dark/">Echo</a></li>
+          <li><a href="/archive/dark/">Archive</a></li>
+          <li><a href="/leaderboard/dark/">Leaderboard</a></li>
+          <li><a href="/mobile-app/dark/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/dark/">Politics</a></li>
+          <li><a href="/sports/dark/">Sports</a></li>
+          <li><a href="/finance/dark/">Finance</a></li>
+          <li><a href="/tech/dark/">Tech</a></li>
+          <li><a href="/culture/dark/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/dark/">About Hunch</a></li>
+          <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+          <li><a href="/partners/dark/">Partners</a></li>
+          <li><a href="/methodology/dark/">How it works</a></li>
+          <li><a href="/press/dark/">Press</a></li>
+          <li><a href="/careers/dark/">Careers</a></li>
+          <li><a href="/contact/dark/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/dark/">Blog</a></li>
+          <li><a href="/help/dark/">Help centre</a></li>
+          <li><a href="/api/dark/">API documentation</a></li>
+          <li><a href="/status/dark/">Status</a></li>
+          <li><a href="/responsible-play/dark/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/dark/">Terms of service</a></li>
+          <li><a href="/privacy/dark/">Privacy policy</a></li>
+          <li><a href="/cookies/dark/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/dark/">Acceptable use</a></li>
+          <li><a href="/licences/dark/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>&copy; KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#7C7E7A;">Company No. 17183343 &middot; Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">&#127468;&#127463; United Kingdom &middot; EN</span>
+        <div class="small-links">
+          <a href="/sitemap/dark/">Sitemap</a>
+          <a href="/accessibility/dark/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    q.closest('.faq-item').classList.toggle('open');
+  });
+});
+</script>
+
+
+<script>
+(function() {
+  const btn = document.querySelector('[data-menu-open]');
+  const closeBtn = document.querySelector('[data-menu-close]');
+  const backdrop = document.getElementById('menuBackdrop');
+  const panel = document.getElementById('menuPanel');
+  function open() { backdrop.classList.add('open'); panel.classList.add('open'); }
+  function close() { backdrop.classList.remove('open'); panel.classList.remove('open'); }
+  btn && btn.addEventListener('click', open);
+  closeBtn && closeBtn.addEventListener('click', close);
+  backdrop && backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+</script>
+
+<script src="/assets/hunch-live-dark.js?v=1788512159"></script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/dark/"><span>Today</span></a>
+  <a href="/echo/library/dark/"><span>Echoes</span></a>
+  <a href="/markets/dark/"><span>Markets</span></a>
+  <a href="/account/dark/"><span>My record</span></a>
+</nav>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-bet-state.css?v=1788425424">
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+<style>
+/* той самий відступ 14 px, що на решті сайту (Pavlo, 4 Sep) */
+@media (min-width: 861px) {
+  .page > .page-hdr, .page > .content, .page > section, .page > .mb-wrap {
+    padding-left: 14px; padding-right: 14px; }
+}
+</style>
+</body>
+</html>

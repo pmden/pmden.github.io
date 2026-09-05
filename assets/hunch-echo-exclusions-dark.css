@@ -1,0 +1,15 @@
+/* «What we left out» — випадки, які правило патерну відсіяло.
+   Без картки: лінійка згори, дрібний приглушений текст. Токени взяті
+   з .srcs і .mkt-verify h5 самої сторінки Echo, нічого нового. */
+.excl { border-top: 1px solid #2A2C30; padding-top: 16px; margin-bottom: 38px; }
+.excl h3 { font-family: 'Inter', sans-serif; font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #D4A03A; font-weight: 600; margin: 0 0 10px; }
+.excl-item { font-family: 'Inter', sans-serif; font-size: 12px; color: #7C7E7A;
+  line-height: 1.8; margin-bottom: 8px; }
+.excl-item:last-child { margin-bottom: 0; }
+.excl-item b { color: #F2F2EF; font-weight: 600; }
+.excl-item a { color: #5E9C7B; text-decoration: none; }
+@media (max-width: 560px) {
+  .excl { margin-bottom: 28px; padding-top: 14px; }
+  .excl-item { line-height: 1.7; }
+}

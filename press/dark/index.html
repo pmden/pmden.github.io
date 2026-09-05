@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press — Hunch</title>
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-dark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hunch-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hunch-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/hunch-shell-dark.css">
+<style>
+.kit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0 32px; }
+@media (max-width: 900px) { .kit-grid { grid-template-columns: 1fr; } }
+.kit-card { background: #17181B; border: 1px solid #2A2C30; border-radius: 8px; padding: 18px; }
+.kit-name { font-family: 'Source Serif 4', serif; font-size: 15px; color: #F2F2EF; margin-bottom: 4px; }
+.kit-meta { font-size: 11px; color: #54514A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.kit-link { font-size: 12px; color: #5E9C7B; text-decoration: none; border-bottom: 1px solid #5E9C7B; padding-bottom: 1px; }
+.press-row { display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid #2A2C30; }
+.press-date { font-size: 12px; color: #54514A; }
+.press-title { font-family: 'Source Serif 4', serif; font-size: 15px; color: #F2F2EF; line-height: 1.4; margin-bottom: 4px; }
+.press-pub { font-size: 12px; color: #7C7E7A; }
+</style>
+<style>/* bet-button spec v5 — markets live */.poll .p-yes,.mkt-poll .my,.ec-poll .p-yes,.mr-poll .p-yes,.market-row .mr-poll .p-yes,.mc-poll-binary .mc-vote-yes,.market-card .mc-vote-yes,.opt.yes{background:#1C2620 !important;border:1px solid #3A5244 !important;color:#9FCDB4 !important;cursor:pointer;}.poll .p-no,.mkt-poll .mn,.ec-poll .p-no,.mr-poll .p-no,.market-row .mr-poll .p-no,.mc-poll-binary .mc-vote-no,.market-card .mc-vote-no,.opt.no{background:#291B1A !important;border:1px solid #57302E !important;color:#D8A19C !important;cursor:pointer;}.opt.yes .nm,.opt.yes .on,.opt.yes .op,.opt.yes .pc{color:#9FCDB4 !important;}.opt.no .nm,.opt.no .on,.opt.no .op,.opt.no .pc{color:#D8A19C !important;}.poll .p-yes:hover,.mkt-poll .my:hover,.ec-poll .p-yes:hover,.mr-poll .p-yes:hover,.market-row .mr-poll .p-yes:hover,.mc-poll-binary .mc-vote-yes:hover,.market-card .mc-vote-yes:hover,.poll .p-yes.selected,.mkt-poll .my.selected,.ec-poll .p-yes.selected,.mr-poll .p-yes.selected,.market-row .mr-poll .p-yes.selected,.mc-poll-binary .mc-vote-yes.selected,.market-card .mc-vote-yes.selected,.opt.yes:hover,.opt.yes.selected{background:#2E4A37 !important;border-color:#3d6b4e !important;color:#F2F2EF !important;}.poll .p-no:hover,.mkt-poll .mn:hover,.ec-poll .p-no:hover,.mr-poll .p-no:hover,.market-row .mr-poll .p-no:hover,.mc-poll-binary .mc-vote-no:hover,.market-card .mc-vote-no:hover,.poll .p-no.selected,.mkt-poll .mn.selected,.ec-poll .p-no.selected,.mr-poll .p-no.selected,.market-row .mr-poll .p-no.selected,.mc-poll-binary .mc-vote-no.selected,.market-card .mc-vote-no.selected,.opt.no:hover,.opt.no.selected{background:#8B3E3A !important;border-color:#a4524c !important;color:#F2F2EF !important;}.opt.yes:hover .nm,.opt.yes:hover .on,.opt.yes:hover .op,.opt.yes:hover .pc,.opt.yes.selected .nm,.opt.yes.selected .on,.opt.yes.selected .op,.opt.yes.selected .pc,.opt.no:hover .nm,.opt.no:hover .on,.opt.no:hover .op,.opt.no:hover .pc,.opt.no.selected .nm,.opt.no.selected .on,.opt.no.selected .op,.opt.no.selected .pc{color:#F2F2EF !important;}.mc-poll-binary .mc-vote .mc-vote-pct{color:inherit !important;}.market-card:hover .mc-vote-yes{border-color:#3A5244 !important;}.market-card:hover .mc-vote-no{border-color:#57302E !important;}.multi .mopt,.md-vote-opt,.fcbtn{cursor:pointer;}.multi .mopt:hover,.multi .mopt:nth-child(1):hover,.multi .mopt:nth-child(2):hover,.multi .mopt:nth-child(3):hover,.multi .mopt:nth-child(4):hover,.multi .mopt:nth-child(5):hover{background:#222A25 !important;border-color:#5E9C7B !important;}.multi .mopt:hover .on,.multi .mopt:hover .op,.multi .mopt:nth-child(2):hover .on,.multi .mopt:nth-child(2):hover .op,.multi .mopt.selected .on,.multi .mopt.selected .op{color:#F2F2EF !important;}.multi .mopt.selected{background:#2E4A37 !important;border-color:#5E9C7B !important;}.md-vote-opt.selected{border-color:#3d6b4e !important;}.md-vote-opt.selected::before{background:rgba(74,111,92,0.34) !important;}</style>
+<style>/* designer review pass 31Jul */
+.row2 .topics a.active{ color:#F2F2EF !important; font-weight:600; position:relative; }
+.row2 .topics a.active:after{ content:''; position:absolute; left:0; right:0; bottom:-15px; height:3px; background:#5E9C7B; }
+.sec-head{ padding-left:14px; padding-right:14px; }
+.cat-hdr{ padding-left:14px; padding-right:14px; }
+.lead-section{ padding-left:14px; }
+.row2 .topics{ padding-left:14px; }
+.mkt{ position:relative; }
+.mkt .mkt-section{ position:absolute; top:16px; right:16px; margin:0; }
+.mkt .badge{ margin-bottom:12px; }
+.echo-prev{ display:flex; flex-direction:column; height:100%; }
+.echo-prev .pat-label-out{ background:transparent; margin-bottom:6px; padding-left:18px; }
+.echo-prev .pat-card{ margin:0; flex:1; min-height:0; overflow:hidden; box-sizing:border-box; display:flex; flex-direction:column; padding-top:8px; }
+.echo-prev .echo-cases{ flex:1 1 auto; overflow:hidden; display:flex; flex-direction:column; justify-content:space-evenly; }
+.echo-prev .echo-more{ margin-top:auto; padding-top:10px; }
+.echo-prev .pat-h{ font-size:18px !important; line-height:24px !important; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.echo-prev .pat-d{ font-size:14px; min-height:101px; flex:none; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.lead-title{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.lead-desc{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:6; overflow:hidden; }
+.echo-prev .echo-text{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+.lead-content .badge{ margin-bottom:8px; }
+@media (min-width:861px){ .lead-split{ height:500px; align-items:stretch; } }
+.lead-sidebar{ display:flex; flex-direction:column; padding-bottom:10px; box-sizing:border-box; }
+.sec-head .sec-title{ font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A; }
+.lb-title{ font-size:11px !important; letter-spacing:0.12em; text-transform:uppercase; color:#D4A03A !important; font-weight:600 !important; }
+.lead-slide .sparkline{ height:72px; margin:12px 0 4px; display:block; width:100%; }
+.lead-split{ min-height:500px; }
+.lead-content{ flex:1; }
+.mkts{ display:grid; gap:12px; }
+.lb-row{ padding-left:14px; padding-right:14px; }
+.chart-svg-wrap{ padding-left:46px; }
+.chart-yax{ position:absolute; left:0; top:0; bottom:0; width:40px; pointer-events:none; }
+.chart-yax span{ position:absolute; right:0; font-family:'Inter',sans-serif; font-size:9px; color:#54514A; transform:translateY(-50%); }
+.row1 .btn-primary{ white-space:nowrap; }
+.footer-social a[aria-disabled="true"]{ opacity:.45; cursor:default; }
+.footer-social a[aria-disabled="true"]:hover{ border-color:#2A2C30; color:#54514A; }
+</style>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon-dark.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/press/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/press/">
+<meta property="og:title" content="Press — Hunch">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="page">
+
+  <div class="row1">
+    <div class="left"><button class="search-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button><span class="date">Fri, 21 Aug 2026</span></div>
+    <a class="brand" href="/dark/">Hunch</a>
+    <div class="right"><a href="/signin/dark/" class="btn-primary">Sign in</a><button class="menu-btn" data-menu-open><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div>
+  </div>
+
+  <div class="row2">
+    <div class="topics">
+      <a href="/dark/">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/dark/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#17181B" stroke="#D4A03A" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#D4A03A" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div>
+  </div>
+
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/dark/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/dark/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/dark/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/press/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <div class="page-hdr">
+    <div class="page-kicker">Press</div>
+    <h1 class="page-title">Press resources</h1>
+    <p class="page-lead">Brand assets, founder bio, fact sheet, and media inquiries. Hunch is built to be cited; everything you need is on this page.</p>
+  </div>
+
+  <div class="content">
+    <h2>Press contact</h2>
+    <p>For media enquiries: <a href="mailto:press@byhunch.com">press@byhunch.com</a><br>Response within 24 hours, faster for breaking-news requests.</p>
+
+    <h2>Brand assets</h2>
+  </div>
+
+  <div class="kit-grid">
+    <div class="kit-card"><div class="kit-name">Wordmark</div><div class="kit-meta">SVG · PNG · 2x</div><a href="#" class="kit-link">Download pack</a></div>
+    <div class="kit-card"><div class="kit-name">Monogram (H)</div><div class="kit-meta">SVG · favicon · social</div><a href="#" class="kit-link">Download pack</a></div>
+    <div class="kit-card"><div class="kit-name">Founder photo</div><div class="kit-meta">JPEG · low + high res</div><a href="#" class="kit-link">Download pack</a></div>
+    <div class="kit-card"><div class="kit-name">Product screenshots</div><div class="kit-meta">PNG · dark + light</div><a href="#" class="kit-link">Download pack</a></div>
+    <div class="kit-card"><div class="kit-name">Brand colours</div><div class="kit-meta">HEX · CMYK · Pantone</div><a href="#" class="kit-link">Download swatches</a></div>
+    <div class="kit-card"><div class="kit-name">Full press kit</div><div class="kit-meta">ZIP · everything above</div><a href="#" class="kit-link">Download (.zip)</a></div>
+  </div>
+
+  <div class="content">
+    <h2>Fact sheet</h2>
+    <ul>
+      <li><strong>Company:</strong> Krok Group Ltd, registered in England &amp; Wales</li>
+      <li><strong>Product:</strong> Hunch — UK political prediction publishing platform</li>
+      <li><strong>Founder &amp; CEO:</strong> Pavlo Denysiuk</li>
+      <li><strong>Co-founder &amp; CTO:</strong> Alexander</li>
+      <li><strong>Beta launch:</strong> 18 August 2026</li>
+      <li><strong>Public launch:</strong> 1 September 2026</li>
+      <li><strong>Real-money markets:</strong> 2027 (subject to UK Gambling Commission licence)</li>
+      <li><strong>Bases:</strong> London (HQ) + Berlin</li>
+      <li><strong>Atomic unit:</strong> Echo — analytical piece pairing current event, historical pattern, and prediction market</li>
+      <li><strong>Archive depth:</strong> 125+ years of UK political news</li>
+      <li><strong>Source breadth:</strong> 30+ publications, 3 minimum per Echo</li>
+    </ul>
+
+    <h2>Founder bio (short)</h2>
+    <p>Pavlo Denysiuk is the founder and CEO of Hunch. Ukrainian, based in Berlin for over a decade, relocating to London. Eight years in regulated Web3 and payments, including five years as CEO of Lunu Pay (partnered with Ingenico, Farfetch, Worldline). Currently studying Innovation, Strategy and Entrepreneurship at LSE. Hunch is his second venture.</p>
+
+    <h2>Recent coverage</h2>
+  </div>
+
+  <div>
+    <div class="press-row"><div class="press-date">Coming soon</div><div><div class="press-title">First coverage post-beta launch</div><div class="press-pub">August 2026</div></div></div>
+  </div>
+
+  <div class="content" style="margin-top: 24px;">
+    <h2>Press notes</h2>
+    <p>Hunch builds on the same prediction-market mechanics used by Polymarket and Kalshi, but with an editorial-first product design tailored to UK broadsheet readers. We are not a sportsbook; we are not a casino; we are a publishing platform with prediction as the action layer.</p>
+    <p>Where the prediction-market category in the US has grown around event-driven retail traders, Hunch targets the FT/Times reader — someone who already reads political analysis and wants to test their judgement against the patterns. Reputation is the product; money is a later layer.</p>
+  </div>
+
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#5E9C7B; margin-left:2px;">&trade;</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/dark/">This week</a></li>
+          <li><a href="/markets/dark/">All markets</a></li>
+          <li><a href="/echo/library/dark/">Echo</a></li>
+          <li><a href="/archive/dark/">Archive</a></li>
+          <li><a href="/leaderboard/dark/">Leaderboard</a></li>
+          <li><a href="/mobile-app/dark/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/dark/">Politics</a></li>
+          <li><a href="/sports/dark/">Sports</a></li>
+          <li><a href="/finance/dark/">Finance</a></li>
+          <li><a href="/tech/dark/">Tech</a></li>
+          <li><a href="/culture/dark/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/dark/">About Hunch</a></li>
+          <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+          <li><a href="/partners/dark/">Partners</a></li>
+          <li><a href="/methodology/dark/">How it works</a></li>
+          <li><a href="/press/dark/">Press</a></li>
+          <li><a href="/careers/dark/">Careers</a></li>
+          <li><a href="/contact/dark/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/dark/">Blog</a></li>
+          <li><a href="/help/dark/">Help centre</a></li>
+          <li><a href="/api/dark/">API documentation</a></li>
+          <li><a href="/status/dark/">Status</a></li>
+          <li><a href="/responsible-play/dark/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/dark/">Terms of service</a></li>
+          <li><a href="/privacy/dark/">Privacy policy</a></li>
+          <li><a href="/cookies/dark/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/dark/">Acceptable use</a></li>
+          <li><a href="/licences/dark/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>&copy; KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#7C7E7A;">Company No. 17183343 &middot; Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">&#127468;&#127463; United Kingdom &middot; EN</span>
+        <div class="small-links">
+          <a href="/sitemap/dark/">Sitemap</a>
+          <a href="/accessibility/dark/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div>
+<script>
+const menuBtn=document.querySelector('[data-menu-open]'),menuClose=document.querySelector('[data-menu-close]'),menuBackdrop=document.getElementById('menuBackdrop'),menuPanel=document.getElementById('menuPanel');
+function openMenu(){menuBackdrop.classList.add('open');menuPanel.classList.add('open')}
+function closeMenu(){menuBackdrop.classList.remove('open');menuPanel.classList.remove('open')}
+menuBtn?.addEventListener('click',openMenu);menuClose?.addEventListener('click',closeMenu);menuBackdrop?.addEventListener('click',closeMenu);
+</script>
+<script src="/assets/hunch-live-dark.js?v=1788512159"></script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/dark/"><span>Today</span></a>
+  <a href="/echo/library/dark/"><span>Echoes</span></a>
+  <a href="/markets/dark/"><span>Markets</span></a>
+  <a href="/account/dark/"><span>My record</span></a>
+</nav>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-bet-state.css?v=1788425424">
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

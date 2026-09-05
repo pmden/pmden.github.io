@@ -1,0 +1,18 @@
+/* Стан наведення і вибору для кнопок ставки.
+   Винесено в окремий файл і підключається ОСТАННІМ рядком сторінки навмисне:
+   на сторінках намішано кілька поколінь стилів, і той самий набір правил,
+   покладений усередину великого блоку, до елемента не доходив, хоч і збігався
+   селектором. Окремий пізній аркуш знімає це питання назавжди (3 Sep). */
+.market-card .mc-vote-yes:hover, .market-card .mc-vote-yes.selected,
+.bins .opt.yes:hover, .bins .opt.yes.selected,
+.opts .opt.yes:hover, .opts .opt.yes.selected {
+  background: #216945 !important; border-color: #1B5A39 !important; color: #FAF7EF !important; }
+.market-card .mc-vote-no:hover, .market-card .mc-vote-no.selected,
+.bins .opt.no:hover, .bins .opt.no.selected,
+.opts .opt.no:hover, .opts .opt.no.selected {
+  background: #8F2B21 !important; border-color: #741F17 !important; color: #FAF7EF !important; }
+/* підписи всередині кнопки виворочуються разом із нею */
+.market-card .mc-vote:hover span, .market-card .mc-vote.selected span,
+.bins .opt:hover .on, .bins .opt:hover .op,
+.bins .opt.selected .on, .bins .opt.selected .op { color: #FAF7EF !important; }
+

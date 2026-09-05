@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="London &amp; Regional Echoes: today's news read against historical pattern, each with its own market.">
+<meta property="og:title" content="London &amp; Regional — Hunch">
+<meta property="og:description" content="London &amp; Regional Echoes: today's news read against historical pattern, each with its own market.">
+<meta property="og:type" content="website">
+<title>London &amp; Regional &mdash; Hunch (Dark)</title>
+<link rel="icon" type="image/svg+xml" href="/assets/hunch-logo-light.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/hunch-favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/hunch-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300..700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HUNCH v9 clean — 24 Aug 2026
+   One green (#216945) · one gold (#7A5210) · one page background
+   Serif = all editorial text · Inter = micro-labels only
+   One spacing unit: --s
+   ============================================================ */
+:root{
+  --bg:#0E0F11;      /* the only page background */
+  --panel:#1B1D21;   /* approved Echo pattern panel */
+  --panel2:#141619;  /* approved Echo-of-the-week stat panel */
+  --ink:#F2F2EF;
+  --body:#DEDED9;
+  --mut:#7C7E7A;
+  --line:#2A2C30;    /* the only hairline */
+  --acc:#5E9C7B;     /* the only green */
+  --gold:#D4A03A;    /* kickers + year numbers only */
+  --s:24px;          /* the only vertical rhythm unit */
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html,body{ overflow-x:clip; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--bg); color: var(--ink); }
+.page { max-width: 1188px; margin: 0 auto; padding: 0 20px; }
+
+/* BUTTONS */
+.btn-primary { background: var(--acc); border: 1px solid var(--acc); color:#F2F2EF; text-decoration: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; transition: background 0.15s; display: inline-block; white-space: nowrap; }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+.menu-btn { width: 34px; height: 34px; border-radius: 6px; background: transparent; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--body); transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.menu-btn:hover { color: var(--ink); border-color: var(--ink); }
+.search-btn { width: 30px; height: 30px; border-radius: 50%; background: transparent; border: none; display: inline-flex; align-items: center; justify-content: center; color: var(--mut); cursor: pointer; transition: all 0.15s; padding: 0; flex-shrink: 0; }
+.search-btn:hover { color: var(--ink); }
+
+/* MASTHEAD — row1 = search+date | brand centre | sign in+menu; row2 = topics */
+.row1 { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 18px 14px; border-bottom: 1px solid var(--line); gap: 16px; position: sticky; top: 0; z-index: 30; background: var(--bg); }
+.row1 .left { display: flex; align-items: center; gap: 10px; }
+.row1 .date { font-size: 11px; color: var(--mut); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+.row1 .brand { font-family: 'Source Serif 4', serif; font-size: 38px; font-weight: 347; color: var(--ink); line-height: 1; letter-spacing: -0.025em; text-align: center; }
+.row1 .right { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+
+.row2 { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; position: sticky; top: var(--row1h,75px); z-index: 29; background: var(--bg); flex-wrap: wrap; gap: 10px; }
+.row2 .topics { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding-left: 14px; }
+.row2 .topics .sep { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+.row2 a { text-decoration: none; color: var(--mut); padding: 4px 0; transition: color 0.15s; white-space: nowrap; }
+.row2 a:hover { color: var(--ink); }
+.row2 a.premium { color: var(--gold); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 4px; transition: all 0.15s; }
+.row2 a.premium:hover { background: rgba(122,82,16,0.12); }
+.premium-mark { vertical-align: middle; border-radius: 3px; }
+.row2 .topics a.on, .row2 .topics a.active { color: var(--acc); font-weight: 500; padding-bottom: 4px; position: relative; }
+.row2 .topics a.on::after, .row2 .topics a.active::after { content:''; position:absolute; left:0; right:0; bottom:0; height:3px; background: var(--acc); border-radius:2px 2px 0 0; }
+@media (min-width:861px) { .row2 .topics a.on::after, .row2 .topics a.active::after { bottom:-15px; } }
+@media (max-width:560px) { .row1, .row2 { position: static; } }
+
+/* Search overlay */
+.row2 .search-overlay { position: absolute; inset: 6px 0; display: none; align-items: center; gap: 10px; background: var(--bg); padding: 0 4px; }
+.row2.search-mode .topics, .row2.search-mode .views { visibility: hidden; }
+.row2.search-mode .search-overlay { display: flex; }
+.nav-search-input { flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); outline: none; transition: border-color 0.15s; }
+.nav-search-input:focus { border-color: var(--acc); }
+.nav-search-close { width: 32px; height: 32px; border-radius: 50%; background: transparent; border: none; cursor: pointer; color: var(--mut); font-size: 20px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: all 0.15s; }
+.nav-search-close:hover { color: var(--ink); }
+
+/* MEGA MENU */
+.nav-mm { margin-left: auto; position: static; padding-right: 14px; }
+.nav-mm > a { display:inline-flex; align-items:center; gap:6px; font-weight:500; white-space:nowrap; }
+.nav-mm .chev { width:9px; height:9px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg) translateY(-2px); }
+.mm-panel { display:none; position:absolute; left:0; right:0; top:calc(100% + 1px); width:auto; background: var(--bg); border:1px solid var(--line); border-radius:0; padding:26px 30px; z-index:60; box-shadow:0 18px 44px rgba(31,36,31,0.14); grid-template-columns:repeat(4, 1fr); gap:26px; }
+.mm-panel.open { display:grid; }
+.mm-h { font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color: var(--gold); font-weight:600; margin-bottom:10px; }
+.mm-col a { display:block; font-size:13.5px; color: var(--body); text-decoration:none; padding:5px 0; }
+.mm-col a:hover { color: var(--ink); }
+.mm-foot { grid-column:1/-1; border-top:1px solid var(--line); padding-top:14px; margin-top:4px; font-size:12.5px; color: var(--body); }
+.mm-foot a { color: var(--body); text-decoration:none; padding:3px 10px; border:1px solid var(--line); border-radius:0; margin-left:6px; }
+.mm-foot a.on { color: var(--ink); border-color: var(--gold); font-weight:600; }
+@media (min-width: 861px) { .nav-mm { display:none !important; } }
+@media (max-width: 860px) { .nav-mm { display:none; } }
+
+/* HAMBURGER PANEL (off-canvas right) */
+.menu-backdrop { position: fixed; inset: 0; background: rgba(17,17,17,0.4); backdrop-filter: blur(3px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.menu-backdrop.open { opacity: 1; pointer-events: auto; }
+.menu-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: var(--bg); border-left: 1px solid var(--line); box-shadow: -16px 0 40px rgba(0,0,0,0.1); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px; }
+.menu-backdrop.open + .menu-panel, .menu-panel.open { transform: translateX(0); }
+.menu-panel-hdr { display: flex; justify-content: flex-start; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 18px; position: relative; }
+.menu-brand { font-family:'Source Serif 4',serif; font-size:24px; font-weight:360; color: var(--ink); line-height:1; letter-spacing:-0.025em; text-decoration:none; }
+.menu-panel-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--mut); line-height: 1; padding: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.15s; position: absolute; right: 0; top: 12px; transform: translateY(-50%); }
+.menu-panel-close:hover { color: var(--ink); }
+.menu-section { margin-bottom: 22px; }
+.menu-section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: 8px; }
+.menu-section ul { list-style: none; padding: 0; }
+.menu-section li { margin-bottom: 2px; }
+.menu-section a { display: block; padding: 8px 0; text-decoration: none; color: var(--ink); font-size: 14px; transition: color 0.15s; }
+.menu-section a:hover { color: var(--acc); }
+.menu-section a.premium { color: var(--gold); font-weight: 500; }
+.menu-section a.premium::before { content: '◆'; font-size: 9px; margin-right: 6px; }
+.menu-foot { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11px; color: var(--mut); }
+.theme-toggle { display: flex; gap: 0; margin-top: 20px; padding: 3px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; width: fit-content; }
+.theme-toggle .opt { font-size: 10px; padding: 6px 14px; border-radius: 999px; text-decoration: none; color: var(--mut); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: all 0.15s; }
+.theme-toggle .opt:hover { color: var(--ink); }
+.theme-toggle .opt.active { background: var(--line); color: var(--ink); }
+
+/* ============================================================
+   EDITORIAL BODY — serif by default
+   ============================================================ */
+.v10 { font-family: 'Source Serif 4', serif; }
+.v10 a { color: inherit; text-decoration: none; }
+.v10-lead-h a:hover, .v9-ch a:hover, .v10-latest-h a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+/* --- the ONLY Inter inside the editorial body: micro-labels --- */
+.v10-kicker, .v9-sig, .v9-sh, .v9-rail-k, .v9-meta-line,
+.v10-latest-kicker, .v10-latest-meta, .v10-frame-label,
+.v10-latest-head .more, .v9-eow-head .more, .v9-stat-cap, details.v10-pat summary { font-family: 'Inter', sans-serif; }
+
+.v10-kicker { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.v9-sig { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; color: var(--acc); }
+.v9-meta { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.v9-meta-line { font-size: 11px; color: var(--mut); letter-spacing: 0.02em; }
+.v9-sh { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: var(--s); }
+
+/* 1 · FEATURED — hairlines only, no fill */
+.v10-lead { display: flex; align-items: stretch; gap: calc(var(--s)*1.5); padding: var(--s) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); }
+.v10-lead-main { width: 58%; padding-right: 0; display: flex; flex-direction: column; }
+.v10-lead-side { width: 42%; padding: 18px 20px; margin-top: 0; background: var(--panel); border-left: 0; border-radius: 0; }
+.v10-lead-h { font-family: 'Source Serif 4', serif; font-size: 38px; font-weight: 630; line-height: 1.2; color: var(--ink); margin: 8px 0 12px; }
+.v10-lead-lede { font-family: 'Source Serif 4', serif; font-size: 17px; color: var(--body); line-height: 1.55; margin-bottom: 12px; }
+.v10-readmore { display: inline-block; margin-top: 6px; font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+.v10-readmore:hover { color: var(--acc); border-bottom-color: var(--acc); }
+
+.v9-rail-k { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mut); margin-bottom: 10px; }
+.v9-rail-sum { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 600; line-height: 1.45; color: var(--gold); margin-bottom: 14px; }
+.v9-yr { display: flex; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); font-family: 'Source Serif 4', serif; font-size: 14px; line-height: 1.45; }
+.v9-yr .y { color: var(--gold); font-weight: 600; flex: 0 0 44px; }
+.v9-yr .t { color: var(--body); }
+
+/* 2 · GRID OF 9 — one card pattern, no boxes */
+.v9-sec { padding: calc(var(--s)*1.5) 14px 0; }
+.v9-sec + .v9-sec { padding-top: calc(var(--s)*1.5); }
+.v9-sec-inner { border-top: 1px solid var(--line); padding-top: 14px; }
+.v9-sec:first-of-type .v9-sec-inner { border-top: none; padding-top: 0; }
+.v9-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--s)*1.25); }
+.v9-ch { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 630; line-height: 1.25; color: var(--ink); margin-bottom: 7px; }
+.v9-ce { font-family: 'Source Serif 4', serif; font-size: 14.5px; line-height: 1.5; color: var(--body); }
+
+/* 3 · LATEST — signature two-column rows with the Echo pattern frame */
+.v10-latest { padding: calc(var(--s)*1.5) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); margin-top: calc(var(--s)*1.5); }
+.v10-latest-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.v10-latest-head .more, .v9-eow-head .more { font-size: 12px; font-weight: 400; color: var(--mut); text-decoration: none; }
+.v10-latest-head .more:hover, .v9-eow-head .more:hover { color: var(--acc); }
+.v10-latest-row { display: grid; grid-template-columns: 62% 34%; justify-content: space-between; padding: var(--s) 0; }
+.v10-latest-row + .v10-latest-row { border-top: 1px solid var(--line); }
+.v10-latest-kicker { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+.v10-latest-h { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 630; line-height: 1.25; color: var(--ink); margin-bottom: 6px; }
+.v10-latest-sum { font-family: 'Source Serif 4', serif; font-size: 14.5px; font-weight: 400; color: var(--body); line-height: 1.5; margin-bottom: 8px; }
+.v10-latest-meta { font-size: 11px; color: var(--mut); }
+
+/* the approved Echo pattern mini-frame — keeps its tinted panel */
+.v10-mini-frame { background: var(--panel); border: 0; border-radius: 0; padding: 14px 16px; align-self: start; }
+.v10-frame-label { font-size: 9px; font-weight: 500; letter-spacing: .13em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.v10-mini-case { display: flex; gap: 12px; position: relative; padding-left: 18px; }
+.v10-mini-case::before { content:''; position:absolute; left:0; top:6px; width:5px; height:5px; border-radius:50%; background:transparent; border:1.5px solid var(--acc); z-index:1; }
+.v10-tl .v10-mini-case:first-of-type::before { background: var(--acc); }
+.v10-tl { position: relative; }
+.v10-tl::before { content:''; position:absolute; left:2px; top:11px; bottom:9px; width:1px; background: var(--line); }
+.v10-mini-frame.v10-tl::before { left:18px; top:52px; bottom:14px; }
+.v10-mini-case + .v10-mini-case { margin-top: 7px; }
+.v10-mini-case .yr { font-family:'Source Serif 4',serif; font-size:12px; font-weight:600; color: var(--gold); line-height:1.5; flex-shrink:0; width:34px; }
+.v10-mini-case .tx { font-family:'Source Serif 4',serif; font-size:12px; font-weight:400; color: var(--ink); line-height:1.5; }
+
+/* 4 · ECHO OF THE WEEK — keeps its stat panel */
+.v10-week { padding: calc(var(--s)*1.5) 14px calc(var(--s)*1.5); border-bottom: 1px solid var(--line); }
+.v10-week .v10-kicker { display: block; }
+.v9-eow-head { display: flex; justify-content: space-between; align-items: baseline; }
+.v10-eow-row { display: flex; gap: calc(var(--s)*2); margin-top: 14px; align-items: flex-start; }
+.v9-eow-h { font-family:'Source Serif 4',serif; font-size: 26px; font-weight: 630; line-height: 1.25; margin-bottom: 10px; color: var(--ink); }
+.v9-eow-p { font-family:'Source Serif 4',serif; font-size: 15px; color: var(--body); line-height: 1.55; max-width: 560px; margin-bottom: 14px; }
+.v9-stat { flex-shrink: 0; width: 200px; border: 1px solid var(--line); border-radius:0; background: var(--panel2); text-align: center; padding: 26px 16px; }
+.v9-stat-n { font-family:'Source Serif 4',serif; font-size: 52px; font-weight: 300; color: var(--acc); line-height: 1; }
+.v9-stat-cap { font-size: 12px; color: var(--mut); margin-top: 8px; }
+
+/* COMPREHENSIVE FOOTER */
+.footer-full { padding: calc(var(--s)*2) 0 var(--s); border-top: 1px solid var(--line); margin-top: calc(var(--s)*1.5); }
+.footer-brand-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: calc(var(--s)*1.5); }
+.footer-brand .name { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 440; color: var(--ink); }
+.footer-brand .tagline { font-family: 'Source Serif 4', serif; font-style: italic; font-size: 12px; color: var(--mut); margin-top: 4px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--ink); transition: all 0.15s; }
+.footer-social a:hover { border-color: var(--ink); color: var(--ink); }
+.footer-social a[aria-disabled="true"] { opacity: .45; cursor: default; }
+.footer-social a[aria-disabled="true"]:hover { border-color: var(--line); color: var(--mut); }
+.footer-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s); margin-bottom: calc(var(--s)*1.5); }
+.footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 8px; font-size: 13px; }
+.footer-col ul li a { color: var(--mut); text-decoration: none; transition: color 0.15s; }
+.footer-col ul li a:hover { color: var(--acc); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); font-size: 11px; color: var(--mut); flex-wrap: wrap; gap: 12px; }
+.footer-bottom .small-links { display: flex; gap: 16px; }
+.footer-bottom .small-links a { color: var(--mut); text-decoration: none; }
+.footer-bottom .small-links a:hover { color: var(--ink); }
+.footer-region { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; color: var(--body); }
+.footer-license { font-size: 10px; color: var(--mut); max-width: 580px; margin: 16px 0 0; line-height: 1.5; }
+
+/* mobile-only DOM additions stay invisible on desktop */
+.m-tabbar, .menu-msearch, .menu-msub { display: none; }
+@media (min-width:561px) {
+  details.v10-pat { display: block; align-self: start; }
+  details.v10-pat summary { display: none; }
+}
+
+/* ---------- 860px: three columns become two ---------- */
+@media (max-width:860px) {
+  
+  .v10-lead { flex-direction: column; gap: var(--s); }
+  .v10-lead-main { width: 100%; padding: 0; }
+  .v10-lead-side { width: 100%; border-left: none; }
+  .v10-lead-side { margin-top: 0; padding: 18px 20px; border-top: 0; }
+  .v9-grid { grid-template-columns: 1fr 1fr; }
+  .v10-latest-row { grid-template-columns: 1fr; gap: 16px; }
+  .v10-eow-row { flex-direction: column; }
+  .v9-stat { width: 100%; margin-top: 16px; }
+}
+
+/* ---------- 560px: one column ---------- */
+@media (max-width:560px) {
+  .page { padding: 0 16px !important; }
+  body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
+  :root { --s: 20px; }
+
+  /* header: burger left · wordmark centre · sign in right */
+  .row1 { display:flex !important; align-items:center !important; padding:10px 0 !important; gap:12px !important; position:relative !important; }
+  .row1 .left { display:none !important; }
+  .row1 .right { display:contents !important; gap:14px !important; }
+  .row1 .menu-btn { order:-1 !important; margin-right:auto !important; width:28px !important; height:28px !important; border:none !important; background:transparent !important; }
+  .row1 .menu-btn svg { width:20px; height:20px; }
+  .row1 .brand { order:0 !important; margin:0 !important; position:absolute; left:50%; transform:translateX(-50%); font-size:24px !important; font-weight:347 !important; }
+  .row1 .btn-primary { order:1 !important; margin-left:auto !important; background:transparent !important; border:none !important; color: var(--ink) !important; padding:0 !important; border-radius:0 !important; font-size:15px !important; font-weight:400 !important; }
+
+  /* topics: one scrollable line */
+  .row2 { padding:12px 0 !important; font-size:15px !important; flex-wrap:nowrap !important; }
+  .row2 .topics { flex-wrap:nowrap !important; overflow-x:auto !important; padding-left:0 !important; gap:16px !important; white-space:nowrap; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .row2 .topics::-webkit-scrollbar { display:none; }
+  .row2 a { font-size:15px !important; }
+  .row2 .topics a.premium { display:none !important; }
+  .nav-mm { display:none !important; }
+
+  /* burger drawer extras */
+  .menu-msearch { display:block; margin:0 0 12px; }
+  .menu-msearch input { width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid var(--line); background: var(--bg); color: var(--ink); outline:none; }
+  .menu-msub { display:block; font-size:13px; font-weight:500; color: var(--gold); text-decoration:none; padding:6px 0 12px; border-bottom:1px solid var(--line); margin-bottom:12px; }
+
+  /* bottom tab bar */
+  .m-tabbar { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:900; height:calc(52px + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom); background: var(--bg); border-top:1px solid var(--line); }
+  .m-tabbar a { flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color: var(--mut); font-weight:400; }
+  .m-tabbar a span { border-top:2px solid transparent; padding-top:4px; }
+  .m-tabbar a.active { color: var(--ink); font-weight:500; }
+  .m-tabbar a.active span { border-top-color: var(--acc); }
+
+  /* sections: 16px edge from .page only */
+  .v10-lead, .v10-latest, .v10-week, .v9-sec { padding-left:0 !important; padding-right:0 !important; }
+  .v10-lead { padding-top: var(--s) !important; padding-bottom: calc(var(--s)*1.25) !important; }
+  .v10-lead-side { margin-top: var(--s) !important; padding-top: var(--s) !important; }
+  .v9-grid { grid-template-columns: 1fr; gap: var(--s); }
+
+  /* type scale */
+  .v10-kicker, .v10-latest-kicker, .v9-sig { font-size:11px !important; }
+  .v10-lead-h { font-size:30px !important; line-height:1.18 !important; margin:10px 0 12px !important; }
+  .v10-lead-lede { font-size:17px !important; line-height:1.55 !important; }
+  .v9-ch { font-size:20px !important; line-height:1.3 !important; }
+  .v9-ce { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-h { font-size:20px !important; line-height:1.3 !important; }
+  .v10-latest-sum { font-size:15px !important; line-height:1.55 !important; }
+  .v10-latest-meta, .v9-meta-line { font-size:13px !important; }
+  .v10-readmore { font-size:15px !important; }
+  .v10-latest-head .more { font-size:14px !important; }
+  .v9-rail-sum { font-size:16px !important; }
+  .v9-yr { font-size:15px !important; }
+  .v9-eow-h { font-size:22px !important; }
+  .v9-eow-p { font-size:15px !important; }
+
+  /* pattern frames collapse into <details> on phones */
+  .v10-latest-row { grid-template-columns:1fr !important; gap:10px !important; padding: var(--s) 0 !important; }
+  details.v10-pat { margin-top:8px; }
+  details.v10-pat summary { list-style:none; cursor:pointer; font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color: var(--gold); }
+  details.v10-pat summary::-webkit-details-marker { display:none; }
+  details.v10-pat summary::after { content:'\25BE'; display:inline-block; margin-left:6px; font-size:9px; transition:transform .15s; }
+  details.v10-pat[open] summary::after { transform:rotate(180deg); }
+  details.v10-pat .v10-mini-frame { margin-top:10px; }
+  .v10-mini-case .yr, .v10-mini-case .tx { font-size:15px !important; line-height:1.5 !important; }
+  .v10-mini-case .tx { display:block; }
+
+  /* footer */
+  .footer-full { padding: var(--s) 0 16px !important; margin-top: var(--s) !important; }
+  .footer-brand-row { margin-bottom: var(--s) !important; }
+  .footer-brand .name { font-size:22px !important; }
+  .footer-cols { grid-template-columns:1fr 1fr !important; gap: var(--s) !important; margin-bottom: var(--s) !important; }
+  .footer-col h4 { font-size:10px !important; }
+  .footer-col ul li { font-size:13px !important; }
+  .footer-bottom { font-size:12px !important; }
+  .footer-license { font-size:12px !important; }
+}
+.v10-kicker a,.v10-latest-kicker a{color:inherit;text-decoration:none}.v10-kicker a:hover,.v10-latest-kicker a:hover{text-decoration:underline;text-underline-offset:3px}
+</style>
+<style>
+/* v8 chrome restore — masthead, drawer, footer (point 5) */
+.btn-primary:hover{background:#A8D0B8;}
+.menu-btn{width: 34px; height: 34px; border-radius: 6px; background: transparent; border:1px solid #2A2C30; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color:#DEDED9; transition: all 0.15s; padding: 0; flex-shrink: 0;}
+.menu-btn:hover{background:#141619; color:#F2F2EF; border-color:#F2F2EF;}
+.search-btn:hover{background:#141619; color:#F2F2EF;}
+.row2{display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom:1px solid #2A2C30; font-size: 15px; position: relative; flex-wrap: wrap; gap: 10px;}
+.row2 .topics .sep{width: 1px; height: 18px; background:#2A2C30; margin: 0 4px;}
+.row2 a.premium:hover{color:#D4A03A; background: rgba(176,126,30,0.15);}
+.row2 a.premium:hover .premium-mark rect{fill: rgba(176,126,30,0.35);}
+.nav-search-input{flex: 1; padding: 10px 14px; font-size: 14px; font-family: inherit; border:1px solid #2A2C30; border-radius: 5px; background:#141619; outline: none; transition: border-color 0.15s;}
+.nav-search-input:focus{border-color:#5E9C7B; box-shadow: 0 0 0 3px rgba(26,92,58,0.08);}
+.menu-panel{position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background:#141619; box-shadow: -16px 0 40px rgba(0,0,0,0.1); z-index: 1001; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1); display: flex; flex-direction: column; padding: 22px 26px;}
+.menu-panel-hdr{display: flex; justify-content: flex-end; align-items: center; padding-bottom: 14px; border-bottom:1px solid #2A2C30; margin-bottom: 18px;}
+.menu-panel-title{font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 400;}
+.menu-panel-close:hover{background:#141619; color:#F2F2EF;}
+.menu-foot{margin-top: auto; padding-top: 18px; border-top:1px solid #2A2C30; font-size: 11px; color:#7C7E7A;}
+.theme-toggle{display: flex; gap: 0; margin-top: 20px; padding: 3px; background:#0E0F11; border:1px solid #2A2C30; border-radius: 999px; width: fit-content;}
+.footer-brand-row{display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px;}
+.footer-social a{width: 32px; height: 32px; border-radius: 50%; border:1px solid #2A2C30; display: flex; align-items: center; justify-content: center; color:#7C7E7A; transition: all 0.15s;}
+.footer-cols{display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; margin-bottom: 36px;}
+.footer-bottom{display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top:1px solid #2A2C30; font-size: 11px; color:#7C7E7A; flex-wrap: wrap; gap: 12px;}
+.footer-region{display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background:#141619; border-radius: 4px; font-size: 11px; color:#DEDED9;}
+.footer-social a{color:#F2F2EF !important;}
+.menu-msub{display:none;}
+@media(min-width: 861px){.row2{position:sticky; top:var(--row1h,75px); z-index:29; background:#0E0F11;}
+.row1, .row2{position:static;}
+.menu-panel-hdr{position:relative; justify-content:flex-start;}
+.menu-brand{font-family:'Source Serif 4',serif; font-size:24px; font-weight:360; color:#F2F2EF;
+  line-height:1; letter-spacing:-0.025em; text-decoration:none;}}
+@media(max-width:560px){.row1{position:relative !important;}
+.menu-msearch input{width:100%; box-sizing:border-box; padding:10px 12px; font-size:14px; font-family:inherit; border:1px solid #2A2C30; background:#0E0F11; color:#F2F2EF; outline:none;}
+.menu-msub{display:block; font-size:13px; font-weight:500; color:#D4A03A; text-decoration:none; padding:6px 0 12px; border-bottom:1px solid #2A2C30; margin-bottom:12px;}
+.m-tabbar a{flex:1; display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#7C7E7A; font-weight:400;}
+.footer-brand-row{margin-bottom:20px !important;}
+.footer-cols{grid-template-columns:1fr 1fr !important; gap:20px !important; margin-bottom:20px !important;}
+.footer-bottom{font-size:12px !important;}}
+</style>
+<style>
+/* v8 chrome parity — measured overrides (audit 3) */
+.row1{border-bottom-color:#2A2C30 !important;}
+.footer-full{border-top-color:#2A2C30 !important;}
+.menu-panel{border-left:0 !important;}
+.footer-region{border:0 !important;}
+.btn-primary{border-color:#4A7D62 !important;}
+.btn-primary:hover{border-color:#4A7D62 !important;}
+@media (min-width:561px){ .footer-full{margin-top:40px !important;} }
+@media (min-width:861px){
+  .row1{position:sticky !important;top:0 !important;z-index:30 !important;background:#0E0F11 !important;}
+  .row2{position:sticky !important;top:var(--row1h,75px) !important;z-index:29 !important;background:#0E0F11 !important;}
+}
+@media (max-width:860px){
+  .row1{position:static !important;background:transparent !important;z-index:auto !important;top:auto !important;}
+  .row2{position:relative !important;background:transparent !important;z-index:auto !important;top:0 !important;}
+  .menu-panel-hdr{position:static !important;}
+  .menu-panel-close{position:static !important;top:auto !important;right:auto !important;transform:none !important;}
+}
+@media (max-width:560px){
+  .row1{position:relative !important;}
+  .m-tabbar{border-top-color:#2A2C30 !important;}
+}
+</style>
+<style>.v10-lead-main .v10-readmore{margin-top:auto;align-self:flex-start;}</style>
+<style>
+/* signal sits top-right of its card, not beside the kicker */
+.v9-meta{display:flex;align-items:baseline;justify-content:space-between;gap:14px;}
+.v9-meta .v9-sig{margin-left:auto;white-space:nowrap;}</style>
+<style>
+@media (max-width:1199px) and (min-width:901px){.v10-lead-h{font-size:27px !important;}}
+@media (max-width:900px) and (min-width:701px){.v10-lead-h{font-size:24px !important;}}
+</style>
+<style>
+/* featured headline: never more than two lines */
+@media (min-width:1201px){.v10-lead-h{font-size:31px !important;line-height:1.16 !important;}}
+@media (max-width:1200px) and (min-width:901px){.v10-lead-h{font-size:26px !important;line-height:1.16 !important;}}
+@media (max-width:900px) and (min-width:861px){.v10-lead-h{font-size:22px !important;line-height:1.18 !important;}}
+@media (max-width:860px) and (min-width:701px){.v10-lead-h{font-size:28px !important;line-height:1.16 !important;}}
+@media (max-width:700px) and (min-width:561px){.v10-lead-h{font-size:23px !important;line-height:1.18 !important;}}
+@media (max-width:560px) and (min-width:441px){.v10-lead-h{font-size:21px !important;line-height:1.2 !important;}}
+@media (max-width:440px){.v10-lead-h{font-size:18px !important;line-height:1.22 !important;}}
+</style>
+<style>.v9-meta-lead{padding-top:17px;}.v9-meta-lead .v9-rail-k{margin-bottom:0;}</style>
+<style>
+/* lead block, 28 Aug: hairline in the gutter between the story and the pattern card;
+   the card itself is unchanged. Signal sits with the kicker, not flushed right. */
+.v10-lead { gap: calc(var(--s)*0.75); }
+.v10-lead-main { width: auto; flex: 1 1 auto; border-right: 1px solid var(--line); padding-right: calc(var(--s)*1.65); }
+.v10-lead-side { width: 40.7%; flex: 0 0 40.7%; }
+.v9-meta-lead { justify-content: space-between; }
+.v9-meta-lead .v9-sig { margin-left: auto; }
+@media (max-width: 860px) { .v10-lead { gap: var(--s); } .v10-lead-main { width: 100%; flex: 1 1 auto; border-right: 0; padding-right: 0; }
+  .v10-lead-side { width: 100%; flex: 1 1 auto; } }
+</style>
+<style>
+/* category header — same tokens as the landing: one serif, one gold, one unit */
+.v9-cat { padding: calc(var(--s)*1.5) 0 calc(var(--s)*0.9); border-bottom: 1px solid var(--line); margin-bottom: calc(var(--s)*1.4); }
+.v9-cat-k { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 10px; }
+.v9-cat-h { font-family: 'Source Serif 4', serif; font-size: 40px; font-weight: 565; line-height: 1.1; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 10px; }
+.v9-cat-lede { font-family: 'Source Serif 4', serif; font-size: 17px; line-height: 1.55; color: var(--body); max-width: 62ch; margin-bottom: 12px; }
+.v9-cat-meta { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.02em; color: var(--mut); }
+.v9-cat-meta .dot { margin: 0 7px; color: var(--line); }
+@media (max-width: 700px) { .v9-cat-h { font-size: 30px; } .v9-cat-lede { font-size: 16px; } }
+</style>
+<style>
+/* ================= NO SIDEWAYS SCROLL ON MOBILE (Pavlo, 28 Aug) =================
+   Rule: at phone width nothing scrolls sideways. Everything either fits, or is
+   hidden behind a control the reader can see. A strip that slides off the edge
+   with no affordance is neither.
+   The category strip used to hide 159px of itself, 31% of the nav, behind a
+   swipe. At 560px and below it now carries the six categories only: the
+   wordmark already goes home, and Subscribe lives in the drawer.
+   overflow-x:clip on the root stops the closed drawer, parked off-screen to the
+   right, from widening the document. */
+html, body { overflow-x: clip; }
+@media (max-width: 560px) {
+  .row2 .topics { overflow-x: visible !important; flex-wrap: nowrap !important;
+    gap: 10px !important; font-size: 13.5px !important; padding-left: 0 !important; }
+  .row2 .topics .sep { display: none !important; }
+  .row2 .topics a.premium { display: none !important; }
+  .row2 .topics a[href*="layout-v9-clean"] { display: none !important; }
+  .row2 .topics a { padding: 4px 0 !important; }
+}
+</style>
+<style>
+/* ===== phone: a live number strip above the masthead, and a count on the
+   MARKETS tab. Both borrowed straight from the references: FT puts its ticker
+   as the topmost row of the page, Bloomberg puts a row of number cards under
+   the masthead, Kalshi carries a live counter inside the tab bar. On a phone
+   these are the cheapest signals that the thing is alive. (28 Aug) ===== */
+@media (max-width: 560px) {
+  .m-tabbar a .cnt { font-family: 'Source Serif 4', serif; font-size: 11px; color: var(--acc); margin-left: 4px; }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var mk = document.querySelector('.m-tabbar a[href*="markets"]');
+  if (mk && !mk.querySelector('.cnt')) {
+    var c = document.createElement('span'); c.className = 'cnt'; c.textContent = '51';
+    mk.appendChild(c);
+  }
+});
+</script>
+<style>
+/* вордмарк у мастхеді на 15% жирніший (Pavlo, 29 Aug): 347 -> 399.
+   Однаково на десктопі і на телефоні, щоб лого лишалось одним знаком. */
+.row1 .brand { font-weight: 399 !important; }
+</style>
+<style>
+/* ========= ШАПКА КАТЕГОРІЇ НА ТЕЛЕФОНІ (Pavlo, 29 Aug) ======================
+   Блок займав близько 180px першого екрана і не ніс інформації:
+   кікер CATEGORY дублює активну вкладку в навігації, яка вже підсвічена
+   зеленим, а лід «Westminster read against the record…» це загальний текст,
+   однаковий за змістом на всіх шести категоріях. На телефоні лишається сама
+   назва розділу, 28px замість 40px. Було 180px, стало близько 60px.
+   На вебі все як було. ==================================================== */
+@media (max-width: 560px) {
+  .v9-cat { padding: 16px 0 14px !important; margin-bottom: 16px !important; }
+  .v9-cat-k, .v9-cat-lede { display: none !important; }
+  .v9-cat-h { font-size: 28px !important; font-weight: 505 !important;
+    line-height: 1.14 !important; margin-bottom: 0 !important; }
+}
+</style>
+<style>
+/* ===== СТОРІНКА КАТЕГОРІЇ НА ТЕЛЕФОНІ · ВАРІАНТ B «РІВНА СТРІЧКА» (Pavlo, 29 Aug) =====
+   Обраний варіант із борда hunch-category-mobile-variants-20260829.html,
+   друга колонка. Жоден матеріал не має привілею: великий лід, бічна рейка
+   з роками, питання ринку і згорнуті патерн-рамки зникають. Усі Echo стають
+   однаковими блоками з одним ритмом: рубрика і дата, заголовок, підсумок,
+   підвал одним рядком. Кеглі, ваги, кольори і відступи взяті з еталона.
+   Усі правила живуть усередині медіазапиту: веб ширший за 560px не зачеплений
+   жодним рядком. ==================================================== */
+@media (max-width: 560px) {
+
+  /* усе, що ламало рівний ритм, іде геть */
+  .v10-lead-side,                        /* бічна рейка ліда з роками */
+  .v10-lead .v9-meta-lead,               /* підпис LEAD ECHO і сигнатура */
+  .v10-lead .v9-meta-line,               /* питання ринку під лідом */
+  .v10-lead .v10-readmore,               /* «Read the full Echo» */
+  .v9-grid > article > .v9-meta,         /* стара шапка картки */
+  .v9-grid > article > .v9-foot,
+  .v10-latest-row > div > .v9-meta,
+  .v10-latest-row .v10-latest-meta,      /* дата у форматі 2026-08-21 */
+  .v10-latest-row > details.v10-pat { display: none !important; }
+
+  /* блок стрічки: однаковий для ліда, сітки і списку.
+     Розділювач 1px, без рамок і заокруглень */
+  .v10-lead,
+  .v9-grid > article,
+  .v10-latest-row { display: block !important;
+    padding: 16px 0 !important; margin: 0 !important;
+    border: 0 !important; border-bottom:1px solid #2A2C30 !important;
+    border-radius: 0 !important; }
+  .v9-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .v10-lead-main { display: block !important; width: 100% !important; padding: 0 !important; }
+
+  /* верхній рядок: рубрика золотим ліворуч, дата сірим праворуч */
+  .mb-top { display: flex !important; align-items: baseline;
+    justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .mb-kick { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.11em; text-transform: uppercase; color:#D4A03A; }
+  .mb-age { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.11em; text-transform: uppercase; color:#7C7E7A; white-space: nowrap; }
+
+  /* заголовок */
+  .v10-lead-h, .v9-ch, .v10-latest-h { font-family: 'Source Serif 4', serif;
+    font-size: 19px !important; font-weight: 600 !important; line-height: 1.28 !important;
+    color:#F2F2EF !important; margin: 0 0 7px !important; }
+
+  /* підсумок */
+  .v10-lead-lede, .v9-ce, .v10-latest-sum { font-family: 'Source Serif 4', serif;
+    font-size: 15px !important; font-weight: 400 !important; line-height: 1.5 !important;
+    color:#DEDED9 !important; margin: 0 0 9px !important; }
+
+  /* підвал одним рядком: дріб патерну золотим ліворуч, ринок сірим праворуч */
+  /* підвал стрічки такий самий, як на головній: Pattern 100% | Market 72%,
+     лейбли Inter 11px приглушені, числа серифом, патерн золотий, ринок зелений,
+     розділювач вертикальною смугою кольору лінійки. Ліворуч, не по краях.
+     (Pavlo, 29 Aug) */
+  .mb-f { display: flex !important; align-items: baseline;
+    justify-content: flex-start; gap: 6px;
+    font-family: 'Inter', sans-serif; font-size: 11px; color: var(--mut); }
+  .mb-f b { font-family: 'Source Serif 4', serif; font-size: 13px; font-weight: 400; }
+  .mb-f .t1 b { color: var(--gold); }
+  .mb-f .t2 b { color: var(--acc); }
+  .mb-f .bar { color: var(--line); }
+}
+</style>
+<style>
+/* ===== ФІЧЕР КАТЕГОРІЇ НА ТЕЛЕФОНІ (Pavlo, 29 Aug) =====================
+   Перший матеріал розділу лишається головним: кікер FEATURED, більший
+   заголовок, підсумок, рядок патерну з дробом і золотою рискою — той самий
+   вигляд, що на лендингу. Далі лінійка, кікер розділу і рівна стрічка.
+   Усе всередині медіазапиту: веб ширший за 560px не зачеплений. ======== */
+@media (max-width: 560px) {
+  .v10-lead { padding: 14px 0 18px !important; }
+  .v10-lead .mb-kick { color: var(--gold) !important; }
+  .v10-lead .mb-age { color: var(--mut) !important; }
+  .v10-lead-h { font-size: 26px !important; font-weight: 505 !important;
+    line-height: 1.16 !important; color: var(--ink) !important; margin: 0 0 9px !important; }
+  .v10-lead-lede { font-size: 16.5px !important; font-weight: 400 !important;
+    line-height: 1.5 !important; color: var(--body) !important; margin: 0 0 12px !important; }
+
+  /* рядок патерну: дріб, золота риска, речення */
+  .mb-pat { display: flex !important; align-items: stretch; margin: 0 0 12px !important; }
+  .mb-pat .fr { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600;
+    color: var(--gold); white-space: nowrap; padding-right: 12px; }
+  .mb-pat .rule { flex: 0 0 1.5px; width: 1.5px; background: var(--gold); }
+  .mb-pat .tx { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 400;
+    line-height: 1.4; color: var(--ink); padding-left: 14px; }
+
+  /* кікер розділу під фічером */
+  .v9-sec { padding-top: 14px !important; padding-bottom: 0 !important; margin: 0 !important; }
+  .v9-sec .v9-sh { font-family: 'Inter', sans-serif; font-size: 10px !important;
+    font-weight: 600 !important; letter-spacing: 0.11em !important; text-transform: uppercase;
+    color: var(--mut) !important; margin: 0 0 2px !important; padding: 0 !important;
+    border: 0 !important; }
+}
+</style>
+<style>
+/* ===== РЕГІОН: два залишки, яких нема в спорті (Pavlo, 29 Aug) ===========
+   1. Лічильник під назвою розділу — на телефоні його зміст уже несе стрічка,
+      як і на решті категорій, де він прихований.
+   2. Рядок «Resolved 7 Aug 2026» під картками сітки: дата вже стоїть у
+      верхньому рядку блоку, а результат — у підвалі. Тільки телефон. ====== */
+@media (max-width: 560px) {
+  .v9-cat .v9-cat-meta { display: none !important; }
+  .v9-grid > article > .v9-meta-line { display: none !important; }
+}
+</style>
+<style>
+/* липка шапка на телефоні і планшеті — так само, як на лендингу і Echo (31 Aug) */
+@media (max-width: 860px) {
+  .row1 { position: sticky !important; top: 0 !important; z-index: 30 !important;
+    background:#0E0F11 !important; }
+  .row2 { position: sticky !important; top: var(--row1h, 49px) !important;
+    z-index: 29 !important; background:#0E0F11 !important; }
+}
+:root { --row1h: 75px; }
+@media (max-width: 860px) { :root { --row1h: 49px; } }
+</style>
+<style>
+/* Шапка розділу знята на всіх ширинах (Pavlo, 31 Aug). Кікер CATEGORY, назва
+   і загальний опис не несли інформації: активна вкладка в навігації вже
+   підсвічена зеленим, а опис однаковий за змістом на всіх шести розділах.
+   На десктопі блок займав 215px, тобто чверть першого екрана. Сторінка
+   починається одразу з провідного Echo. */
+.v9-cat { display: none !important; }
+</style>
+<link rel="stylesheet" href="/assets/hunch-echo-mobile-canon-dark.css?v=1788537491">
+
+<link rel="canonical" href="https://byhunch.com/regional/">
+<meta name="robots" content="noindex,follow">
+<meta property="og:url" content="https://byhunch.com/regional/">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ 1 · MASTHEAD + NAV ============ -->
+  <div class="row1">
+    <div class="left">
+      <button class="search-btn" data-search-open title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <span class="date" id="navDate">Mon, 24 Aug 2026</span>
+    </div>
+    <a class="brand" href="/dark/" style="text-decoration:none; color:inherit;">Hunch</a>
+    <div class="right">
+      <a href="/signin/" class="btn-primary">Sign in</a>
+      <button class="menu-btn" data-menu-open title="Menu" aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="row2" id="navSub">
+    <div class="topics">
+      <a href="/dark/">This week</a>
+      <span class="sep"></span>
+      <a href="/politics/dark/">Politics</a>
+      <a href="/sports/dark/">Sports</a>
+      <a href="/finance/dark/">Finance</a>
+      <a href="/tech/dark/">Tech</a>
+      <a href="/culture/dark/">Culture</a>
+      <a href="/regional/dark/" class="on">Regional</a>
+      <span class="sep"></span>
+      <a href="/membership/" class="premium"><svg class="premium-mark" viewBox="0 0 100 100" width="20" height="20"><rect x="3" y="3" width="94" height="94" rx="14" fill="#FFFDF7" stroke="#7A5210" stroke-width="2"/><text x="50" y="73" font-family="Cormorant Garamond, Garamond, serif" font-size="80" font-weight="600" fill="#7A5210" text-anchor="middle">H</text></svg>Subscribe</a>
+    </div><div class="nav-mm"><a href="#" id="mmBtn">Menu <span class="chev"></span></a><div class="mm-panel" id="mmPanel"><div class="mm-col"><div class="mm-h">Browse</div><a href="/markets/dark/">All markets</a><a href="/archive/dark/">Archive</a><a href="/echo/library/dark/">Echo Library</a><a href="/leaderboard/dark/">Leaderboard</a><a href="/methodology/dark/">How it works</a></div><div class="mm-col"><div class="mm-h">Hunch</div><a href="/about/dark/">About</a><a href="/editorial-code/dark/">Editorial Code</a><a href="/partners/dark/">Partners</a><a href="/contact/dark/">Help &amp; Contact</a></div><div class="mm-col"><div class="mm-h">Account</div><a href="/account/dark/">Dashboard</a><a href="/membership/">Membership</a><a href="/account/dark/">My predictions</a><a href="/account/dark/">Settings</a></div><div class="mm-col"><div class="mm-h">Topics</div><a href="/politics/dark/">Politics</a><a href="/sports/dark/">Sports</a><a href="/finance/dark/">Finance</a><a href="/culture/dark/">Culture</a></div><div class="mm-foot">Theme:<a href="#" class="on" onclick="return false;">Light</a><a href="/dark/">Dark</a></div></div></div>
+    <div class="search-overlay">
+      <button class="nav-search-close" data-search-close aria-label="Close search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <input type="text" class="nav-search-input" id="navSearchInput" placeholder="Search markets, topics, predictors...">
+      <button class="nav-search-close" data-search-close aria-label="Close search">×</button>
+    </div>
+  </div>
+
+  <!-- OFF-CANVAS MENU -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <aside class="menu-panel" id="menuPanel">
+    <div class="menu-panel-hdr"><a class="menu-brand" href="#top">Hunch</a><button class="menu-panel-close" data-menu-close aria-label="Close">&times;</button></div>
+    <div class="menu-desktop">
+      <div class="menu-section"><ul>
+        <li><a href="/markets/dark/">All markets</a></li>
+        <li><a href="/archive/dark/">Archive</a></li>
+        <li><a href="/echo/library/dark/">Echo Library</a></li>
+        <li><a href="/methodology/dark/">How it works</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Hunch</div><ul>
+        <li><a href="/about/dark/">About</a></li>
+        <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+        <li><a href="/partners/dark/">Partners</a></li>
+        <li><a href="/contact/dark/">Help / Contact</a></li>
+      </ul></div>
+      <div class="menu-section menu-section-solo"><ul>
+        <li><a href="/membership/" class="premium">Membership</a></li>
+      </ul></div>
+      <div class="menu-section"><div class="menu-section-title">Account</div><ul>
+        <li><a href="/account/dark/">Dashboard</a></li>
+        <li><a href="/account/dark/">My predictions</a></li>
+        <li><a href="/account/dark/">Settings</a></li>
+      </ul></div>
+    </div>
+    <div class="menu-body">
+      <a class="menu-cta" href="/signin/">Sign in</a>
+      <div class="menu-section-title">Browse</div>
+      <a class="menu-row" href="/dark/">This week</a>
+      <a class="menu-row" href="/markets/dark/">All markets<span class="n" data-cnt="live"></span></a>
+      <a class="menu-row" href="/echo/library/dark/">Echo Library</a>
+      <a class="menu-row" href="/archive/dark/">Archive<span class="n" data-cnt="resolved"></span></a>
+      <a class="menu-row" href="/leaderboard/dark/">Leaderboard</a>
+      <div class="menu-section-title">Hunch</div>
+      <a class="menu-row" href="/methodology/dark/">How it works</a>
+      <a class="menu-row" href="/editorial-code/dark/">Editorial Code</a>
+      <a class="menu-row" href="/about/dark/">About</a>
+      <a class="menu-row menu-row-last" href="/contact/dark/">Help &amp; contact</a>
+      <a class="menu-row premium menu-row-solo" href="/membership/">Membership</a>
+    </div>
+    <div class="menu-foot"><div class="theme-toggle"><a href="/regional/dark/" class="opt">Light</a><a href="#" class="opt active">Dark</a></div></div>
+  </aside>
+
+  <div class="v10">
+
+  <!-- ============ CATEGORY HEADER ============ -->
+  <div class="v9-cat">
+    <div class="v9-cat-k">Category</div>
+    <h1 class="v9-cat-h">London &amp; Regional</h1>
+    <p class="v9-cat-lede">London and regional news read against the record that came before it. Every Echo carries its own market, and its own resolution.</p>
+    <div class="v9-cat-meta">5 Echoes<span class="dot">&middot;</span>all resolved<span class="dot">&middot;</span>no live market in this category right now</div>
+  </div>
+
+  <!-- ============ LEAD ============ -->
+  <article class="v10-lead">
+    <div class="v10-lead-main">
+      <div class="mb-top" style="display:none"><span class="mb-kick">Featured</span><span class="mb-age">Jun 25</span></div>
+      <div class="v9-meta v9-meta-lead"><span class="v9-rail-k">Lead Echo</span><span class="v9-sig">Resolved YES</span></div>
+      <h1 class="v10-lead-h"><a href="/politics/heat-ready-london/dark/">London wrote a heat plan. The heat isn&rsquo;t waiting.</a></h1>
+      <p class="v10-lead-lede">As record June temperatures triggered a Red Heat-Health Alert and a high air pollution warning, Sadiq Khan launched London&rsquo;s first heat plan: cooling spaces, retrofits, urban greening and infrastructure resilience. The question was whether the rest of the summer delivered the extremes the plan was written for.</p>
+      <div class="v9-meta-line">City Hall &middot; Resolved 26 Jun 2026</div>
+      <div class="mb-pat" style="display:none"><span class="fr">3 of 10</span><span class="rule"></span><span class="tx">London&rsquo;s record heat spikes land in late July and August.</span></div>
+      <div class="mb-f" style="display:none"><span class="t1">Pattern <b>30%</b></span><span class="bar">|</span><span class="t2">Resolved <b>YES</b></span></div>
+      <a class="v10-readmore" href="/politics/heat-ready-london/dark/">Read the full Echo &rarr;</a>
+    </div>
+    <aside class="v10-lead-side">
+      <div class="v9-rail-k">The Echo</div>
+      <div class="v9-rail-sum">London&rsquo;s record heat spikes land in late July and August &mdash; after Junes that ranged from hot to ordinary.</div>
+      <div class="v9-yr"><span class="y">2022</span><span class="t">Heathrow hit 40.2C on 19 July, London&rsquo;s first 40C reading.</span></div>
+      <div class="v9-yr"><span class="y">2020</span><span class="t">Heathrow reached 37.8C on 31 July, a short sharp spike at the very end of the month.</span></div>
+      <div class="v9-yr"><span class="y">2019</span><span class="t">The UK hit 38.7C at Cambridge on 25 July; Heathrow passed 36C that afternoon.</span></div>
+      <div class="v9-yr"><span class="y">2003</span><span class="t">August brought the first UK reading above 38C and 2,000 excess deaths in England.</span></div>
+    </aside>
+  </article>
+
+  <!-- ============ GRID ============ -->
+  <section class="v9-sec">
+    <div class="v9-sec-inner">
+      <h2 class="v9-sh">More from London &amp; Regional</h2>
+      <div class="v9-grid">
+        <article>
+          <div class="mb-top" style="display:none"><span class="mb-kick">TfL</span><span class="mb-age">Jun 4</span></div>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/regional/dark/">TfL</a></span><span class="v9-sig">Resolved NO</span></div>
+          <h3 class="v9-ch"><a href="/politics/tube-four-day-week/dark/">Two strike days done. The dispute isn&rsquo;t.</a></h3>
+          <p class="v9-ce">3 of 5 recent Tube disputes came back with further strike dates; 2 settled without another walkout.</p>
+          <div class="mb-f" style="display:none"><span class="t1">Pattern <b>60%</b></span><span class="bar">|</span><span class="t2">Resolved <b>NO</b></span></div>
+          <div class="v9-meta-line" style="margin-top:8px;">Resolved 7 Aug 2026</div>
+        </article>
+        <article>
+          <div class="mb-top" style="display:none"><span class="mb-kick">Housing</span><span class="mb-age">Apr 30</span></div>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/regional/dark/">Housing</a></span><span class="v9-sig">Resolved YES</span></div>
+          <h3 class="v9-ch"><a href="/politics/rough-sleeping-chain-count/dark/">Rough sleeping fell twice. July asks for a third.</a></h3>
+          <p class="v9-ce">1 of 4 major rough sleeping pledges since 1998 hit its target &mdash; but both 2026 quarters so far have fallen.</p>
+          <div class="mb-f" style="display:none"><span class="t1">Pattern <b>25%</b></span><span class="bar">|</span><span class="t2">Resolved <b>YES</b></span></div>
+          <div class="v9-meta-line" style="margin-top:8px;">Resolved 31 Jul 2026</div>
+        </article>
+        <article>
+          <div class="mb-top" style="display:none"><span class="mb-kick">Met Police</span><span class="mb-age">Jun 24</span></div>
+          <div class="v9-meta"><span class="v10-kicker"><a href="/regional/dark/">Met Police</a></span><span class="v9-sig">Resolved NO</span></div>
+          <h3 class="v9-ch"><a href="/politics/met-static-facial-recognition/dark/">The Met goes static. The watchdogs go to work.</a></h3>
+          <p class="v9-ce">3 of 4 major LFR expansions proceeded unaltered; one court defeat forced a pause and a rewrite, not a stop.</p>
+          <div class="mb-f" style="display:none"><span class="t1">Pattern <b>75%</b></span><span class="bar">|</span><span class="t2">Resolved <b>NO</b></span></div>
+          <div class="v9-meta-line" style="margin-top:8px;">Resolved 10 Aug 2026</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LATEST ============ -->
+  <div class="v10-latest">
+    <div class="v10-latest-head">
+      <span class="v9-sh" style="margin-bottom:0;">Also in the category</span>
+      <a class="more" href="/echo/library/dark/">All Echoes &rarr;</a>
+    </div>
+
+    <div class="v10-latest-row">
+      <div>
+        <div class="mb-top" style="display:none"><span class="mb-kick">City Hall</span><span class="mb-age">Jun 9</span></div>
+        
+        <div class="v9-meta"><span class="v10-latest-kicker"><a href="/regional/dark/">Regional &middot; City Hall</a></span><span class="v9-sig">Resolved NO</span></div>
+        <div class="v10-latest-h"><a href="/politics/tfl-ebike-licensing/dark/">Fifty thousand e-bikes. One licence to write.</a></div>
+        <div class="v10-latest-sum">Labour Assembly Members urged TfL to use its new licensing powers to curb nuisance e-bike parking. TfL said it is developing the scheme.</div>
+        <div class="v10-latest-meta">Resolved 10 Aug 2026</div>
+        <div class="mb-f" style="display:none"><span class="t1">Pattern <b>0%</b></span><span class="bar">|</span><span class="t2">Resolved <b>NO</b></span></div>
+      </div>
+      <details class="v10-pat" open><summary>Show the Echo</summary>
+      <div class="v10-mini-frame v10-tl"><div class="v10-frame-label">The Echo</div>
+        <div class="v10-mini-case"><span class="tx">No London micromobility scheme has gone from legal power to published rules in under 11.</span></div>
+      </div>
+      </details>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ 6 · FOOTER ============ -->
+  <div class="footer-full">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="name">Hunch<span style="font-size:0.5em; vertical-align:super; color:#216945; margin-left:2px;">™</span></div>
+        <div class="tagline">Intuition based on experience</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://x.com/readhunch" title="Twitter / X" aria-label="Twitter" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.linkedin.com/company/123234090/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" title="Instagram (coming soon)" aria-label="Instagram" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        <a href="#" title="YouTube (coming soon)" aria-label="YouTube" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="#" title="Substack (coming soon)" aria-label="Substack" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+        <a href="#" title="RSS feed (coming soon)" aria-label="RSS" aria-disabled="true" onclick="return false"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/dark/">This week</a></li>
+          <li><a href="/markets/dark/">All markets</a></li>
+          <li><a href="/echo/library/dark/">Echo</a></li>
+          <li><a href="/archive/dark/">Archive</a></li>
+          <li><a href="/leaderboard/dark/">Leaderboard</a></li>
+          <li><a href="/mobile-app/dark/">Mobile app</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="/politics/dark/">Politics</a></li>
+          <li><a href="/sports/dark/">Sports</a></li>
+          <li><a href="/finance/dark/">Finance</a></li>
+          <li><a href="/tech/dark/">Tech</a></li>
+          <li><a href="/culture/dark/">Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/dark/">About Hunch</a></li>
+          <li><a href="/editorial-code/dark/">Editorial Code</a></li>
+          <li><a href="/partners/dark/">Partners</a></li>
+          <li><a href="/methodology/dark/">How it works</a></li>
+          <li><a href="/press/dark/">Press</a></li>
+          <li><a href="/careers/dark/">Careers</a></li>
+          <li><a href="/contact/dark/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/newsletter/dark/">Blog</a></li>
+          <li><a href="/help/dark/">Help centre</a></li>
+          <li><a href="/api/dark/">API documentation</a></li>
+          <li><a href="/status/dark/">Status</a></li>
+          <li><a href="/responsible-play/dark/">Responsible play</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms/dark/">Terms of service</a></li>
+          <li><a href="/privacy/dark/">Privacy policy</a></li>
+          <li><a href="/cookies/dark/">Cookie settings</a></li>
+          <li><a href="/acceptable-use/dark/">Acceptable use</a></li>
+          <li><a href="/licences/dark/">Licences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div>© KROK GROUP LTD 2026. Hunch and &lsquo;Echo&rsquo; are trademarks of Krok Group Ltd.</div>
+        <div style="margin-top:4px; color:#4C463C;">Registered in England &amp; Wales</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span class="footer-region">🇬🇧 United Kingdom · EN</span>
+        <div class="small-links">
+          <a href="/sitemap/dark/">Sitemap</a>
+          <a href="/accessibility/dark/">Accessibility</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-license">
+      Hunch is operated by Krok Group Ltd. Hunch Points carry no monetary value and cannot be exchanged for money or prizes. Forecasting is free to all registered readers.
+    </div>
+  </div>
+
+</div>
+
+<!-- mobile bottom tab bar -->
+<nav class="m-tabbar" aria-label="Primary">
+  <a href="/dark/" class="active"><span>Today</span></a>
+  <a href="/echo/library/dark/"><span>Echoes</span></a>
+  <a href="/markets/dark/"><span>Markets</span></a>
+  <a href="/account/dark/"><span>My record</span></a>
+</nav>
+
+<script>
+// mobile: pattern details start collapsed. Desktop keeps them open.
+(function(){
+  var mq = window.matchMedia('(max-width:560px)');
+  function sync(){ document.querySelectorAll('details.v10-pat').forEach(function(d){ if (mq.matches) d.removeAttribute('open'); else d.setAttribute('open',''); }); }
+  sync();
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+})();
+
+// Hamburger menu — slide-out panel
+(function() {
+  const backdrop = document.getElementById('menuBackdrop');
+  const panel = document.getElementById('menuPanel');
+  function open() { backdrop.classList.add('open'); panel.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close() { backdrop.classList.remove('open'); panel.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('[data-menu-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-menu-close]').forEach(b => b.addEventListener('click', close));
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+})();
+
+// Search expansion (inline overlay in nav-sub)
+(function() {
+  const navSub = document.getElementById('navSub');
+  const input = document.getElementById('navSearchInput');
+  function open() { navSub.classList.add('search-mode'); setTimeout(() => input?.focus(), 50); }
+  function close() { navSub.classList.remove('search-mode'); if (input) input.value = ''; }
+  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-search-close]').forEach(b => b.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navSub.classList.contains('search-mode')) close(); });
+})();
+
+// Date display
+(function() {
+  const el = document.getElementById('navDate');
+  if (!el) return;
+  const d = new Date();
+  el.textContent = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+})();
+
+(function(){var b=document.getElementById('mmBtn'),p=document.getElementById('mmPanel');if(!b||!p)return;
+b.addEventListener('click',function(e){e.preventDefault();p.classList.toggle('open');});
+document.addEventListener('click',function(e){if(!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('open');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')p.classList.remove('open');});})();
+
+(function(){function h(){var r=document.querySelector('.row1');if(r)document.documentElement.style.setProperty('--row1h',r.offsetHeight+'px');}window.addEventListener('load',h);h();})();
+</script>
+<script src="/assets/hunch-countdown.js?v=1788426138"></script>
+<script type="application/json" id="hunch-counts">{"live": 116, "resolved": 293, "pending": 22, "void": 1, "total": 432}</script>
+<link rel="stylesheet" href="/assets/hunch-menu.css?v=1788510336">
+</body>
+</html>

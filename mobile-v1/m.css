@@ -233,3 +233,96 @@ button[disabled]{opacity:.55}
 .thm-o.on{border-color:var(--accent);color:var(--accent)}
 .menu-g .thm-o{border-bottom:1px solid var(--line)}
 .menu-g .thm-o.on{border-bottom-color:var(--accent)}
+
+/* ==========================================================
+   ВЕБ. Ті самі токени, ті самі блоки, ті самі правила.
+   Додаються лише шари ширини. Нічого не дублюється.
+   ========================================================== */
+
+/* ---------- ПЛАНШЕТ 720+ ---------- */
+@media (min-width:720px){
+  :root{ --gut:32px; --bar:64px; --cats:46px; }
+  .wrap,.ft{max-width:1180px;margin-left:auto;margin-right:auto}
+  .bar{padding:0 var(--gut)}
+  .bar-wm{font-size:26px}
+  .cats{padding:0 var(--gut)}
+  .cats a{flex:0 0 auto;padding:0 22px;font-size:12px}
+  .feat-h{font-size:44px;line-height:48px}
+  .feat-l{font-size:19px;line-height:29px}
+  .art-h{font-size:42px;line-height:46px}
+  .art-l{font-size:20px;line-height:30px}
+  .pg-h{font-size:40px;line-height:44px}
+  .pg-l{font-size:20px;line-height:30px}
+  .item-h{font-size:22px;line-height:28px}
+  .ft-cols{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ---------- ДЕСКТОП 1024+ ---------- */
+@media (min-width:1024px){
+  :root{ --gut:40px; }
+
+  /* шапка одним рядком: вордмарк зліва, категорії поруч, дії справа */
+  body{padding-top:var(--bar)}
+  .bar{height:var(--bar);justify-content:flex-start;gap:36px}
+  .bar-wm{position:static;transform:none;margin-right:8px}
+  .bar-btn{display:none}
+  .bar-act{margin-left:auto;font-size:14px}
+  /* другий рядок масштабу: секційна навігація, вирівняна по контенту */
+  .cats{
+    position:static;height:auto;background:none;
+    border-bottom:1px solid var(--line);
+    max-width:1180px;margin:0 auto;padding:0 var(--gut);
+    justify-content:flex-start;gap:30px;
+  }
+  .cats a{flex:0 0 auto;padding:0;font-size:13px;height:50px}
+  .cats a.on::after{left:0;right:0}
+
+  /* фіч-ехо: текст зліва, числа праворуч */
+  .feat{display:grid;grid-template-columns:1fr 320px;gap:0 48px;padding:44px 0 40px;align-items:start}
+  .feat-h,.feat-l,.pat{grid-column:1}
+  .feat-top{grid-column:1/-1}
+  .feat-h{font-size:52px;line-height:56px;margin-bottom:18px}
+  .feat-l{font-size:20px;line-height:31px;margin-bottom:20px}
+  .pat{margin-bottom:0}
+  .pat b,.pat span{font-size:18px;line-height:28px}
+  .feat-side{grid-column:2;grid-row:2/6;align-self:start;
+     border-top:2px solid var(--ink);padding-top:16px}
+  .feat-side .q{font-size:19px;line-height:28px;margin:0 0 16px}
+  .feat-side .gap{margin:0 0 10px}
+
+  /* стрічка у три колонки */
+  .feed{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+  .feed .item{border-top:1px solid var(--line)}
+  .item-h{font-size:23px;line-height:29px}
+
+  /* стаття читається колонкою, як у друку */
+  .art-wrap{max-width:760px;margin:0 auto}
+  .art-h{font-size:50px;line-height:54px}
+  .art-l{font-size:21px;line-height:32px}
+  .sec-n{margin-top:56px}
+  h2.h{font-size:28px;line-height:34px}
+
+  /* маркети у дві колонки */
+  .mkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px}
+  .mkgrid .mk{border-top:1px solid var(--line)}
+
+  /* статична сторінка: заголовок на всю, текст колонкою */
+  .pg{max-width:820px;margin:0 auto;padding:44px 0 56px}
+  .pg-wide{max-width:none;margin:0}
+  .pg-h{font-size:46px;line-height:50px}
+
+  .ft{padding-top:40px}
+  .ft-cols{grid-template-columns:repeat(4,1fr);gap:0 40px}
+  .ft-cols a{min-height:34px}
+
+  /* меню лишається для повної навігації, відкривається з підвалу */
+  .menu{max-width:520px;left:auto;right:0;border-left:1px solid var(--line)}
+}
+
+/* ---------- ШИРОКИЙ 1440+ ---------- */
+@media (min-width:1440px){
+  .wrap,.ft,.cats{max-width:1320px}
+  .feat{grid-template-columns:1fr 380px;gap:0 64px}
+  .feat-h{font-size:58px;line-height:62px}
+  .feed{gap:0 48px}
+}

@@ -221,3 +221,15 @@ button[disabled]{opacity:.55}
 /* обраний прогноз */
 .btn.on{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .mk-ack{font-family:var(--ui);font-size:11px;color:var(--accent);min-height:16px;margin:0 0 var(--s2)}
+
+/* перемикач теми в меню */
+.thm{display:flex;gap:var(--s2);margin-top:var(--s2)}
+.thm-o{
+  flex:1;min-height:var(--tap);display:flex;align-items:center;justify-content:center;gap:var(--s2);
+  border:1px solid var(--line);border-radius:8px;
+  font-family:var(--ui);font-size:14px;font-weight:500;color:var(--meta);
+}
+.thm-o svg{width:16px;height:16px}
+.thm-o.on{border-color:var(--accent);color:var(--accent)}
+.menu-g .thm-o{border-bottom:1px solid var(--line)}
+.menu-g .thm-o.on{border-bottom-color:var(--accent)}

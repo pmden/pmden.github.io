@@ -49,6 +49,17 @@
  document.querySelectorAll('h1,h2,h3,p,td,th,li').forEach(e=>{
    if(e.scrollWidth>e.clientWidth+2 && e.clientWidth>0) push('text-clip', e.tagName+' '+e.textContent.trim().slice(0,26));
  });
+ // 9. злиплі комірки таблиці: сусідні колонки без горизонтального проміжку
+ document.querySelectorAll('table tr').forEach(tr=>{
+   const cs=[...tr.children];
+   for(let i=0;i<cs.length-1;i++){
+     const a=cs[i].getBoundingClientRect(), b=cs[i+1].getBoundingClientRect();
+     if(a.width>0&&b.width>0&&b.left-a.right<4&&parseFloat(getComputedStyle(cs[i]).paddingRight)<4){
+       push('cell-collision', (cs[i].textContent.trim().slice(0,14))+'|'+(cs[i+1].textContent.trim().slice(0,14)));
+       break;
+     }
+   }
+ });
  const agg={};
  out.forEach(o=>{(agg[o.t]=agg[o.t]||[]).push(o.d)});
  const res={};

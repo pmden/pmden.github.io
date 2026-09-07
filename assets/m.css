@@ -825,3 +825,13 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .sm-net{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);color:var(--body);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
 .sm-net:hover{color:var(--btn-i);background:var(--yes-b);border-color:var(--yes-b)}
 .sm-net.sm-save{width:auto;border-radius:999px;padding:0 14px;font-family:var(--ui);font-size:13px;font-weight:500;margin-left:auto}
+
+/* Кукі-плашка: лише необхідне сховище; Accept / Essential only (Pavlo 7 Sep) */
+.ck{position:fixed;left:0;right:0;bottom:0;z-index:95;background:var(--surf);border-top:1px solid var(--line-2);padding:14px var(--gut);display:flex;gap:14px;align-items:center;flex-wrap:wrap;box-shadow:0 -8px 24px rgba(0,0,0,.08)}
+.ck p{margin:0;flex:1 1 320px;font-family:var(--ui);font-size:13px;line-height:1.5;color:var(--body)}
+.ck a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.ck-b{display:flex;gap:8px;flex:0 0 auto}
+.ck-ok,.ck-no{font-family:var(--ui);font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--yes-b)}
+.ck-ok{background:var(--yes-b);color:var(--btn-i)}
+.ck-no{background:transparent;color:var(--ink);border-color:var(--line-2)}
+@media (min-width:1024px){.ck{padding:14px calc((100% - 1120px)/2)}}

@@ -828,6 +828,7 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 
 /* Кукі-плашка: лише необхідне сховище; Accept / Essential only (Pavlo 7 Sep) */
 .ck{position:fixed;left:0;right:0;bottom:0;z-index:95;background:var(--surf);border-top:1px solid var(--line-2);padding:14px var(--gut);display:flex;gap:14px;align-items:center;flex-wrap:wrap;box-shadow:0 -8px 24px rgba(0,0,0,.08)}
+.ck[hidden]{display:none}
 .ck p{margin:0;flex:1 1 320px;font-family:var(--ui);font-size:13px;line-height:1.5;color:var(--body)}
 .ck a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
 .ck-b{display:flex;gap:8px;flex:0 0 auto}

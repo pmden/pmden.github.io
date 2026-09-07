@@ -329,7 +329,7 @@ button[disabled]{opacity:.55}
 
   /* стаття читається колонкою, як у друку */
   .art-wrap{max-width:760px;margin:0 auto}
-  .art-h{font-size:48px;line-height:52px}
+  .art-h{font-size:46px;line-height:50px}
   .art-l{font-size:21px;line-height:32px}
   .sec-n{margin-top:56px}
   h2.h{font-size:28px;line-height:34px}
@@ -637,7 +637,7 @@ button[disabled]{opacity:.55}
   .art-rail .asec{margin-top:0;padding-top:0;border-top:0;font-size:22px;line-height:28px}
   .art-rail .mk{margin-bottom:var(--s4)}
   .art-rail .mk-q{font-size:17px;line-height:23px}
-  .art-h{font-size:48px;line-height:52px}
+  .art-h{font-size:46px;line-height:50px}
 
   /* ринки трьома колонками */
   .mkgrid{grid-template-columns:repeat(3,1fr);gap:0 28px}

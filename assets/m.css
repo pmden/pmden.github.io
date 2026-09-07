@@ -806,3 +806,22 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
   .cats a{flex:0 0 auto;padding:0}
   .cats a:last-child{padding-right:40px}
 }
+
+/* Шер-модал Echo (структура 3 Aug, банер B як превʼю 7 Sep): токени теми */
+.share-backdrop{display:none;position:fixed;inset:0;background:rgba(20,18,12,.42);z-index:1100}
+.share-modal{display:none;position:fixed;z-index:1101;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,calc(100vw - 32px));background:var(--surf);border:1px solid var(--line-2);border-radius:14px;padding:18px 20px 20px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+.share-backdrop.open,.share-modal.open{display:block}
+.sm-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sm-title{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink)}
+.sm-close{background:none;border:0;font-size:24px;color:var(--meta);cursor:pointer;line-height:1;padding:2px 6px}
+.sm-close:hover{color:var(--ink)}
+.sm-preview{display:block;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px;background:#FAF7EF}
+.sm-preview img{display:block;width:100%;height:auto}
+.sm-linkrow{display:flex;gap:8px;margin-bottom:14px}
+.sm-link{flex:1;min-width:0;font-size:12.5px;color:var(--body);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:ui-monospace,Menlo,monospace;overflow:hidden;text-overflow:ellipsis}
+.sm-copy{font-size:13px;font-weight:600;color:var(--btn-i);background:var(--yes-b);border:1px solid var(--yes-b);border-radius:8px;padding:10px 16px;cursor:pointer;font-family:var(--ui)}
+.sm-copy.done{background:var(--gold);border-color:var(--gold)}
+.sm-nets{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sm-net{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);color:var(--body);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
+.sm-net:hover{color:var(--btn-i);background:var(--yes-b);border-color:var(--yes-b)}
+.sm-net.sm-save{width:auto;border-radius:999px;padding:0 14px;font-family:var(--ui);font-size:13px;font-weight:500;margin-left:auto}

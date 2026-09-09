@@ -34,7 +34,9 @@ def load_echoes():
         for f in sorted(glob.glob(os.path.join(CONTENT,cat,'*.json'))):
             try: d=json.load(open(f,encoding='utf-8'))
             except Exception: continue
-            if d.get('slug'): out.append(d)
+            if d.get('slug'):
+                d['markets']=[m for m in (d.get('markets') or []) if (m.get('status') or '').lower()!='void']   # void = знятий редакцією маркет, на сайт не йде (9 Sep 2026)
+                out.append(d)
     out.sort(key=lambda d: d.get('date',''), reverse=True)
     return out
 

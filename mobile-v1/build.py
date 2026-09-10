@@ -1104,6 +1104,12 @@ def main():
         sm='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{u}</loc></url>' for u in urls)+'</urlset>'
         open(os.path.join(OUT_WEB,'sitemap.xml'),'w',encoding='utf-8').write(sm)
         open(os.path.join(OUT_WEB,'robots.txt'),'w',encoding='utf-8').write(('User-agent: *\nAllow: /\n' if PUBLIC else 'User-agent: *\nDisallow: /\n')+f'Sitemap: {SITE}/sitemap.xml\n')
+        # файли, які мають лежати в корені як є: підтвердження Search Console тощо (designs/static-root/)
+        sr=os.path.join(SRC,'static-root')
+        if os.path.isdir(sr):
+            for fn in sorted(os.listdir(sr)):
+                if fn.startswith('.'): continue
+                shutil.copy(os.path.join(sr,fn), os.path.join(OUT_WEB,fn))
         for f in ('favicon.ico','favicon.svg','apple-touch-icon.png','og-default.png'):
             p=os.path.join(OUT,f)
             if os.path.exists(p): shutil.copy(p, os.path.join(OUT_WEB,'assets',f))

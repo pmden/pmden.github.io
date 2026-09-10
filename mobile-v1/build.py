@@ -35,7 +35,11 @@ def load_echoes():
             try: d=json.load(open(f,encoding='utf-8'))
             except Exception: continue
             if d.get('slug'):
-                d['markets']=[m for m in (d.get('markets') or []) if (m.get('status') or '').lower()!='void']   # void = знятий редакцією маркет, на сайт не йде (9 Sep 2026)
+                # void = знятий редакцією маркет: не йде на сайт разом зі своїм рядком verify (індексна мапа має лишитись рівною)
+                ms=d.get('markets') or []; vf=d.get('verify')
+                keep=[i for i,m in enumerate(ms) if (m.get('status') or '').lower()!='void']
+                d['markets']=[ms[i] for i in keep]
+                if isinstance(vf,list) and len(vf)==len(ms): d['verify']=[vf[i] for i in keep]
                 out.append(d)
     out.sort(key=lambda d: d.get('date',''), reverse=True)
     return out
@@ -140,7 +144,7 @@ def footer():
         cols+=f'<div><div class="ft-h">{h}</div>{links}</div>'
     return ('<footer class="ft"><div class="ft-wm">Hunch<sup>&reg;</sup></div>'
             '<div class="ft-tag">Intuition based on experience</div>'
-            '<div class="ft-social"><a href="https://x.com/readhunch" aria-label="X" title="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://www.linkedin.com/company/123234090/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><span class="soon" aria-label="Instagram — soon" title="Instagram — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></span><span class="soon" aria-label="YouTube — soon" title="YouTube — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span><span class="soon" aria-label="Substack — soon" title="Substack — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></span><span class="soon" aria-label="RSS — soon" title="RSS — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></span></div>'
+            '<div class="ft-social"><a href="https://x.com/readhunch" aria-label="X" title="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://www.linkedin.com/company/123234090/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://www.instagram.com/readhunch/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a><span class="soon" aria-label="YouTube — soon" title="YouTube — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span><a href="https://substack.com/@readhunch" aria-label="Substack" title="Substack" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a><span class="soon" aria-label="RSS — soon" title="RSS — soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415a3.293 3.293 0 100 6.585c1.817 0 3.295-1.474 3.295-3.291S5.108 17.415 3.291 17.415zM15.909 24h-4.665C11.243 17.736 6.264 12.759 0 12.756v-4.668c8.833.003 15.905 7.075 15.909 15.912z"/></svg></span></div>'
             f'<div class="ft-cols">{cols}</div>'
             '<div class="ft-legal">&copy; Krok Group Ltd 2026. HUNCH is a registered trade mark of '
             'Krok Group Ltd (UK00004388957). Company No. 17183343 &middot; Registered in England &amp; Wales. '
@@ -316,6 +320,9 @@ def shell(title, body, active='', dark=False, slug='', web=False):
         head_extra=web_header(active)   # плоска збірка теж адаптивна: на широкому екрані без веб-шапки шапки не було зовсім (Pavlo 7 Sep 14:01)
     m=META.get(slug or 'index') or {}
     desc=m.get('desc') or 'Hunch pairs the news with the historical pattern behind it, and lets readers call what happens next.'
+    HOME=(slug in (None,'','index'))
+    if HOME:
+        desc='Forecasting media from London. Every story ends with the historical pattern behind it and a market: read the pattern, make your call, see how it scores.'
     light_path=web_path(slug if slug else 'index', False); canon=SITE+'/'+light_path.replace('index.html','')
     og_img=SITE+'/'+(m.get('og') or 'assets/og-default.png')
     robots='<meta name="robots" content="index,follow">' if PUBLIC else '<meta name="robots" content="noindex,nofollow,noarchive">'
@@ -330,6 +337,15 @@ def shell(title, body, active='', dark=False, slug='', web=False):
          # заголовки безпеки мета-тегами: GitHub Pages не дає власних HTTP-заголовків (7 Sep). Дозволяємо лише свій код і Google Fonts.
          '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src \'self\' data:; connect-src \'none\'; frame-ancestors \'none\'; base-uri \'self\'; form-action \'self\'">'
          '<meta name="referrer" content="strict-origin-when-cross-origin">')
+    # структуровані дані для пошуку (10 Sep): бренд, соцмережі — те, з чого Google будує картку і сайтлінки
+    if HOME:
+        ld={"@context":"https://schema.org","@graph":[
+            {"@type":"Organization","@id":SITE+"/#org","name":"Hunch","url":SITE+"/",
+             "logo":{"@type":"ImageObject","url":SITE+"/assets/apple-touch-icon.png"},
+             "description":"Forecasting media: the news, the historical pattern behind it, and a market on what happens next.",
+             "sameAs":["https://x.com/readhunch","https://www.linkedin.com/company/123234090/","https://www.instagram.com/readhunch/"]},
+            {"@type":"WebSite","@id":SITE+"/#site","url":SITE+"/","name":"Hunch","publisher":{"@id":SITE+"/#org"},"inLanguage":"en-GB"}]}
+        seo+='<script type="application/ld+json">'+json.dumps(ld,ensure_ascii=False)+'</script>'
     # тема з пристрою (Pavlo 7 Sep): без збереженого вибору беремо prefers-color-scheme і йдемо на близнюка; ручний вибір у меню = localStorage hunch_theme
     if web:
         twin=os.path.relpath(web_path(slug if slug else 'index', not dark), cur or '.').replace(os.sep,'/')
@@ -347,9 +363,9 @@ def shell(title, body, active='', dark=False, slug='', web=False):
     doc=(f'<!doctype html><html lang="en"{attr}>'
          '<head><meta charset="utf-8">'+theme_js+redirect+
          '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
-         + seo +
-         f'<title>{esc(title)} — Hunch</title>'
-         '<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+         + seo
+         + (f'<title>Hunch | Read the pattern, make your call</title>' if HOME else f'<title>{esc(title)} — Hunch</title>')
+         + '<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
          + css + '</head><body>' + head_extra +
          '<header class="bar">'
          '<button class="bar-btn" id="mb" aria-label="Menu">'+ICON_MENU+'</button>'
@@ -460,8 +476,24 @@ STATIC={}
 for line in open(os.path.join(SS,'static2.jsonl'),encoding='utf-8'):
     r=json.loads(line); STATIC[r['src']]=r['d']
 
+EOW_W={'politics':1.0,'finance':.95,'regional':.9,'tech':.55,'culture':.5,'sports':.5}
 def pick_eow(E):
-    """Echo тижня: серед 40 найсвіжіших — найсильніший патерн, не менше 4 кейсів."""
+    """Echo тижня: вага теми і напруга ринку, а не просто найвищий base rate.
+    Правило Pavlo 10 Sep: сюди йде щось глибше за графік поставок айфонів —
+    політика і гроші перед вагомою резолюцією, а не механічна логістика."""
+    today=datetime.today().date()
+    def resolves_in(m):
+        for f in ('%d %b %Y','%d %B %Y','%Y-%m-%d'):
+            try: return (datetime.strptime(str(m.get('resolves','')).strip(),f).date()-today).days
+            except Exception: pass
+        return None
+    # ручний вибір має пріоритет: designs/build/eow.json = {"slug": "..."}
+    try:
+        import json as _j
+        pin=_j.load(open(os.path.join(SRC,'build','eow.json'))).get('slug')
+        for e in E:
+            if e['slug']==pin: return e
+    except Exception: pass
     best=None
     for e in E[:40]:
         b=e.get('base_rate') or {}
@@ -469,7 +501,15 @@ def pick_eow(E):
         if not d or d<4 or n is None: continue
         cs=(e.get('pattern') or {}).get('cases') or []
         if len(cs)<3: continue
-        score=(n/d, d)
+        ms=[m for m in (e.get('markets') or []) if not m.get('adjacent')]
+        m=ms[0] if ms else None
+        days=resolves_in(m) if m else None
+        score=EOW_W.get(e.get('category'),.5)
+        if (m or {}).get('status')=='live': score+=.35          # питання ще відкрите
+        if days is not None and 0<=days<=21: score+=.3          # резолюція на горизонті
+        if len(cs)>=6: score+=.2                                 # довгий запис
+        if e.get('scope')=='uk': score+=.15                      # британський кут
+        score+=.15*min(1,(d-4)/4)
         if best is None or score>best[0]: best=(score,e)
     return best[1] if best else (E[1] if len(E)>1 else E[0])
 

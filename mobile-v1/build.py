@@ -290,7 +290,7 @@ def web_links(html, cur_dir):
     return re.sub(r'href="([A-Za-z0-9_\-]+)\.html"', f, html)
 
 # ---------------------------------------------------------------- кукі-плашка (Pavlo 7 Sep): лише необхідне сховище; вибір у localStorage hunch_consent
-COOKIE_BAR=('<div class="ck" id="ck" hidden><p>We use only essential storage: your theme, saved Echoes and your calls stay in this browser. '
+COOKIE_BAR=('<div class="ck" id="ck" hidden><p>We use only essential storage: your theme, saved Echoes and your hunches stay in this browser. '
             'Optional analytics is off until you allow it. <a href="cookies{D}">Cookie settings</a></p>'
             '<div class="ck-b"><button type="button" class="ck-ok" data-ck="all">Accept</button><button type="button" class="ck-no" data-ck="essential">Essential only</button></div></div>')
 CONSENT_JS=("<script>(function(){var t=document.querySelector('.thm-ic');if(t)t.addEventListener('click',function(){try{localStorage.setItem('hunch_theme',/Switch to Dark/.test(t.getAttribute('aria-label')||'')?'dark':'light')}catch(e){}});})();</script>"
@@ -322,7 +322,7 @@ def shell(title, body, active='', dark=False, slug='', web=False):
     desc=m.get('desc') or 'Hunch pairs the news with the historical pattern behind it, and lets readers call what happens next.'
     HOME=(slug in (None,'','index'))
     if HOME:
-        desc='Forecasting media from London. Every story ends with the historical pattern behind it and a market: read the pattern, make your call, see how it scores.'
+        desc='Forecasting media from London. Every story ends with the historical pattern behind it and a market: read the pattern, back your hunch, see how it scores.'
     light_path=web_path(slug if slug else 'index', False); canon=SITE+'/'+light_path.replace('index.html','')
     og_img=SITE+'/'+(m.get('og') or 'assets/og-default.png')
     robots='<meta name="robots" content="index,follow">' if PUBLIC else '<meta name="robots" content="noindex,nofollow,noarchive">'
@@ -364,7 +364,7 @@ def shell(title, body, active='', dark=False, slug='', web=False):
          '<head><meta charset="utf-8">'+theme_js+redirect+
          '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
          + seo
-         + (f'<title>Hunch | Read the pattern, make your call</title>' if HOME else f'<title>{esc(title)} — Hunch</title>')
+         + (f'<title>Hunch | Read the pattern, back your hunch</title>' if HOME else f'<title>{esc(title)} — Hunch</title>')
          + '<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
          + css + '</head><body>' + head_extra +
          '<header class="bar">'
@@ -973,7 +973,7 @@ def page_signin(E):
         '<button class="au-tab on" type="button" role="tab" data-mode="login">Log in</button>'
         '<button class="au-tab" type="button" role="tab" data-mode="signup">Sign up</button></div>')
     b+='<h1 class="pg-h"><span class="li">Welcome back.</span><span class="su">Back your hunch.</span></h1>'
-    b+='<p class="pg-l li">When accounts open, you will track your accuracy and make your calls here.</p>'
+    b+='<p class="pg-l li">When accounts open, you will track your accuracy and back your hunches here.</p>'
     b+='<p class="pg-l su">Free to start. No crypto. No jargon. Just intuition with a track record.</p>'
     b+=('<div class="au-soc">'
         f'<button type="button" class="soc-b">{G_ICON}Continue with Google</button>'
@@ -1072,7 +1072,7 @@ def main():
     for ec in E: ECHO_CAT[ec['slug']]=ec.get('category','echo')
     for ec in E:
         META['echo-'+ec['slug']]={'desc':(ec.get('lead') or ec.get('brief') or '')[:300],'og':'assets/share/'+ec['slug']+'.png'}
-    META['index']={'desc':'Today on Hunch: the news, the historical pattern behind it, and the call readers are making.','og':'assets/share/'+E[0]['slug']+'.png'}
+    META['index']={'desc':'Today on Hunch: the news, the historical pattern behind it, and where readers stand on what happens next.','og':'assets/share/'+E[0]['slug']+'.png'}
     for s_,n_ in CATS: META[s_]={'desc':f'{n_} on Hunch: every story with the historical pattern behind it and a market that resolves on a date.'}
     n=0; nw=0
     for slug,title,fn,active in PAGES:

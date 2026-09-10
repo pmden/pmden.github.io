@@ -385,10 +385,15 @@ def feat_block(e):
     # кейси патерну з роками (веб ≥1024; на мобільному CSS ховає). Підпис: label, інакше короткий підмет із тексту
     cases=sorted((e.get('pattern') or {}).get('cases') or [], key=lambda c: -(c.get('year') or 0))[:8]   # у Featured показуємо не більше 8 останніх (Pavlo 7 Sep); база лишається повною
     def _lab(c):
+        # підпис кейсу у фіч-блоці: рівно один рядок (Pavlo 10 Sep). label → інакше короткий підмет із тексту, обрізаний по слову до 32 символів.
         for k in ('label','title','name'):
-            if c.get(k): return c[k]
-        t=re.sub('<[^>]+>','',c.get('text','')); t=re.split(r',| was | created | published',t)[0].strip()
-        return re.sub(r'^The ','',t)
+            if c.get(k): t=c[k]; break
+        else:
+            t=re.sub('<[^>]+>','',c.get('text','')); t=re.split(r',| was | created | published',t)[0].strip(); t=re.sub(r'^The ','',t)
+        t=re.sub(r'\s+',' ',t).strip().rstrip('.')
+        if len(t)<=32: return t
+        cut=t[:32].rsplit(' ',1)[0].rstrip(' ,;:—-')
+        return (cut if len(cut)>=12 else t[:32].rstrip()) + '…' 
     lst=('<ul class="pp-l inl">'+''.join(f'<li><b>{c.get("year","")}</b><span>{esc(_lab(c))}</span></li>' for c in cases if c.get('year'))+'</ul>') if cases else ''
     return (f'<article class="feat"><div class="feat-top">'
             f'<span class="kick acc">Featured</span><span class="date">{fmt_date(e.get("date",""))}</span></div>'

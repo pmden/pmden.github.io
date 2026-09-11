@@ -120,7 +120,7 @@ a{color:inherit;text-decoration:none}
 .item:first-child{border-top:0}
 .item-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--s2)}
 .item-h{font-family:var(--serif);font-size:20px;line-height:25px;font-weight:600;color:var(--ink);letter-spacing:-.01em;margin:0 0 var(--s2)}
-.item-s{font-size:15px;line-height:23px;color:var(--body);margin:0 0 var(--s3)}
+.item-s{font-size:16px;line-height:24px;color:var(--body);margin:0 0 var(--s3)}
 .item-m{display:flex;align-items:center;gap:var(--s2);font-family:var(--ui);font-size:11px;color:var(--meta)}
 .item-m b{font-weight:600;color:var(--gold)}
 .item-m i{font-style:normal;font-weight:600;color:var(--accent)}
@@ -836,3 +836,50 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .ck-ok{background:var(--yes-b);color:var(--btn-i)}
 .ck-no{background:transparent;color:var(--ink);border-color:var(--line-2)}
 @media (min-width:1024px){.ck{padding:14px calc((100% - 1120px)/2)}}
+
+
+
+
+/* Accuracy page (11 Sep 2026) */
+.acc-top{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:var(--s8);align-items:start;
+         max-width:1188px;margin:0 auto var(--s6) auto;padding:0 var(--s5)}
+.acc-chart{min-width:0}
+.acc-bars{display:none}
+.acc-board{display:flex;flex-direction:column;gap:var(--s6);padding-top:var(--s5)}
+.acc-n b{display:block;font-family:var(--serif);font-size:52px;line-height:1;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.acc-n span{display:block;font-size:12.5px;line-height:1.4;color:var(--meta);margin-top:var(--s2);max-width:210px}
+.acc-n.mut{padding-top:var(--s5);border-top:1px solid var(--line)}
+.acc-n.mut b{color:var(--meta)}
+.acc-n.mut span{color:var(--meta)}
+.pg-n{color:var(--meta);font-size:13.5px;line-height:1.55;margin:0 0 var(--s4)}
+.item-m .lv{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.item-m .lv.y{color:var(--yes-b)}
+.item-m .lv.n{color:var(--no-b)}
+.item-m .lv.o{color:var(--meta)}
+@media(max-width:900px){
+  .acc-top{grid-template-columns:1fr;gap:var(--s6)}
+  .acc-board{flex-direction:row;flex-wrap:wrap;gap:var(--s7);padding-top:0}
+  .acc-n b{font-size:40px}
+}
+@media(max-width:760px){
+  .acc-chart{display:none}
+  .acc-bars{display:block}
+  .acc-bar{margin:0 0 var(--s4)}
+  .acc-bt{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--meta);margin-bottom:6px}
+  .acc-bt b{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink)}
+  .acc-tr{position:relative;height:8px;background:var(--line);border-radius:2px}
+  .acc-tr i{display:block;height:100%;background:var(--accent);border-radius:2px}
+  .acc-tr u{position:absolute;top:-4px;width:2px;height:16px;background:var(--meta);opacity:.75}
+  .acc-bn{font-size:11.5px;color:var(--meta);margin-top:6px}
+  .acc-n b{font-size:34px}
+}
+
+/* toolbar on markets, accuracy and category pages (11 Sep 2026) */
+.pg-row.tb-only{display:flex;justify-content:flex-end;padding-top:var(--s4);padding-bottom:0}
+.mkw .item-h.vh{display:none}
+.mkw{display:block}
+.mkw .item-top{margin-bottom:var(--s2)}
+
+/* картки в ряду: рядок статистики притиснутий до низу, щоб три колонки вирівнялись (11 Sep 2026) */
+.feed > article{display:flex;flex-direction:column}
+.feed > article > .item-m{margin-top:auto}

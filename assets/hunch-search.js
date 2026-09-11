@@ -1,13 +1,17 @@
 (function(){
   var l=document.querySelector('.mh-l'),b=l&&l.querySelector('.mh-s');if(!l||!b)return;
-  var logo=document.querySelector('.mh-b'),rel=((logo&&logo.getAttribute('href'))||'index.html').replace(/index\.html$/,'');
+  var logo=document.querySelector('.mh-b'),href=((logo&&logo.getAttribute('href'))||'index.html');
+  var flat=/index\.html$/.test(href)||href===''||/-dark\.html$/.test(href);
+  var dark=/(^|\/)dark\/$/.test(href)||/-dark\.html$/.test(href);
+  var rel=href.replace(/index\.html$/,'').replace(/index-dark\.html$/,'').replace(/(^|\/)dark\/$/,'$1');
+  var archive=flat?('archive'+(dark?'-dark':'')+'.html'):(rel+'archive/'+(dark?'dark/':''));
   var f=document.createElement('form');f.className='mh-q';f.setAttribute('role','search');
   var i=document.createElement('input');i.type='search';i.placeholder='Search Echoes and markets';i.setAttribute('aria-label','Search');i.autocomplete='off';
   f.appendChild(i);l.appendChild(f);
   function open(){l.classList.add('open');setTimeout(function(){i.focus()},0)}
   function close(){l.classList.remove('open')}
   b.addEventListener('click',function(e){e.preventDefault();if(l.classList.contains('open')&&!i.value.trim())close();else open()});
-  f.addEventListener('submit',function(e){e.preventDefault();var q=i.value.trim();if(!q)return;location.href=rel+'archive/index.html?q='+encodeURIComponent(q)});
+  f.addEventListener('submit',function(e){e.preventDefault();var q=i.value.trim();if(!q)return;location.href=archive+'?q='+encodeURIComponent(q)});
   i.addEventListener('keydown',function(e){if(e.key==='Escape'){i.value='';close()}});
   document.addEventListener('click',function(e){if(!l.contains(e.target)&&!i.value.trim())close()});
   var q=new URLSearchParams(location.search).get('q');

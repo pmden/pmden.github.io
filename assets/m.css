@@ -876,6 +876,10 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 
 /* toolbar on markets, accuracy and category pages (11 Sep 2026) */
 .pg-row.tb-only{display:flex;justify-content:flex-end;padding-top:var(--s4);padding-bottom:0}
+/* сортування і пошук у рядку шапки списку, під лінією (правило 11 Sep 2026) */
+.sep-hd.sep-tb{align-items:center;padding-top:var(--s2);padding-bottom:var(--s2);flex-wrap:wrap;gap:var(--s2) var(--s3)}
+.sep-r{display:flex;align-items:center;gap:var(--s3);margin-left:auto}
+.sep-hd .tb{margin-bottom:0}
 .mkw .item-h.vh{display:none}
 .mkw{display:block}
 .mkw .item-top{margin-bottom:var(--s2)}

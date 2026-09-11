@@ -13,7 +13,7 @@
   b.addEventListener('click',function(e){e.preventDefault();if(l.classList.contains('open')&&!i.value.trim())close();else open()});
   f.addEventListener('submit',function(e){e.preventDefault();var q=i.value.trim();if(!q)return;location.href=archive+'?q='+encodeURIComponent(q)});
   i.addEventListener('keydown',function(e){if(e.key==='Escape'){i.value='';close()}});
-  document.addEventListener('click',function(e){if(!l.contains(e.target)&&!i.value.trim())close()});
+  // клік назовні більше не ховає пошук (Pavlo, 11 Sep): закриває тільки лупа або Escape
   var q=new URLSearchParams(location.search).get('q');
   if(location.hash==='#search')open();
   if(q){i.value=q;open();filter(q)}

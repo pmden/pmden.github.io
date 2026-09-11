@@ -751,16 +751,16 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .pg-row{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);flex-wrap:wrap}
 .tb{display:flex;align-items:center;gap:8px;font-family:var(--ui);margin-bottom:var(--s3)}
 .tb-sel{position:relative;display:block}
-.tb-sel select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;font-weight:500;color:var(--meta);background:none;border:0;border-radius:0;padding:0 22px 0 0;height:36px;cursor:pointer;outline:0}
-.tb-sel::after{content:"";position:absolute;right:4px;top:13px;width:7px;height:7px;border-right:1.5px solid var(--meta);border-bottom:1.5px solid var(--meta);transform:rotate(45deg);pointer-events:none}
+.tb-sel select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;font-weight:500;color:var(--meta);background:none;border:0;border-radius:0;padding:0 20px 0 0;height:24px;cursor:pointer;outline:0}
+.tb-sel::after{content:"";position:absolute;right:3px;top:8px;width:7px;height:7px;border-right:1.5px solid var(--meta);border-bottom:1.5px solid var(--meta);transform:rotate(45deg);pointer-events:none}
 .tb-sel select:focus{color:var(--ink)}
-.tb-s{width:36px;height:36px;border:0;border-radius:0;background:none;color:var(--meta);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;-webkit-appearance:none;appearance:none}
+.tb-s{width:24px;height:24px;border:0;border-radius:0;background:none;color:var(--meta);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;-webkit-appearance:none;appearance:none}
 .tb-s:hover,.tb.open .tb-s{color:var(--ink)}
 .tb-q{display:none;margin:0}
 .tb.open .tb-q{display:block}
 .tb-q input{height:36px;width:200px;box-sizing:border-box;border:1px solid var(--line-2);border-radius:999px;padding:0 14px;font-family:var(--ui);font-size:13px;background:var(--bg);color:var(--ink);outline:0;-webkit-appearance:none}
 .tb-q input::placeholder{color:var(--meta)}
-.tb-q input:focus{border-color:var(--accent)}
+.tb-q input:focus{border-color:var(--meta)}
 .tb-res{font-family:var(--ui);font-size:13px;color:var(--meta);margin:0 0 var(--s4)}
 .mk-q a{color:inherit;border-bottom:0}
 .mk-q a:hover{text-decoration:underline;text-underline-offset:3px}
@@ -880,7 +880,7 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 /* сортування і пошук у рядку шапки списку, під лінією (правило 11 Sep 2026) */
 .sep-hd.sep-tb{align-items:center;padding-top:var(--s2);padding-bottom:var(--s2);flex-wrap:wrap;gap:var(--s2) var(--s3)}
 .sep-r{display:flex;align-items:center;gap:var(--s3);margin-left:auto}
-.sep-hd .tb{margin-bottom:0}
+.sep-hd .tb{margin-bottom:0;gap:10px}
 .mkw .item-h.vh{display:none}
 .mkw{display:block}
 .mkw .item-top{margin-bottom:var(--s2)}

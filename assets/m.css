@@ -140,7 +140,7 @@ p{margin:0 0 var(--s4)}
 .src a:active{border-bottom-color:var(--accent)}
 .case{padding:var(--s2) 0 0}
 .case + .case{padding-top:var(--s5)}
-.case-y{font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--gold);margin-bottom:var(--s1)}
+.case-y{font-family:var(--ui);font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--gold);margin-bottom:var(--s1)}
 .case-t{font-size:15px;line-height:23px;color:var(--body)}
 .base{border:1px solid var(--line);border-radius:10px;padding:var(--s4);margin:var(--s5) 0}
 .base-n{font-family:var(--serif);font-size:27px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:var(--s2)}
@@ -890,12 +890,12 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .feed > article > .item-m{margin-top:auto}
 
 /* ---- формат Echo 13 Sep 2026 (Pavlo): джерела блоком, ярлик і held біля року, кейси згорнуті, кікер-лінк ---- */
-.srcs{font-family:var(--ui);font-size:12px;line-height:18px;color:var(--meta);letter-spacing:.01em}
-.srcs a{color:var(--meta);border-bottom:1px solid var(--line)}
+.srcs{font-family:var(--ui);font-size:13px;line-height:18px;color:var(--meta);letter-spacing:.01em}
+.srcs a{color:var(--accent);border-bottom:1px solid var(--line)}
 .srcs a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .case-y{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap}
-.case-l{font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink);text-transform:none}
-.case-h{margin-left:auto;font-family:var(--ui);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.case-l{font-family:var(--ui);font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--ink);text-transform:none}
+.case-h{margin-left:auto;font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .case-h.y{color:var(--accent)}.case-h.n{color:var(--no)}
 .case-head{font-family:var(--serif);font-size:17px;line-height:26px;color:var(--ink);margin:var(--s3) 0 var(--s2)}
 .case-n{font-weight:600;color:var(--gold)}

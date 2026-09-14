@@ -108,11 +108,11 @@ a{color:inherit;text-decoration:none}
 .gap{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:0 0 var(--s3)}
 .gap div{flex:1;padding:var(--s3) var(--s4) 13px}
 .gap div+div{border-left:1px solid var(--line)}
-.gap .k{display:block;font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--meta);margin-bottom:4px}
+.gap .k{display:block;font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--meta);margin-bottom:4px}
 .gap .v{font-family:var(--serif);font-size:23px;font-weight:600;line-height:1}
 .gap .v.h{color:var(--gold)}
 .gap .v.r{color:var(--accent)}
-.gap .n{display:block;font-family:var(--ui);font-size:10px;color:var(--meta);margin-top:4px}
+.gap .n{display:block;font-family:var(--ui);font-size:12px;color:var(--meta);margin-top:4px}
 .res{font-family:var(--ui);font-size:11px;color:var(--meta)}
 
 /* ---------- 5. СТРІЧКА ---------- */
@@ -716,7 +716,7 @@ button[disabled]{opacity:.55}
   /* фіч Echo у пропорціях старого лендингу */
   .feat{grid-template-columns:607px 456px;gap:0 57px;padding:17px 0 16px}
   .feat-top{grid-column:1;justify-content:flex-start;gap:14px}
-  .feat-h{font-size:33px;line-height:38px;margin-bottom:12px}
+  .feat-h{font-size:35px;line-height:40px;margin-bottom:12px}
   .feat-l{font-size:17px;line-height:26.35px;margin-bottom:14px}
   .pat{font-size:17px;line-height:26px}
   .pat b,.pat span{font-size:17px;line-height:26px}
@@ -776,10 +776,10 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
   .feat .feat-top{grid-column:1/-1;grid-row:1}
   .feat .feat-h{grid-column:1/-1;grid-row:2;max-width:1000px}
   /* лід у лівій колонці (повну смугу Pavlo відмінив); ринок на рівні ліду */
-  .feat .feat-l{grid-column:1;grid-row:3}
+  .feat .feat-l{grid-column:1/-1;grid-row:3;max-width:760px}
   .feat .pat{grid-column:1;grid-row:4}
   .feat .pp-l.inl{grid-column:1;grid-row:5;max-width:none}
-  .feat .feat-side{grid-column:2;grid-row:3/6;align-self:start;margin-top:6px}
+  .feat .feat-side{grid-column:2;grid-row:4/6;align-self:start;margin-top:0}
   /* шість і більше кейсів: дві колонки */
   .feat .pp-l.inl:has(li:nth-child(6)){display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
   .feat .pp-l.inl:has(li:nth-child(6)) li{grid-template-columns:44px 1fr}

@@ -185,9 +185,9 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
   text-transform:uppercase;color:var(--meta);margin:0 0 var(--s2)}
 .pl.wide{width:96px;font-size:10px;letter-spacing:.04em;text-transform:none;color:var(--body)}
 .btns.col{flex-direction:column}
-.btn.o{background:var(--accent-t);color:var(--accent);justify-content:flex-start;padding:12px var(--s4);
+.btn.o{background:transparent;color:var(--ink);border-color:var(--line-2);justify-content:flex-start;padding:12px var(--s4);transition:background .12s;
   text-align:left;font-size:15px;min-height:48px}
-.btn.o.on{background:var(--yes-b);color:var(--btn-i)}
+.btn.o:hover,.btn.o:active,.btn.o.on{background:var(--line);color:var(--ink)}
 .mk-out{margin:0 0 var(--s3)}
 .mk-out .pill{display:inline-block;font-family:var(--ui);font-size:11px;font-weight:600;
   letter-spacing:.08em;text-transform:uppercase;color:var(--btn-i);background:var(--yes-b);
@@ -202,10 +202,9 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
   font-family:var(--ui); font-size:16px; font-weight:600;
   border:1px solid transparent; border-radius:8px; cursor:pointer;
 }
-.btn.y{background:var(--yes-b);color:var(--btn-i)}
-.btn.n{background:var(--no-b);color:var(--btn-i)}
-.btn.y:hover,.btn.y:active,.btn.n:hover,.btn.n:active,.btn.o:hover,.btn.o:active{filter:brightness(1.12)}
-.btns:has(.on) .btn:not(.on){opacity:.4}
+.btn.y,.btn.n{background:transparent;color:var(--ink);border-color:var(--line-2);transition:background .12s,border-color .12s}
+.btn.y:hover,.btn.n:hover,.btn.y:active,.btn.n:active{background:var(--line);border-color:var(--line-2)}
+.btn.y.on,.btn.n.on{background:var(--line);border-color:var(--line-2);color:var(--ink)}
 .mk-f{display:flex;justify-content:space-between;font-family:var(--ui);font-size:11px;color:var(--meta);
   margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line)}
 
@@ -264,8 +263,8 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 .inert{color:var(--meta)}
 button[disabled]{opacity:.55}
 
-/* обраний прогноз */
-.btn.on{box-shadow:0 0 0 2px var(--bg), 0 0 0 4px currentColor}
+/* обраний прогноз: тональна заливка, без кольорового кільця (14 Sep) */
+.btn.on{box-shadow:none}
 .mk-ack{font-family:var(--ui);font-size:11px;color:var(--accent);margin:0}
 .mk-ack:not(:empty){margin-top:var(--s2)}
 
@@ -684,10 +683,10 @@ button[disabled]{opacity:.55}
   .mh-q{position:absolute;left:44px;right:16px;top:50%;transform:translateY(-50%);display:none;z-index:3;margin:0}
   .mh-l.open .mh-q{display:block}
   .mh-l.open .mh-s{color:var(--ink)}
-  .mh-q input{width:100%;height:38px;box-sizing:border-box;border:1px solid var(--line);border-radius:4px;
-    background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:15px;padding:0 12px;outline:0;-webkit-appearance:none}
+  .mh-q input{width:100%;height:36px;box-sizing:border-box;border:1px solid var(--line-2);border-radius:999px;
+    background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:13px;padding:0 14px;outline:0;-webkit-appearance:none}
   .mh-q input::placeholder{color:var(--meta)}
-  .mh-q input:focus{border-color:var(--accent)}
+  .mh-q input:focus{border-color:var(--meta)}
   .mh-d{font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.12em;
     text-transform:uppercase;color:var(--meta)}
   .mh-b{font-family:var(--serif);font-size:38px;font-weight:600;letter-spacing:-.02em;
@@ -904,10 +903,18 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .case-n{font-weight:600;color:var(--gold)}
 .case-sub{font-family:var(--ui);font-size:12px;color:var(--meta);letter-spacing:.02em}
 .case-more{margin-top:var(--s4)}
-.case-more>summary{cursor:pointer;list-style:none;font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:var(--s2) 0}
+.case-more>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);padding:9px 16px;border:1px solid var(--line-2);border-radius:999px;transition:background .12s}
+.case-more>summary:hover{background:var(--line)}
 .case-more>summary::-webkit-details-marker{display:none}
 .case-more>summary::after{content:" \2193"}
 .case-more[open]>summary::after{content:" \2191"}
-.case-more[open]>summary{border-bottom:1px solid var(--line);margin-bottom:var(--s2)}
+.case-more[open]>summary{margin-bottom:var(--s3)}
 a.kick.acc{text-decoration:none;border-bottom:1px solid transparent}
 a.kick.acc:hover{border-bottom-color:var(--accent)}
+
+/* «How this resolves» згорнуто (14 Sep) */
+details.mk-v>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
+details.mk-v>summary::-webkit-details-marker{display:none}
+details.mk-v>summary::after{content:"";width:7px;height:7px;border-right:1.5px solid var(--meta);border-bottom:1.5px solid var(--meta);transform:rotate(45deg);margin-right:3px;transition:transform .15s}
+details.mk-v[open]>summary::after{transform:rotate(-135deg)}
+details.mk-v>p{margin-top:var(--s2)}

@@ -203,7 +203,9 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
   border:1px solid transparent; border-radius:8px; cursor:pointer;
 }
 .btn.y,.btn.n{background:transparent;color:var(--ink);border-color:var(--line-2);transition:background .12s,border-color .12s}
+.btn.y{background:var(--line)}   /* у спокої Yes світліший тон, No контур (Pavlo 15 Sep, як у демо) */
 .btn.y:hover,.btn.n:hover,.btn.y:active,.btn.n:active{background:var(--line);border-color:var(--line-2)}
+.btns:has(.on) .btn.y:not(.on){background:transparent}
 .btn.y.on,.btn.n.on{background:var(--line);border-color:var(--line-2);color:var(--ink)}
 .mk-f{display:flex;justify-content:space-between;font-family:var(--ui);font-size:11px;color:var(--meta);
   margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line)}

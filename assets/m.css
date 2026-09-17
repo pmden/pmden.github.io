@@ -927,4 +927,5 @@ details.mk-v>p{margin-top:var(--s2)}
 .sep-hd a.date:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 
 /* 17 Sep (Pavlo): тег на картці веде в архів */
-.item-top a.kick:hover{color:var(--ink)}
+a.kick[href*="?q="],a.kick.acc[href*="?q="]{color:var(--meta)}
+a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сірі всюди: картки, Featured, сторінка Echo */

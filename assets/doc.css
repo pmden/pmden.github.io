@@ -1,7 +1,7 @@
 /* Документні сторінки web-draft2 (Editorial Code, Terms, Privacy…): зміст ліворуч + текст. Портовано з v9 clean, лише токени m.css. */
 .doc-grid{padding:var(--s7) 0 var(--s9);display:grid;grid-template-columns:1fr;gap:var(--s7)}
 .toc{font-family:var(--ui);font-size:13px}
-.toc-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--meta);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.toc-label{font-size:10px;font-weight:600;letter-spacing:normal;text-transform:none;color:var(--meta);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .toc ol{list-style:none;padding:0;margin:0;counter-reset:toc}
 .toc li{margin-bottom:8px;line-height:1.4}
 .toc li.numbered{counter-increment:toc}
@@ -17,12 +17,12 @@
 .content .meta dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0}
 .content .meta dt{font-weight:500;color:var(--body)}
 .content .meta dd{color:var(--ink);margin:0}
-.content .meta .draft-tag{display:inline-block;background:var(--accent-t);color:var(--accent);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.content .meta .draft-tag{display:inline-block;background:var(--accent-t);color:var(--accent);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:500;letter-spacing:normal;text-transform:none}
 .content h2{font-family:var(--serif);font-size:28px;line-height:1.2;font-weight:400;letter-spacing:-.01em;margin:var(--s9) 0 var(--s4);color:var(--ink);position:relative;scroll-margin-top:148px}
 .content h2 .anchor{display:none;position:absolute;left:-28px;top:50%;transform:translateY(-50%);color:var(--meta);font-family:var(--serif);font-size:18px;font-weight:400;opacity:0;border-bottom:0;transition:opacity .15s}
 .content h2:hover .anchor{opacity:1}
 .content h2 .anchor:hover{color:var(--accent)}
-.content h2 .section-num{font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--meta);display:block;margin-bottom:6px;text-transform:uppercase}
+.content h2 .section-num{font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:normal;color:var(--meta);display:block;margin-bottom:6px;text-transform:none}
 .content h3{font-family:var(--serif);font-size:19px;line-height:1.3;font-weight:500;margin:var(--s7) 0 var(--s3);color:var(--ink);scroll-margin-top:148px}
 .content p{font-size:17px;line-height:26px;margin:0 0 var(--s4);color:var(--ink)}
 .content strong{font-weight:600;color:var(--ink)}
@@ -61,7 +61,7 @@
 .doc-page .quote .form-row{margin-bottom:14px;max-width:none}
 .doc-page .quote input,.doc-page .quote textarea{display:block;width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;font-family:var(--ui);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;resize:vertical}
 .doc-page .quote input:focus,.doc-page .quote textarea:focus{outline:0;border-color:var(--accent)}
-.doc-page .quote label{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--meta);margin-bottom:6px}
+.doc-page .quote label{display:block;font-size:11px;font-weight:500;letter-spacing:normal;text-transform:none;color:var(--meta);margin-bottom:6px}
 .doc-page .quote-note{font-size:12px;color:var(--meta);margin:10px 0 0}
 @media (min-width:800px){.doc-page .tier-grid{grid-template-columns:repeat(2,1fr) !important}.doc-page .quote .fr2{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
 
@@ -88,7 +88,7 @@
 .doc-page .content blockquote{border-left: 3px solid var(--accent); padding: 12px 18px; margin: 18px 0; background: var(--surf); color: var(--body); font-style: italic; max-width: 720px;}
 .doc-page .content hr{border: none; border-top: 1px solid var(--line); margin: 32px 0;}
 .doc-page .form-row{margin-bottom: 18px; max-width: 480px;}
-.doc-page .form-row label{display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--body); margin-bottom: 8px;}
+.doc-page .form-row label{display: block; font-size: 12px; font-weight: 600; letter-spacing:normal; text-transform:none; color: var(--body); margin-bottom: 8px;}
 .doc-page .form-row input,.doc-page .form-row textarea,.doc-page .form-row select{width: 100%; padding: 12px 14px; font-size: 14px; font-family: inherit; background: var(--surf); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; transition: border-color 0.15s;}
 .doc-page .form-row input:focus,.doc-page .form-row textarea:focus,.doc-page .form-row select:focus{border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-t);}
 .doc-page .form-row textarea{resize: vertical; min-height: 100px;}
@@ -99,7 +99,7 @@
 .doc-page .legal h2{font-family: var(--serif); font-size: 19px; color: var(--ink); margin-top: 28px; margin-bottom: 10px;}
 .doc-page .legal p,.doc-page .legal li{font-size: 14px; color: var(--body); line-height: 1.7;}
 .doc-page .legal ul{padding-left: 22px;}
-.doc-page .last-up{font-size: 12px; color: var(--meta); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;}
+.doc-page .last-up{font-size: 12px; color: var(--meta); letter-spacing:normal; text-transform:none; margin-bottom: 24px;}
 .doc-page .kv{display: grid; grid-template-columns: 200px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line);}
 .doc-page .kv:last-child{border-bottom: none;}
 .doc-page .kv .k{font-size: 13px; color: var(--accent); font-weight: 500;}
@@ -107,7 +107,7 @@
 .doc-page .cookie-card{background: var(--surf); border: 1px solid var(--line-2); border-radius: 8px; padding: 22px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 80px; gap: 18px; align-items: center;}
 .doc-page .cookie-card h3{font-family: var(--serif); font-size: 16px; color: var(--ink); margin-bottom: 6px;}
 .doc-page .cookie-card p{font-size: 13px; color: var(--body); line-height: 1.6; margin: 0;}
-.doc-page .cookie-card .req{font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px;}
+.doc-page .cookie-card .req{font-size: 11px; color: var(--gold); letter-spacing:normal; text-transform:none; margin-top: 6px;}
 .doc-page .toggle{display: inline-block; width: 50px; height: 28px; background: var(--line); border-radius: 999px; position: relative; cursor: pointer; transition: background 0.2s; justify-self: end;}
 .doc-page .toggle.on{background: var(--accent);}
 .doc-page .toggle::after{content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; background: var(--ink); border-radius: 50%; transition: transform 0.2s;}
@@ -115,12 +115,12 @@
 .doc-page .toggle.locked{background: var(--line); cursor: not-allowed; opacity: 0.6;}
 .doc-page .lic-card{background: var(--surf); border: 1px solid var(--line-2); border-radius: 8px; padding: 22px; margin-bottom: 14px;}
 .doc-page .lic-card h3{font-family: var(--serif); font-size: 17px; color: var(--ink); margin-bottom: 6px;}
-.doc-page .lic-card .status{font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; display: inline-block; margin-bottom: 12px;}
+.doc-page .lic-card .status{font-size: 11px; letter-spacing:normal; text-transform:none; padding: 3px 9px; border-radius: 999px; display: inline-block; margin-bottom: 12px;}
 .doc-page .lic-card .status.live{color: var(--accent); background: var(--accent-t);}
 .doc-page .lic-card .status.pending{color: var(--gold); background: rgba(176,126,30,0.16);}
 .doc-page .lic-card p{font-size: 13px; color: var(--body); line-height: 1.65; margin-bottom: 10px;}
 .doc-page .lic-card dl{display: grid; grid-template-columns: 160px 1fr; gap: 10px 14px; font-size: 13px; margin-top: 14px;}
-.doc-page .lic-card dt{color: var(--meta); letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px;}
+.doc-page .lic-card dt{color: var(--meta); letter-spacing:normal; text-transform:none; font-size: 11px;}
 .doc-page .lic-card dd{color: var(--ink); margin: 0;}
 .doc-page .rp-banner{background: rgba(176,126,30,0.10); border: 1px solid var(--gold); border-radius: 10px; padding: 22px; margin-bottom: 28px;}
 .doc-page .rp-banner h3{font-family: var(--serif); font-size: 17px; color: var(--ink); margin-bottom: 6px;}
@@ -140,7 +140,7 @@
 .doc-page .process-title{font-family: var(--serif); font-size: 19px; font-weight: 500; color: var(--ink); margin-bottom: 6px;}
 .doc-page .process-desc{font-size: 14px; color: var(--body); line-height: 1.6;}
 .doc-page .role{background: var(--surf); border: 1px solid var(--line-2); border-radius: 8px; padding: 22px; margin-bottom: 14px;}
-.doc-page .role .badge{display:inline-block; font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 8px; background: var(--accent-t); border-radius: 999px; margin-bottom: 10px;}
+.doc-page .role .badge{display:inline-block; font-size: 10px; color: var(--accent); letter-spacing:normal; text-transform:none; padding: 3px 8px; background: var(--accent-t); border-radius: 999px; margin-bottom: 10px;}
 .doc-page .role h3{font-family: var(--serif); font-size: 17px; color: var(--ink); margin-bottom: 6px;}
 .doc-page .role .meta{font-size: 12px; color: var(--meta); margin-bottom: 10px;}
 .doc-page .role p{font-size: 13px; color: var(--body); line-height: 1.6; margin-bottom: 12px;}
@@ -149,7 +149,7 @@
 @media (max-width: 900px){.doc-page .kit-grid{grid-template-columns: 1fr;}}
 .doc-page .kit-card{background: var(--surf); border: 1px solid var(--line-2); border-radius: 8px; padding: 18px;}
 .doc-page .kit-name{font-family: var(--serif); font-size: 15px; color: var(--ink); margin-bottom: 4px;}
-.doc-page .kit-meta{font-size: 11px; color: var(--meta); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;}
+.doc-page .kit-meta{font-size: 11px; color: var(--meta); letter-spacing:normal; text-transform:none; margin-bottom: 10px;}
 .doc-page .kit-link{font-size: 12px; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px;}
 .doc-page .press-row{display: grid; grid-template-columns: 110px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line);}
 .doc-page .press-date{font-size: 12px; color: var(--meta);}
@@ -157,7 +157,7 @@
 .doc-page .press-pub{font-size: 12px; color: var(--meta);}
 .doc-page .tier{background: var(--surf); border: 1px solid var(--line-2); border-radius: 10px; padding: 28px; margin-bottom: 18px;}
 .doc-page .tier h3{font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 6px;}
-.doc-page .tier .lab{font-size: 11px; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px;}
+.doc-page .tier .lab{font-size: 11px; color: var(--gold); letter-spacing:normal; text-transform:none; margin-bottom: 8px;}
 .doc-page .tier p{font-size: 14px; color: var(--body); line-height: 1.7; margin-bottom: 12px;}
 .doc-page .tier ul{font-size: 13px; color: var(--body); line-height: 1.7; padding-left: 20px;}
 .doc-page .contact-grid{display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 24px;}
@@ -176,7 +176,7 @@
 .doc-page .news-issues{display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;}
 @media (max-width: 900px){.doc-page .news-issues{grid-template-columns: 1fr;}}
 .doc-page .issue-card{background: var(--surf); border: 1px solid var(--line-2); border-radius: 8px; padding: 20px;}
-.doc-page .issue-num{font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;}
+.doc-page .issue-num{font-size: 11px; color: var(--accent); letter-spacing:normal; text-transform:none; margin-bottom: 4px;}
 .doc-page .issue-date{font-size: 12px; color: var(--meta); margin-bottom: 10px;}
 .doc-page .issue-title{font-family: var(--serif); font-size: 17px; color: var(--ink); margin-bottom: 10px; line-height: 1.3;}
 .doc-page .issue-summary{font-size: 13px; color: var(--meta); line-height: 1.55; margin-bottom: 14px;}
@@ -228,8 +228,8 @@
 @media (max-width: 560px){.doc-page .v9-grid .v9-meta{display: flex; align-items: baseline; justify-content: space-between; gap: 12px;}}
 @media (max-width: 560px){.doc-page .v9-grid > article + article{border-top: 1px solid var(--line); padding-top: var(--s);}}
 @media (max-width: 560px){.doc-page .v9-foot{justify-content: flex-start !important; align-items: baseline;}}
-@media (max-width: 560px){.doc-page .card-age{font-size: 10px; font-weight: 600; letter-spacing: 0.11em;
-    text-transform: uppercase; color: var(--mut); white-space: nowrap;}}
+@media (max-width: 560px){.doc-page .card-age{font-size: 10px; font-weight: 600; letter-spacing:normal;
+    text-transform:none; color: var(--mut); white-space: nowrap;}}
 @media (min-width: 561px){.doc-page .card-age{display: none;}}
 @media (min-width: 561px){.doc-page .v10-lead,.doc-page .v10-latest,.doc-page .v10-week,.doc-page .v9-sec,.doc-page .v9-omb{padding-left: 0 !important; padding-right: 0 !important;}}
 .doc-page .v9-cat{padding: calc(var(--s)*1.5) 0 calc(var(--s)*0.9); border-bottom: 1px solid var(--line); margin-bottom: calc(var(--s)*1.1);}

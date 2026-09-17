@@ -10,7 +10,7 @@
   f.appendChild(i);l.appendChild(f);
   function open(){l.classList.add('open');setTimeout(function(){i.focus()},0)}
   function close(){l.classList.remove('open')}
-  b.addEventListener('click',function(e){e.preventDefault();if(l.classList.contains('open')&&!i.value.trim())close();else open()});
+  b.addEventListener('click',function(e){e.preventDefault();var q=i.value.trim();if(l.classList.contains('open')&&q){location.href=archive+'?q='+encodeURIComponent(q);return}if(l.classList.contains('open'))close();else open()});   // аудит 05 п.3.8: лупа при заповненому полі шукає, як Enter
   f.addEventListener('submit',function(e){e.preventDefault();var q=i.value.trim();if(!q)return;location.href=archive+'?q='+encodeURIComponent(q)});
   i.addEventListener('keydown',function(e){if(e.key==='Escape'){i.value='';close()}});
   // клік назовні більше не ховає пошук (Pavlo, 11 Sep): закриває тільки лупа або Escape

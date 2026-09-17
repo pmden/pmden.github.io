@@ -922,3 +922,6 @@ details.mk-v>p{margin-top:var(--s2)}
 
 /* 17 Sep (Pavlo): розрядкові великі тільки в рубриках; службові мітки звичайним регістром */
 .case-h::first-letter{text-transform:uppercase}
+
+/* 17 Sep (Pavlo): лічильник «N Echoes» на головній веде в Echo library */
+.sep-hd a.date:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}

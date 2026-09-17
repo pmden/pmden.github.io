@@ -13,7 +13,7 @@
   b.addEventListener('click',function(e){e.preventDefault();var q=i.value.trim();if(l.classList.contains('open')&&q){location.href=archive+'?q='+encodeURIComponent(q);return}if(l.classList.contains('open'))close();else open()});   // аудит 05 п.3.8: лупа при заповненому полі шукає, як Enter
   f.addEventListener('submit',function(e){e.preventDefault();var q=i.value.trim();if(!q)return;location.href=archive+'?q='+encodeURIComponent(q)});
   i.addEventListener('keydown',function(e){if(e.key==='Escape'){i.value='';close()}});
-  // клік назовні більше не ховає пошук (Pavlo, 11 Sep): закриває тільки лупа або Escape
+  document.addEventListener('click',function(e){if(l.classList.contains('open')&&!l.contains(e.target))close()});   // Pavlo 17 Sep: клік будь-де назовні згортає поле (скасовує правило 11 Sep)
   var q=new URLSearchParams(location.search).get('q');
   if(location.hash==='#search')open();
   if(q){i.value=q;open();filter(q)}

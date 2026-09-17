@@ -1,3 +1,42 @@
+# Hunch crawler policy. Data use is governed by https://readhunch.com/data-terms/
+# Training and dataset collection: not permitted without a licence.
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+# Assistants that fetch a page for a reader and link back
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Search engines and everyone else
 User-agent: *
 Allow: /
+
 Sitemap: https://readhunch.com/sitemap.xml

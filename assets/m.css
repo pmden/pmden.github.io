@@ -213,6 +213,30 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 .pg{padding:var(--s6) 0 var(--s7)}
 .pg.pg-tight{padding-bottom:0}
 .pg-tight + .sep-hd{margin-top:var(--s3)}
+/* Markets, варіант B (Pavlo 20 Sep): питання, рядок патерну, два індикатори; кнопок Yes/No нема */
+.mkcards{display:grid;grid-template-columns:1fr;gap:var(--s4) 0;margin:0 0 var(--s6);padding:0}
+
+.mkc{padding:var(--s3) 0 var(--s4);border-top:1.5px solid var(--ink)}   /* 20 Sep (Pavlo): лінія картки трохи тонша за лінію розділу (2px) */
+.mkc .mk-f{margin-top:var(--s3);align-self:end}
+.mkc-q{font-family:var(--serif);font-size:19px;line-height:25px;font-weight:600;margin:0 0 var(--s2);
+       display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:75px}
+.mkc-q a{color:var(--ink);text-decoration:none}
+.mkc-q a:hover{text-decoration:underline;text-underline-offset:3px}
+.mkc-l{font-size:14px;line-height:20px;color:var(--meta);margin:0 0 var(--s3);
+       display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:60px}
+.inds{display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s1)}
+.ind{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;align-items:center;gap:10px}
+.ind .lbl{font-family:var(--ui);font-size:11px;font-weight:600;color:var(--meta)}
+.ind .pbar{position:relative;height:9px;border-radius:5px;background:var(--line);overflow:hidden}
+.ind .pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.ind .pbar.h i{background:var(--gold)} .ind .pbar.u i{background:var(--accent)}
+.ind .val{font-family:var(--serif);font-size:17px;font-weight:600;text-align:right}
+.ind .val.h{color:var(--gold)} .ind .val.u{color:var(--accent)}
+@media(min-width:760px){
+  .mkcards{grid-template-columns:repeat(3,1fr);gap:var(--s5) 40px}
+  .mkc{grid-row:span 5;display:grid;grid-template-rows:subgrid;row-gap:0}
+}
+
 /* хлібні крихти над H1 (Pavlo 20 Sep) */
 .crumb{font-family:var(--ui);font-weight:500;font-size:12px;letter-spacing:.2px;color:var(--meta);margin:0 0 var(--s2)}
 .crumb a{color:var(--meta);text-decoration:none}
@@ -826,8 +850,11 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 
 /* Смуга категорій, варіант B (Pavlo 7 Sep): повітря 20px, гортається вбік, останнє слово зрізане тінню як підказка */
 @media (max-width:719px){
-  .cats{justify-content:flex-start;gap:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-right:0;
-    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  /* 20 Sep (Pavlo): згасає ТІЛЬКИ вміст смуги. Маска на елементі робила прозорою і саму смугу,
+     через що під час скролу крізь неї просвічував контент сторінки. Тепер градієнт кладеться зверху. */
+  .cats{justify-content:flex-start;gap:20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-right:0}
+  .cats::after{content:"";position:fixed;top:var(--bar);right:0;width:56px;height:var(--cats);
+    background:linear-gradient(90deg,transparent,var(--bg) 70%);pointer-events:none;z-index:80}
   .cats::-webkit-scrollbar{display:none}
   .cats a{flex:0 0 auto;padding:0}
   .cats a:last-child{padding-right:40px}

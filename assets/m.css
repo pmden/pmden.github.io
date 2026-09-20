@@ -212,7 +212,24 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 /* ---------- 8. СТАТИЧНА СТОРІНКА ---------- */
 .pg{padding:var(--s6) 0 var(--s7)}
 .pg.pg-tight{padding-bottom:0}
-.pg-tight + .sep-hd{margin-top:var(--s4)}
+.pg-tight + .sep-hd{margin-top:var(--s3)}
+/* хлібні крихти над H1 (Pavlo 20 Sep) */
+.crumb{font-family:var(--ui);font-weight:500;font-size:12px;letter-spacing:.2px;color:var(--meta);margin:0 0 var(--s2)}
+.crumb a{color:var(--meta);text-decoration:none}
+.crumb a:hover{color:var(--ink)}
+.crumb-s{margin:0 7px;color:var(--line-2)}
+/* /accuracy/: щільніша шапка і згорнуте пояснення (Pavlo 20 Sep) */
+.pg-acc{padding-top:var(--s2)}
+.pg-acc .pg-h{margin-top:0;margin-bottom:var(--s2)}
+.pg-acc .pg-l{margin-bottom:var(--s7);max-width:760px}
+.acc-help{border-top:1px solid var(--line);padding-top:var(--s3);margin:0 0 var(--s5)}
+.acc-help>summary{cursor:pointer;list-style:none;font-family:var(--ui);font-weight:600;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--meta)}
+.acc-help>summary::-webkit-details-marker{display:none}
+.acc-help>summary::after{content:" +";color:var(--meta)}
+.acc-help[open]>summary::after{content:" \2013"}
+.acc-help>summary:hover{color:var(--ink)}
+.acc-help p{margin-top:var(--s3)}
+
 .pg-h{font-family:var(--serif);font-size:30px;line-height:34px;font-weight:600;color:var(--ink);letter-spacing:-.015em;margin:var(--s2) 0 var(--s3)}
 .pg-l{font-size:18px;line-height:27px;color:var(--body);margin:0 0 var(--s6)}
 .body h2{font-family:var(--serif);font-size:22px;line-height:28px;font-weight:600;color:var(--ink);margin:var(--s7) 0 var(--s3)}
@@ -287,7 +304,7 @@ button[disabled]{opacity:.55}
   .feat-l{font-size:19px;line-height:29px}
   .art-h{font-size:42px;line-height:46px}
   .art-l{font-size:20px;line-height:30px}
-  .pg-h{font-size:40px;line-height:44px}
+  .pg-h{font-size:34px;line-height:40px}   /* 20 Sep: один кегль H1 на всіх ширинах */
   .pg-l{font-size:20px;line-height:30px}
   .item-h{font-size:22px;line-height:28px}
   .ft-cols{grid-template-columns:repeat(4,1fr)}
@@ -343,8 +360,9 @@ button[disabled]{opacity:.55}
 
   /* статична сторінка: заголовок на всю, текст колонкою */
   .pg{max-width:820px;margin:0;padding:44px 0 56px}
+  .pg-acc{padding-top:12px}
   .pg-wide{max-width:none;margin:0}
-  .pg-h{font-size:46px;line-height:50px}
+  .pg-h{font-size:34px;line-height:40px}   /* 20 Sep (Pavlo): менше за вордмарк 38, щоб око починало з бренду */
 
   .ft{padding-top:40px}
   .ft-cols{grid-template-columns:repeat(4,1fr);gap:0 40px}
@@ -846,12 +864,17 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 
 
 /* Accuracy page (11 Sep 2026) */
-.acc-top{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:var(--s8);align-items:start;
-         max-width:1188px;margin:0 auto var(--s6) auto;padding:0 var(--s5)}
+.acc-top{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:var(--s8);align-items:stretch;
+         max-width:none;margin:0 0 var(--s4);padding:0}
 .acc-chart{min-width:0}
 .acc-bars{display:none}
-.acc-board{display:flex;flex-direction:column;gap:var(--s6);padding-top:var(--s5)}
-.acc-n b{display:block;font-family:var(--serif);font-size:52px;line-height:1;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.acc-board{display:flex;flex-direction:column;justify-content:space-between;gap:0;padding-top:0}
+.acc-n{padding:0 0 var(--s4);border-bottom:1px solid var(--line)}
+.acc-n + .acc-n{padding-top:var(--s4)}
+.acc-n:last-child{border-bottom:0}
+.acc-n b{display:block;font-family:var(--serif);font-size:40px;line-height:1;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.acc-n.g b{color:var(--accent)}
+.acc-n.d b{color:var(--gold)}
 .acc-n span{display:block;font-size:12.5px;line-height:1.4;color:var(--meta);margin-top:var(--s2);max-width:210px}
 .acc-n.mut{padding-top:var(--s5);border-top:1px solid var(--line)}
 .acc-n.mut b{color:var(--meta)}
@@ -864,6 +887,7 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 @media(max-width:900px){
   .acc-top{grid-template-columns:1fr;gap:var(--s6)}
   .acc-board{flex-direction:row;flex-wrap:wrap;gap:var(--s7);padding-top:0}
+  .acc-n{border-bottom:0;padding:0}
   .acc-n b{font-size:40px}
 }
 @media(max-width:760px){

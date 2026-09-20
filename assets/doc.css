@@ -37,7 +37,7 @@
 @media (min-width:1024px){
   .doc-grid{grid-template-columns:220px 1fr;gap:64px;padding:var(--s9) 0 96px}
   .toc{position:sticky;top:148px;align-self:start;max-height:calc(100vh - 170px);overflow-y:auto}
-  .content h1{font-size:40px;line-height:44px}
+  .content h1{font-size:34px;line-height:40px}   /* 20 Sep: як .pg-h */
   .content h2 .anchor{display:block}
 }
 
@@ -54,7 +54,7 @@
 .doc-page button{font-family:var(--ui);cursor:pointer}
 .doc-page .toggle{cursor:pointer}
 .doc-page .form-note{font-size:13px;color:var(--accent);margin-top:12px}
-@media (min-width:1024px){.doc-page .page-title{font-size:44px}}
+@media (min-width:1024px){.doc-page .page-title{font-size:34px;line-height:40px}}   /* 20 Sep: один кегль H1 */
 /* API: два тарифи і легка форма запиту під ними (Pavlo, 7 Sep) */
 .doc-page .quote{background:var(--surf);border:1px solid var(--line-2);border-radius:8px;padding:22px;margin-bottom:28px}
 .doc-page .quote h3{font-family:var(--serif);font-size:16px;font-weight:500;color:var(--ink);margin:0 0 14px}
@@ -71,7 +71,7 @@
 .doc-page .btn-secondary:hover{border-color: var(--ink);}
 .doc-page .page-hdr{padding: 36px 0 24px; border-bottom: 1px solid var(--line); margin-bottom: 32px;}
 .doc-page .page-kicker{font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;}
-.doc-page .page-title{font-family: var(--serif); font-size: 38px; font-weight: 300; letter-spacing: -0.015em; line-height: 1.1; color: var(--ink); margin-bottom: 12px;}
+.doc-page .page-title{font-family: var(--serif); font-size: 34px; font-weight: 300; letter-spacing: -0.015em; line-height: 1.1; color: var(--ink); margin-bottom: 12px;}
 .doc-page .page-lead{font-size: 16px; color: var(--body); line-height: 1.6; max-width: 720px;}
 .doc-page .content h2{font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--ink); margin: 36px 0 14px; line-height: 1.2;}
 .doc-page .content h3{font-family: var(--serif); font-size: 19px; font-weight: 500; color: var(--ink); margin: 24px 0 10px;}

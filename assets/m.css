@@ -718,7 +718,8 @@ button[disabled]{opacity:.55}
 
   /* фіч Echo у пропорціях старого лендингу */
   .feat{grid-template-columns:607px 456px;gap:0 57px;padding:17px 0 16px}
-  .feat-top{grid-column:1;justify-content:flex-start;gap:14px}
+  /* 20 Sep: правило лише для фіч-блоку головної; на сторінці Echo дата лишається праворуч */
+  .feat .feat-top{grid-column:1;justify-content:flex-start;gap:14px}
   .feat-h{font-size:35px;line-height:40px;margin-bottom:12px}
   .feat-l{font-size:17px;line-height:26.35px;margin-bottom:14px}
   .pat{font-size:17px;line-height:26px}

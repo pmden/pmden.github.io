@@ -198,8 +198,8 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 .mk-on{font-size:14px;line-height:21px;color:var(--body);margin:var(--s3) 0 0}
 .btns{display:flex;gap:var(--s2);margin:0 0 var(--s3)}
 .btn{
-  flex:1; min-height:48px; display:flex; align-items:center; justify-content:center;
-  font-family:var(--ui); font-size:16px; font-weight:600;
+  flex:1; min-height:38px; display:flex; align-items:center; justify-content:center;   /* 20 Sep (Pavlo): кнопки менші */
+  font-family:var(--ui); font-size:15px; font-weight:600;
   border:1px solid transparent; border-radius:8px; cursor:pointer;
 }
 .btn.y,.btn.n{background:var(--line);color:var(--ink);border-color:var(--line-2);transition:background .12s,border-color .12s}   /* у спокої обидві тоном (Pavlo 15 Sep) */

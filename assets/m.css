@@ -360,7 +360,8 @@ button[disabled]{opacity:.55}
 
   /* статична сторінка: заголовок на всю, текст колонкою */
   .pg{max-width:820px;margin:0;padding:44px 0 56px}
-  .pg-acc{padding-top:12px}
+  .pg-acc,.pg-row:has(> .crumb){padding-top:12px}   /* 20 Sep: сторінки з крихтами починаються однаково */
+  .pg-row > .crumb{margin-bottom:var(--s2)}
   .pg-wide{max-width:none;margin:0}
   .pg-h{font-size:34px;line-height:40px}   /* 20 Sep (Pavlo): менше за вордмарк 38, щоб око починало з бренду */
 
@@ -772,6 +773,7 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 /* Панель списку: сортування + пошук усередині сторінки (архів, категорії, маркети, бібліотека) */
 .pg-row{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);flex-wrap:wrap}
 .pg-row > .crumb{flex:0 0 100%;order:-1;margin-bottom:0}   /* 20 Sep: крихти окремим рядком, не в один ряд із заголовком */
+.pg-row:has(> .crumb){row-gap:var(--s2)}
 .tb{display:flex;align-items:center;gap:8px;font-family:var(--ui);margin-bottom:var(--s3)}
 .tb-sel{position:relative;display:block}
 .tb-sel select{appearance:none;-webkit-appearance:none;font-family:var(--ui);font-size:13px;font-weight:500;color:var(--meta);background:none;border:0;border-radius:0;padding:0 20px 0 0;height:24px;cursor:pointer;outline:0}

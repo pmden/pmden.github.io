@@ -128,6 +128,9 @@ a{color:inherit;text-decoration:none}
 .item-m b{font-weight:600;color:var(--gold)}
 .item-m i{font-style:normal;font-weight:600;color:var(--accent)}
 .item-m .ar{color:var(--line)}
+/* 21 Sep: рядок чисел з мітками History | Hunch (варіант 1, обраний Pavlo 17 Sep) */
+.item-m .lb{color:var(--meta);font-weight:400}
+.item-m .vr{width:1px;height:12px;background:var(--line-2);margin:0 var(--s1)}
 
 /* ---------- 6. СТАТТЯ ---------- */
 .art-h{font-family:var(--serif);font-size:30px;line-height:34px;font-weight:600;color:var(--ink);letter-spacing:-.015em;margin:var(--s5) 0 var(--s3)}

@@ -148,6 +148,8 @@ p{margin:0 0 var(--s4)}
 .base{border:1px solid var(--line);border-radius:10px;padding:var(--s4);margin:var(--s5) 0}
 .base-n{font-family:var(--serif);font-size:27px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:var(--s2)}
 .base-t{font-size:15px;line-height:23px;color:var(--body)}
+/* 21 Sep: склад вибірки під базою (rules_version 4). Стиль мета-рядка .case-sub, тут лише відступ. */
+.base-sel{margin-top:var(--s2)}
 
 
 /* посилання всередині редакційного тексту — один стиль на всі типи сторінок */

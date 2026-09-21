@@ -252,3 +252,9 @@
 @media (max-width: 560px){.doc-page .lib-cta{padding-top: var(--s);}}
 @media (min-width: 861px){.doc-page .v10 > .v9-cat,.doc-page .v10 > .v9-sec,.doc-page .v10 > .lib-cta,.doc-page .v10 > .v9-grid{padding-left: 14px; padding-right: 14px;}}
 .doc-page .v10 > .v9-cat,.doc-page .v10 > .v9-sec,.doc-page .v10 > .lib-cta,.doc-page .v10 > .v9-grid{padding-left:0 !important;padding-right:0 !important}
+/* 21 Sep (Pavlo): відступи до і після крихт на doc-сторінках як в Архіві: 12px від шапки, 16px до вмісту */
+.wrap > .crumb,.doc-page > .crumb{margin:12px 0 0}
+.crumb + .doc-grid{padding-top:16px}
+.doc-page > .crumb + .page-hdr{padding-top:16px}
+.doc-page .page-hdr > .page-title:first-child{margin-top:0}   /* 21 Sep: About без кікера, заголовок одразу після крихт */
+@media (max-width:1023px){.wrap > .crumb,.doc-page > .crumb{margin-top:24px}}   /* 21 Sep: на телефоні як в Архіві */

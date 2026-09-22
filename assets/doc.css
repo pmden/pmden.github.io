@@ -304,3 +304,10 @@
 .doc-page .content ul li,.doc-grid .content ul li{padding-left:4px}
 .doc-page .content ul li::before,.doc-grid .content ul li::before{content:none;display:none}
 .doc-page .content ul li::marker,.doc-grid .content ul li::marker{color:var(--meta);font-family:var(--ui)}
+/* 22 Sep (Pavlo): API рядками без рамок, як Licences */
+.doc-page .api-grid{grid-template-columns:1fr;gap:0;margin-bottom:8px}
+.doc-page .api-card{background:none;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:16px 0}
+.doc-page .api-card h3{font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink);margin:0 0 2px}
+.doc-page .api-card p{font-size:15px;line-height:1.65;color:var(--body);max-width:720px;margin:0 0 8px}
+.doc-page .endpoint{background:none;border:0;border-radius:0;padding:2px 0;margin:0;font-size:13px}
+.doc-page .endpoint .m{color:var(--meta)}

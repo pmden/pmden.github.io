@@ -258,3 +258,17 @@
 .doc-page > .crumb + .page-hdr{padding-top:16px}
 .doc-page .page-hdr > .page-title:first-child{margin-top:0}   /* 21 Sep: About без кікера, заголовок одразу після крихт */
 @media (max-width:1023px){.wrap > .crumb,.doc-page > .crumb{margin-top:24px}}   /* 21 Sep: на телефоні як в Архіві */
+
+/* 22 Sep (Pavlo): Contact у форматі довідки Economist — теми, що розгортаються */
+.doc-page .help{margin-top:0}
+.doc-page .help-sec{margin-top:0}
+.doc-page details.help-t{border-bottom:1px solid var(--line-2)}
+.doc-page details.help-t>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink)}
+.doc-page details.help-t>summary::-webkit-details-marker{display:none}
+.doc-page details.help-t>summary::after{content:"+";font-weight:400;font-size:20px;line-height:1;color:var(--meta)}
+.doc-page details.help-t[open]>summary::after{content:"\2013"}
+.doc-page .help-b{padding:0 0 8px;max-width:720px}
+.doc-page .help-q{margin:0 0 4px;font-family:var(--ui);font-size:15px;font-weight:600;color:var(--ink)}
+.doc-page .help-a{margin:0 0 16px;font-size:15px;line-height:1.65;color:var(--body)}
+.doc-page .help-more{margin-top:24px;font-size:15px;color:var(--body)}
+.doc-page.doc-help{padding-bottom:var(--s5)}

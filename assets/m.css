@@ -202,6 +202,7 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 [data-theme="dark"] .mk-out .pill.neu{background:var(--no-b);color:var(--btn-i)}
 .mk-on{font-size:14px;line-height:21px;color:var(--body);margin:var(--s3) 0 0}
 .btns{display:flex;gap:var(--s2);margin:0 0 var(--s3)}
+/* кнопки: прямі кути під рамку врізки */
 .btn{
   flex:1; min-height:38px; display:flex; align-items:center; justify-content:center;   /* 20 Sep (Pavlo): кнопки менші */
   font-family:var(--ui); font-size:15px; font-weight:600;
@@ -689,7 +690,9 @@ button[disabled]{opacity:.55}
   .art-tail{grid-column:1;grid-row:3}
   .art-rail{grid-column:2;grid-row:1/span 2;align-self:start;
     position:sticky;top:calc(var(--bar) + 24px);max-height:calc(100vh - var(--bar) - 48px);
-    overflow-y:auto}
+    overflow-y:auto;
+    /* 20 Sep (Pavlo): «The Market» стартує на рівні заголовка Echo, тобто під кікером */
+    padding-top:46px}
   .art-rail .asec{margin-top:0;padding-top:0;border-top:0;font-size:22px;line-height:28px}
   .art-rail .mk{margin-bottom:var(--s4)}
   .art-rail .mk-q{font-size:17px;line-height:23px}
@@ -993,3 +996,34 @@ details.mk-v>p{margin-top:var(--s2)}
 /* 17 Sep (Pavlo): тег на картці веде в архів */
 a.kick[href*="?q="],a.kick.acc[href*="?q="]{color:var(--meta)}
 a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сірі всюди: картки, Featured, сторінка Echo */
+
+/* 21 Sep (Pavlo): Membership, варіант B з борду 17 Sep. Токени сайту, тема працює сама */
+.mb-c{text-align:center}
+.mb-h{max-width:820px;margin-left:auto;margin-right:auto}
+.mb-lead{font-family:var(--serif);font-size:17px;line-height:26px;color:var(--body);max-width:640px;margin:var(--s3) auto 0}
+.mb-small{font-family:var(--ui);font-size:13px;line-height:19px;color:var(--meta);margin:10px 0 0}
+.mb-buy{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}   /* 22 Sep (Pavlo): повітря навколо кнопок */
+.mb-b{display:inline-flex;align-items:center;justify-content:center;min-width:200px;min-height:48px;padding:0 22px;border-radius:6px;font-family:var(--ui);font-size:15px;font-weight:600;text-decoration:none;background:var(--yes-b);color:var(--btn-i);border:1px solid var(--yes-b);transition:background .12s,border-color .12s,filter .12s}
+.mb-b:hover,.mb-b:active{filter:brightness(.86)}   /* 22 Sep (Pavlo): наведення як у .btn, з переходом */
+.mb-b.o{background:transparent;color:var(--ink);border-color:var(--line-2)}
+.mb-b.o:hover,.mb-b.o:active{background:var(--line);filter:none}
+.mb-cmp{width:100%;border-collapse:collapse;font-family:var(--serif);font-size:16px;line-height:23px;margin-top:28px;table-layout:fixed}   /* 22 Sep (Pavlo): варіант C, лише різниця */
+.mb-cmp col.l{width:40%}.mb-cmp col.v{width:30%}
+.mb-cmp th{font-family:var(--ui);font-size:14px;font-weight:600;color:var(--meta);text-align:left;padding:10px 12px;border-bottom:2px solid var(--ink)}   /* 22 Sep (Pavlo): шапка 14 */
+.mb-cmp td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--body);vertical-align:top}
+.mb-cmp td.v{font-family:var(--ui);font-size:14px;line-height:20px;color:var(--ink)}
+.mb-cmp td.v.m{font-weight:500}
+.mb-both{margin-top:28px}
+.mb-both h2{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--meta);margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.mb-both ul{list-style:none;margin:0;padding:0;columns:2;column-gap:32px}
+.mb-both li{font-family:var(--serif);font-size:16px;line-height:23px;color:var(--body);padding:7px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.mb-both li::before{content:"\2713";color:var(--accent);font-weight:600;margin-right:10px}
+.mb-strip{display:flex;justify-content:center;gap:12px 36px;flex-wrap:wrap;margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-family:var(--ui);font-size:13px;color:var(--meta)}
+.mb-strip b{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-right:6px}
+.mb-strip b.g{color:var(--gold)}.mb-strip b.r{color:var(--accent)}
+.pg.mb{max-width:none}
+.mb-qa{display:grid;grid-template-columns:1fr 1fr;gap:6px 32px;margin-top:var(--s6)}
+.mb-qa div{border-top:1px solid var(--line);padding:12px 0}
+.mb-qa b{display:block;font-family:var(--serif);font-size:16px;color:var(--ink);margin-bottom:4px}
+.mb-qa span{font-family:var(--serif);font-size:15px;line-height:22px;color:var(--body)}
+@media (max-width:600px){.mb-qa{grid-template-columns:1fr}.mb-both ul{columns:1}.mb-cmp td,.mb-cmp th{padding-left:6px;padding-right:6px}.mb-cmp td.v{font-size:13px;line-height:18px}.mb-strip{gap:8px 24px}}

@@ -258,7 +258,6 @@
 .doc-page > .crumb + .page-hdr{padding-top:16px}
 .doc-page .page-hdr > .page-title:first-child{margin-top:0}   /* 21 Sep: About без кікера, заголовок одразу після крихт */
 @media (max-width:1023px){.wrap > .crumb,.doc-page > .crumb{margin-top:24px}}   /* 21 Sep: на телефоні як в Архіві */
-
 /* 22 Sep (Pavlo): Contact у форматі довідки Economist — теми, що розгортаються */
 .doc-page .help{margin-top:0}
 .doc-page .help-sec{margin-top:0}

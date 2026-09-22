@@ -311,3 +311,9 @@
 .doc-page .api-card p{font-size:15px;line-height:1.65;color:var(--body);max-width:720px;margin:0 0 8px}
 .doc-page .endpoint{background:none;border:0;border-radius:0;padding:2px 0;margin:0;font-size:13px}
 .doc-page .endpoint .m{color:var(--meta)}
+/* 22 Sep (Pavlo): другорядна кнопка має виглядати активною, без зеленого — рамка кольору тексту */
+.doc-page .btn-secondary,.doc-page .content a.btn-secondary{border:1px solid var(--ink);color:var(--ink)}
+.doc-page .btn-secondary:hover,.doc-page .content a.btn-secondary:hover{background:var(--line);border-color:var(--ink)}
+/* 22 Sep (Pavlo): перехід в інший розділ — посилання зі стрілкою, без рамки */
+.doc-page .content a.go{font-family:var(--ui);font-size:15px;font-weight:600;color:var(--ink);border-bottom:0;text-decoration:none}
+.doc-page .content a.go:hover{text-decoration:underline;text-underline-offset:3px}

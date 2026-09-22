@@ -272,3 +272,12 @@
 .doc-page .help-a{margin:0 0 16px;font-size:15px;line-height:1.65;color:var(--body)}
 .doc-page .help-more{margin-top:24px;font-size:15px;color:var(--body)}
 .doc-page.doc-help{padding-bottom:var(--s5)}
+/* 22 Sep (Pavlo): Cookies рядками без рамок, як теми на Contact; перемикач зі світлим кружком */
+.doc-page .cookie-card{background:none;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:16px 0;margin:0}
+.doc-page .cookie-card h3{font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink);margin:0 0 4px}
+.doc-page .cookie-card p{font-size:15px;line-height:1.65;color:var(--body);max-width:720px}
+.doc-page .cookie-card .req{font-size:13px;color:var(--meta);margin-top:4px}
+.doc-page .toggle{background:var(--line-2)}
+.doc-page .toggle::after{background:var(--btn-i);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.doc-page .toggle.on{background:var(--accent)}
+.doc-page .toggle.locked{background:var(--accent);opacity:.45}

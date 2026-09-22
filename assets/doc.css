@@ -281,3 +281,26 @@
 .doc-page .toggle::after{background:var(--btn-i);box-shadow:0 1px 2px rgba(0,0,0,.15)}
 .doc-page .toggle.on{background:var(--accent)}
 .doc-page .toggle.locked{background:var(--accent);opacity:.45}
+/* 22 Sep (Pavlo): Privacy як Cookies — текст зі стилів .content, ключі чорним, без зеленого */
+.doc-page .content.legal{max-width:760px}
+.doc-page .content.legal .last-up{font-size:13px;color:var(--meta);margin:0 0 8px}
+.doc-page .content .kv{grid-template-columns:220px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line-2)}
+.doc-page .content .kv .k{font-family:var(--ui);font-size:15px;font-weight:600;line-height:1.65;color:var(--ink)}
+.doc-page .content .kv .v{font-family:var(--ui);font-size:15px;line-height:1.65;color:var(--body)}
+@media (max-width:600px){.doc-page .content .kv{grid-template-columns:1fr;gap:2px}}
+.doc-page .content.legal h2{font-size:26px;line-height:1.2;margin:36px 0 14px}
+.doc-page .content.legal p,.doc-page .content.legal li{font-size:15px;line-height:1.7}
+/* 22 Sep (Pavlo): Licences рядками без рамок і плашок, як Cookies */
+.doc-page .lic-card{background:none;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:16px 0;margin:0}
+.doc-page .lic-card h3{font-family:var(--ui);font-size:16px;font-weight:600;color:var(--ink);margin:0 0 2px}
+.doc-page .lic-card .status,.doc-page .lic-card .status.live,.doc-page .lic-card .status.pending{background:none;padding:0;border-radius:0;font-size:13px;color:var(--meta);margin:0 0 8px;display:block}
+.doc-page .lic-card p{font-size:15px;line-height:1.65;color:var(--body);max-width:720px;margin:0 0 8px}
+.doc-page .lic-card dl{grid-template-columns:200px 1fr;gap:6px 16px;margin-top:8px;max-width:720px}
+.doc-page .lic-card dt{font-size:15px;color:var(--meta)}
+.doc-page .lic-card dd{font-size:15px;color:var(--ink)}
+@media (max-width:600px){.doc-page .lic-card dl{grid-template-columns:1fr;gap:0}.doc-page .lic-card dd{margin-bottom:6px}}
+/* 22 Sep (Pavlo): у списках службових сторінок номери замість тире */
+.doc-page .content ul,.doc-grid .content ul{list-style:decimal;padding-left:26px}
+.doc-page .content ul li,.doc-grid .content ul li{padding-left:4px}
+.doc-page .content ul li::before,.doc-grid .content ul li::before{content:none;display:none}
+.doc-page .content ul li::marker,.doc-grid .content ul li::marker{color:var(--meta);font-family:var(--ui)}

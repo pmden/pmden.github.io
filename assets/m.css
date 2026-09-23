@@ -1027,3 +1027,68 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 .mb-qa b{display:block;font-family:var(--serif);font-size:16px;color:var(--ink);margin-bottom:4px}
 .mb-qa span{font-family:var(--serif);font-size:15px;line-height:22px;color:var(--body)}
 @media (max-width:600px){.mb-qa{grid-template-columns:1fr}.mb-both ul{columns:1}.mb-cmp td,.mb-cmp th{padding-left:6px;padding-right:6px}.mb-cmp td.v{font-size:13px;line-height:18px}.mb-strip{gap:8px 24px}}
+
+/* 23 Sep (Pavlo): вхід, варіант B з борду hunch-auth-board-20260923. Перекриває блок 11 і медіа 715/861. */
+.pg.au{max-width:400px;margin-left:auto;margin-right:auto;text-align:center}
+.au-tabs{display:flex;border:1px solid var(--line-2);border-radius:6px;padding:3px;margin:0 auto var(--s6);max-width:260px}
+.au-tab{min-height:38px;border:0;border-radius:4px;margin:0;color:var(--meta)}
+.au-tab.on{background:var(--ink);color:var(--bg)}
+.au .pg-l{font-size:17px;line-height:26px}
+.au-soc{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.au-soc a,.au-soc button{border-radius:6px;transition:background .12s}
+.au-soc a:hover,.au-soc button:hover{background:var(--line)}
+.au-soc svg{width:20px;height:20px}
+.au-f{text-align:left}
+.au-f label{font-size:13px;color:var(--ink)}
+.au-f input{border-radius:6px;background:var(--bg)}
+.au-fg{text-align:right;margin:calc(var(--s2) * -1) 0 var(--s4)}
+.au-fg .au-lnk{background:none;border:0;padding:0;cursor:pointer;font-family:var(--ui);font-size:13px;color:var(--accent)}
+.au-row{text-align:left;font-size:13px;line-height:19px}
+.au-cta{min-height:48px;font-size:15px;border-radius:6px;transition:filter .12s}
+.au-cta:hover{filter:brightness(.86)}
+.au-strip{margin-top:var(--s8)}
+.au .pg-h{margin-bottom:var(--s6)}
+.au .pg-l{margin-top:calc(var(--s3) * -1)}
+/* 23 Sep (Pavlo): вхід щільніше, реєстрація без гортання на ноутбуці */
+.pg.au{padding-top:var(--s6)}
+.au-tabs{margin-bottom:var(--s4)}
+.au-tab{min-height:34px}
+.au .pg-h{margin-bottom:var(--s4)}
+.au .pg-l{margin-top:calc(var(--s2) * -1);margin-bottom:var(--s4)}
+.au-soc{margin-bottom:var(--s4)}
+.au-soc a,.au-soc button{min-height:44px}
+.au-or{margin-bottom:var(--s4)}
+.au-f{margin-bottom:var(--s3)}
+.au-f label{margin-bottom:var(--s1)}
+.au-f input{min-height:44px}
+.au-fg{margin:calc(var(--s1) * -1) 0 var(--s3)}
+.au-row{margin-bottom:var(--s4)}
+.au-cta{min-height:44px}
+.au-strip{margin-top:var(--s7)}
+/* 23 Sep (Pavlo): права колонка входу — список Free на Sign up, числа точності на Log in */
+.au-side{text-align:left;margin-top:var(--s8)}
+.au-sh{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--meta);margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.au-list{list-style:none;margin:0 0 var(--s5);padding:0}
+.au-list li{font-family:var(--serif);font-size:16px;line-height:23px;color:var(--body);padding:7px 0;border-bottom:1px solid var(--line)}
+.au-list li::before{content:"\2713";color:var(--accent);font-weight:600;margin-right:10px}
+.au-nums{margin:0 0 var(--s5)}
+.au-nums div{display:flex;align-items:baseline;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line)}
+.au-nums b{font-family:var(--serif);font-weight:600;font-size:40px;line-height:44px;color:var(--ink);min-width:110px;font-variant-numeric:tabular-nums}
+.au-nums b.g{color:var(--gold)}.au-nums b.r{color:var(--accent)}
+.au-nums span{font-family:var(--ui);font-size:14px;line-height:20px;color:var(--meta)}
+.au-go{font-family:var(--ui);font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.au-go span{display:inline-block;margin-left:6px;transition:transform .12s}.au-go:hover span{transform:translateX(3px)}
+@media (min-width:900px){
+  .pg.au{max-width:880px;display:grid;grid-template-columns:400px minmax(0,1fr);gap:0 64px;align-items:center}
+  .au-side{margin-top:0}
+}
+/* 23 Sep (Pavlo): перемикач входу — варіант C з борду hunch-signin-tab-board-20260923, лише підкреслення */
+.au-tabs{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0}
+.au-tab{border-radius:0;border-bottom:2px solid transparent;margin-bottom:-1px}
+.au-tab.on{background:none;color:var(--ink);border-bottom-color:var(--ink)}
+/* 23 Sep (Pavlo): повітря після кнопки Log in; кікер праворуч на одному рівні в обох режимах */
+.au:not(.signup) .au-form{margin-bottom:var(--s8)}
+@media (min-width:900px){
+  .pg.au{align-items:start}
+  .au-side{margin-top:106px}   /* 23 Sep (Pavlo): кікер нижче — верх на рівні рядка соцкнопок */
+}

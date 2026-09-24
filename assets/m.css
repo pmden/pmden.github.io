@@ -1100,3 +1100,47 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 .mk-why li::before{content:"";position:absolute;left:0;top:10px;width:4px;height:4px;border-radius:50%;background:var(--line-2)}
 .mk-why li span{color:var(--ink);font-weight:500}
 .mk-why p+p{margin-top:var(--s2)}
+
+/* ---------- Прийоми тексту Echo (Pavlo 24 Sep 2026, борд hunch-inline-style-board-20260924: рамка A, цитата 2 курсивом, датлайн) ---------- */
+.art-main p strong{font-weight:600;color:var(--ink)}
+.art-main q{quotes:"\201C" "\201D" "\2018" "\2019"}
+.art-main time,.case-t time{font:inherit;color:inherit}
+.art-main blockquote{margin:0 0 var(--s5);padding:0 0 0 var(--s6);position:relative}
+.art-main blockquote::before{content:"\201C";position:absolute;left:0;top:-6px;font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold)}
+.art-main blockquote p{font-family:var(--serif);font-style:italic;font-size:17px;line-height:26px;color:var(--ink);margin:0 0 var(--s2)}
+.art-main blockquote cite{display:block;font-family:var(--ui);font-style:normal;font-size:12px;line-height:18px;color:var(--meta)}
+.art-main blockquote cite a{color:var(--accent);border-bottom:1px solid var(--line)}
+.case-t .dl{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-right:6px}
+/* Джерела сірим, без дат (Pavlo 24 Sep 2026); волосяна лінія лишається ознакою посилання */
+.srcs a,.art-main blockquote cite a{color:var(--meta);border-bottom:1px solid var(--line)}
+.srcs a:hover,.art-main blockquote cite a:hover{color:var(--ink);border-bottom-color:var(--meta)}
+/* Правки розміру (Pavlo 24 Sep 2026, скріни 18:09–18:12) */
+.art-main blockquote cite{font-size:13px;line-height:18px;letter-spacing:.01em}
+.art-main blockquote cite::before{content:"("}
+.art-main blockquote cite::after{content:")"}
+.case-t .dl{font-size:13px;text-transform:none;letter-spacing:normal}
+.disc{font-size:14px;line-height:22px}
+/* Кейси кеглем тексту What happened, 17/26 (Pavlo 24 Sep 2026) */
+.case-t{font-size:17px;line-height:26px}
+.case-y,.case-l,.case-t .dl{font-size:17px}
+/* Шапка кейсу при 17 px: без розрядки; на телефоні рік і held першим рядком, ярлик другим, однаково в кожному кейсі */
+.case-y,.case-l{letter-spacing:normal}
+@media (max-width:899px){
+  .case-y{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:var(--s2)}
+  .case-y .case-h{order:2;margin-left:auto}
+  .case-y .case-l{order:3;flex-basis:100%;margin-left:0}
+}
+/* Блок бази без рамки (Pavlo 24 Sep 2026); відступ усередині знято, щоб текст стояв на лінії абзаців */
+.base{border:0;border-radius:0;padding:0}
+.base-t{font-size:17px;line-height:26px}
+/* Блок бази: вертикальна лінія зліва (Pavlo 24 Sep 2026), колір числа */
+.base{border-left:2px solid var(--gold);padding-left:var(--s4)}
+/* Кейси розділені волосяною лінією (Pavlo 24 Sep 2026: «акуратно підкреслити кожен») */
+.art-main .case{border-top:1px solid var(--line);padding-top:var(--s3)}
+.art-main .case{margin:0;padding:var(--s3) 0 var(--s4)}
+.art-main .case-more{margin-bottom:var(--s5)}
+@media (max-width:899px){.case-y .case-l{order:1;flex-basis:auto}.case-y .case-h{order:2}}
+/* Службові підписи повернуто до розмірів живого сайту (Pavlo 24 Sep 22:12, скріни кікера і мети маркету); дрібніше 11 px не буває */
+.pl,.ask,.ft-h{font-size:11px}
+/* Назва кейсу як підзаголовок: Source Serif 600, 17 px (Pavlo 24 Sep 22:2x). Рік і held лишаються Inter */
+.case-l{font-family:var(--serif);font-weight:600;letter-spacing:normal}

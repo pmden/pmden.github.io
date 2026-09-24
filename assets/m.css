@@ -1092,3 +1092,11 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
   .pg.au{align-items:start}
   .au-side{margin-top:106px}   /* 23 Sep (Pavlo): кікер нижче — верх на рівні рядка соцкнопок */
 }
+
+/* 24 Sep (Pavlo): «Why these numbers» над «How this resolves», той самий згорнутий стиль */
+.mk-why p b{color:var(--ink);font-weight:600}
+.mk-why ul{list-style:none;margin:var(--s1) 0 0;padding:0}
+.mk-why li{font-size:13px;line-height:20px;color:var(--meta);padding:2px 0 2px 12px;position:relative}
+.mk-why li::before{content:"";position:absolute;left:0;top:10px;width:4px;height:4px;border-radius:50%;background:var(--line-2)}
+.mk-why li span{color:var(--ink);font-weight:500}
+.mk-why p+p{margin-top:var(--s2)}

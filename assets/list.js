@@ -49,7 +49,21 @@
         var srt=g.items.slice().sort(function(a,b){return desc?b.date-a.date:a.date-b.date});if(MK.length)place(srt);else srt.forEach(function(it){g.fd.appendChild(it.el)});
       });
     }
+    fixOrder();
     if(inp&&inp.value.trim())filter(inp.value.trim());
+  }
+  // 25 Sep (Pavlo, баг сортування): після перестановки секцій панель пошуку й сортування стоїть у шапці першої видимої секції, кнопка More у кінці списку
+  function fixOrder(){
+    var P=first.parentNode;
+    var hds=[].slice.call(P.querySelectorAll('.sep-hd')).filter(function(h){return h.style.display!=='none'});
+    var h1=hds[0];
+    if(h1&&!h1.contains(tb)){
+      var host=tb.closest('.sep-hd');
+      var r=h1.querySelector('.sep-r');
+      if(!r){r=document.createElement('div');r.className='sep-r';var d=h1.querySelector('.date');if(d)r.appendChild(d);h1.appendChild(r)}
+      r.appendChild(tb);h1.classList.add('sep-tb');h1.classList.remove('pg-x');if(host)host.classList.remove('sep-tb');
+    }
+    [].slice.call(P.children).forEach(function(c){if(c.classList&&c.classList.contains('more-btn'))P.appendChild(c)});
   }
   var q=new URLSearchParams(location.search);
   if(sel){sel.addEventListener('change',function(){render(sel.value)});if(q.get('sort')){sel.value=q.get('sort');render(sel.value)}}

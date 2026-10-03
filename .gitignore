@@ -1,2 +1,5 @@
 mobile-v1/
 .gstack/
+.DS_Store
+**/.DS_Store
+.preview-*

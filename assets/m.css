@@ -1210,3 +1210,7 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 }
 /* 12 Oct: фіч — тег Echo ліворуч, дата в правому куті (Pavlo) */
 @media (min-width:1024px){.feat .feat-top{grid-column:1/-1;justify-content:space-between}}
+/* 12 Oct: History/Hunch — назва перед числом у рядок (Pavlo, вибір 14:16) */
+.gxe{gap:8px 40px}
+.gxe>span{display:inline-flex;align-items:baseline;gap:8px}
+.gxe .k{font-family:var(--ui);font-size:13px;color:var(--body)}

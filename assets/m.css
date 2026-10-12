@@ -1208,3 +1208,5 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
   .eow3 .eow-r{grid-column:2;grid-row:1;order:0}
   .eow3 .eow-h{font-size:30px;line-height:36px}
 }
+/* 12 Oct: фіч — тег Echo ліворуч, дата в правому куті (Pavlo) */
+@media (min-width:1024px){.feat .feat-top{grid-column:1/-1;justify-content:space-between}}

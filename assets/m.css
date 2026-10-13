@@ -1214,3 +1214,10 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 .gxe{gap:8px 40px}
 .gxe>span{display:inline-flex;align-items:baseline;gap:8px}
 .gxe .k{font-family:var(--ui);font-size:13px;color:var(--body)}
+/* 13 Oct: Echo тижня на телефоні в порядку фіча — лід, постер, речення, маркет (Pavlo: «виглядає дивно») */
+@media (max-width:1023px){
+  .eow3 .eow-r{display:contents}
+  .eow3 .eow-top{order:1}.eow3 .eow-h{order:2}.eow3 .eow-i{order:3}
+  .eow3 .eow-l{order:4;margin-top:0;margin-bottom:var(--s4)}
+  .eow3 .eow-m{order:5}
+}

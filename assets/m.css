@@ -283,9 +283,9 @@ main p a:active, .body a:active{border-bottom-color:var(--accent)}
 .acts{display:flex;flex-direction:column;gap:var(--s2);margin:var(--s6) 0 0}
 .cta{
   min-height:var(--tap); display:flex; align-items:center; justify-content:center;
-  font-family:var(--ui); font-size:15px; font-weight:500; border-radius:8px;
+  font-family:var(--ui); font-size:15px; font-weight:500; border-radius:0;
 }
-.cta.p{background:var(--yes-b);color:var(--btn-i)}
+.cta.p{background:var(--ink);color:var(--bg)}
 .cta.s{border:1px solid var(--line);color:var(--ink)}
 
 /* ---------- 9. ПІДВАЛ ---------- */
@@ -593,7 +593,7 @@ button[disabled]{opacity:.55}
 .au-row a{color:var(--accent);border-bottom:1px solid var(--line)}
 .au-row .au-lnk{white-space:nowrap;padding-top:0;background:none;border:0;cursor:pointer;font-family:var(--ui);font-size:13px;color:var(--accent)}
 .au-cta{width:100%;min-height:52px;font-family:var(--ui);font-size:16px;font-weight:600;
-  background:var(--yes-b);color:var(--btn-i);border:0;border-radius:10px;cursor:pointer}
+  background:var(--ink);color:var(--bg);border:0;border-radius:0;cursor:pointer}
 .au-cta:active{filter:brightness(1.08)}
 .au-ack{font-family:var(--ui);font-size:13px;line-height:19px;color:var(--accent);text-align:center;margin:var(--s3) 0 0;min-height:19px}
 .au-ack:empty{margin:0;min-height:0}
@@ -633,7 +633,7 @@ button[disabled]{opacity:.55}
 .tier .price{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--ink);line-height:1;margin:0 0 var(--s2)}
 .tier .blist{margin:var(--s3) 0 var(--s4)}
 .tier-cta{width:100%;min-height:48px;font-family:var(--ui);font-size:15px;font-weight:600;
-  background:var(--yes-b);color:var(--btn-i);border:0;border-radius:8px;opacity:.55;cursor:default}
+  background:var(--ink);color:var(--bg);border:0;border-radius:0;opacity:.55;cursor:default}
 .plist{margin:0 0 var(--s6)}
 .prow{padding:var(--s3) 0;border-top:1px solid var(--line)}
 .prow:first-child{border-top:0}
@@ -653,8 +653,8 @@ button[disabled]{opacity:.55}
 .body input[type="checkbox"]{width:19px;height:19px;accent-color:var(--accent);
   margin:0 8px 0 0;vertical-align:-4px}
 .body button{min-height:48px;padding:0 var(--s5);font-family:var(--ui);font-size:15px;font-weight:600;
-  border:1px solid var(--line-2);border-radius:8px;background:none;color:var(--ink);cursor:default}
-.body form button[type="submit"],.body button.tier-cta{border:0;background:var(--yes-b);color:var(--btn-i)}
+  border:1px solid var(--line-2);border-radius:0;background:none;color:var(--ink);cursor:default}
+.body form button[type="submit"],.body button.tier-cta{border:0;background:var(--ink);color:var(--bg)}
 .body button[disabled]{opacity:.55}
 .body form label:has(input){text-transform:none;letter-spacing:0;font-weight:400;font-size:13px;
   line-height:20px;color:var(--body);margin:0;display:flex;align-items:flex-start;gap:2px}
@@ -884,7 +884,7 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .sm-preview img{display:block;width:100%;height:auto}
 .sm-linkrow{display:flex;gap:8px;margin-bottom:14px}
 .sm-link{flex:1;min-width:0;font-size:12.5px;color:var(--body);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:ui-monospace,Menlo,monospace;overflow:hidden;text-overflow:ellipsis}
-.sm-copy{font-size:13px;font-weight:600;color:var(--btn-i);background:var(--yes-b);border:1px solid var(--yes-b);border-radius:8px;padding:10px 16px;cursor:pointer;font-family:var(--ui)}
+.sm-copy{font-size:13px;font-weight:600;color:var(--bg);background:var(--ink);border:1px solid var(--ink);border-radius:0;padding:10px 16px;cursor:pointer;font-family:var(--ui)}
 .sm-copy.done{background:var(--gold);border-color:var(--gold)}
 .sm-nets{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .sm-net{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);color:var(--body);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
@@ -897,8 +897,8 @@ svg[viewBox="0 0 100 100"] text[fill="#7A5210"]{fill:var(--gold)}
 .ck p{margin:0;flex:1 1 320px;font-family:var(--ui);font-size:13px;line-height:1.5;color:var(--body)}
 .ck a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
 .ck-b{display:flex;gap:8px;flex:0 0 auto}
-.ck-ok,.ck-no{font-family:var(--ui);font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--yes-b)}
-.ck-ok{background:var(--yes-b);color:var(--btn-i)}
+.ck-ok,.ck-no{font-family:var(--ui);font-size:13px;font-weight:600;padding:9px 16px;border-radius:0;cursor:pointer;border:1px solid var(--ink)}
+.ck-ok{background:var(--ink);color:var(--bg)}
 .ck-no{background:transparent;color:var(--ink);border-color:var(--line-2)}
 @media (min-width:1024px){.ck{padding:14px calc((100% - 1120px)/2)}}
 
@@ -1003,7 +1003,7 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 .mb-lead{font-family:var(--serif);font-size:17px;line-height:26px;color:var(--body);max-width:640px;margin:var(--s3) auto 0}
 .mb-small{font-family:var(--ui);font-size:13px;line-height:19px;color:var(--meta);margin:10px 0 0}
 .mb-buy{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}   /* 22 Sep (Pavlo): повітря навколо кнопок */
-.mb-b{display:inline-flex;align-items:center;justify-content:center;min-width:200px;min-height:48px;padding:0 22px;border-radius:6px;font-family:var(--ui);font-size:15px;font-weight:600;text-decoration:none;background:var(--yes-b);color:var(--btn-i);border:1px solid var(--yes-b);transition:background .12s,border-color .12s,filter .12s}
+.mb-b{display:inline-flex;align-items:center;justify-content:center;min-width:200px;min-height:48px;padding:0 22px;border-radius:0;font-family:var(--ui);font-size:15px;font-weight:600;text-decoration:none;background:var(--ink);color:var(--bg);border:1px solid var(--ink);transition:background .12s,border-color .12s,filter .12s}
 .mb-b:hover,.mb-b:active{filter:brightness(.86)}   /* 22 Sep (Pavlo): наведення як у .btn, з переходом */
 .mb-b.o{background:transparent;color:var(--ink);border-color:var(--line-2)}
 .mb-b.o:hover,.mb-b.o:active{background:var(--line);filter:none}
@@ -1044,7 +1044,7 @@ a.kick[href*="?q="]:hover{color:var(--ink)}   /* 17 Sep (Pavlo): теги сір
 .au-fg{text-align:right;margin:calc(var(--s2) * -1) 0 var(--s4)}
 .au-fg .au-lnk{background:none;border:0;padding:0;cursor:pointer;font-family:var(--ui);font-size:13px;color:var(--accent)}
 .au-row{text-align:left;font-size:13px;line-height:19px}
-.au-cta{min-height:48px;font-size:15px;border-radius:6px;transition:filter .12s}
+.au-cta{min-height:48px;font-size:15px;border-radius:0;transition:filter .12s}
 .au-cta:hover{filter:brightness(.86)}
 .au-strip{margin-top:var(--s8)}
 .au .pg-h{margin-bottom:var(--s6)}
